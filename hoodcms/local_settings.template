@@ -6,7 +6,6 @@ SITE_ADDRESS = 'localhost:8000'
 SITE_NAME = 'master'
 
 ADMINS = (
-    ('Web Admin', 'webadmin@boost-3.com'),
     ('Martin Owens', 'doctormo@gmail.com'),
 )
 
