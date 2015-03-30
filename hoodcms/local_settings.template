@@ -1,0 +1,31 @@
+import os
+
+CODE_PATH = os.path.dirname(os.path.abspath(__file__))
+PROJECT_PATH = os.path.abspath(os.path.join(CODE_PATH, ".."))
+SITE_ADDRESS = 'localhost:8000'
+SITE_NAME = 'master'
+
+ADMINS = (
+    ('Web Admin', 'webadmin@boost-3.com'),
+    ('Martin Owens', 'doctormo@gmail.com'),
+)
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': '%s/data/development.db' % PROJECT_PATH,
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
+    },
+}
+
+DATA_PATH = os.path.join(PROJECT_PATH, '.data')
+
+SECRET_KEY = 'RANDOM'
+
+DEBUG = True
+
+
+

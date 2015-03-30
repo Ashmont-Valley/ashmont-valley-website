@@ -6,6 +6,9 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+pythonenv/
+data/
+local_settings.py
 .Python
 env/
 build/
