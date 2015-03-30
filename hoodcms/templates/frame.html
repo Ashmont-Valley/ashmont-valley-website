@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block "body" %}
+  <div class="header">
+      <div id="cleartop">
+        <div id="logo">
+          <a href="/"><img src="{% block logo-url %}{{ DESIGN_URL }}images/title.png{% endblock %}" alt="Logo" title="Ashmont Valley Logo"></a>
+          <h2 id="title"><span class="ashmont"><span class="first-letter">A</span>shmont</span> <span class="valley"><span class="first-letter">V</span>alley</span> <span class="small" title="Website is NOT finished yet">[ ALPHA ]</span></h2>
+        </div>
+        {% include "header.html" %}
+      </div>
+      <div class="nav">
+        <ul>
+            <li><a href="/">Contacts</a>
+            <!--<ul><li><a href="/">SubItem</a></li></ul>-->
+            </li>
+        </ul>
+      </div>
+    </div>
+
+    {% block "super" %}
+      <div id="framed"><div class="wrapper">
+        {% block "content" %}{% endblock %}
+      </div></div>
+    {% endblock %}
+
+    {% block "footer" %}
+      <div class="footer">
+        Website designed and developed by <a href="http://doctormo.org/">Martin Owens</a>
+      </div>
+    {% endblock %}
+{% endblock %}
+

@@ -1,0 +1,68 @@
+
+
+span.first-letter {
+  font-size:115%;
+  display: inline-block;
+}
+
+.ashmont {
+  font-family: 'Quattrocento', cursive;
+  display: inline-block;
+  color: #614d35;
+}
+
+.valley {
+  font-family: 'Quattrocento', cursive;
+  display: inline-block;
+  color: #413424;
+}
+.small {
+  font-size: 30%;
+  color: #ded;
+}
+span.valley span.first-letter {
+  margin-right: -10px;
+}
+
+h1#title {
+  text-align: center;
+  font-size: 62px;
+  margin-top: 12px;
+  border: 0px;
+}
+h1#subtitle {
+  text-align: center;
+  font-size: 32px;
+  border: 0px;
+  display: block;
+}
+h2#title {
+  padding: 0px 0px 0px 190px;
+  font-size: 52px;
+  margin: 12px 0px 0px 0px;
+  border: 0px;
+}
+
+#logo {
+  float: left;
+  margin-top: 28px;
+  cursor: default;
+  color: #000000;
+}
+
+#logo img {
+  z-index: 6;
+  float: left;
+  margin: 0;
+  border: 0;
+  top: -4px;
+  position: absolute;
+}
+
+#logo :link, #logo :visited {
+  color: #000000;
+}
+
+#logo :link:hover, #logo :link:active, #logo :visited:hover, #logo :visited:active {
+  text-decoration: none;
+}

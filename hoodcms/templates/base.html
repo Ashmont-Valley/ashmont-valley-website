@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<html lang="{{ LANGUAGE_CODE }}">
+  <head>
+    <meta charset="utf-8">
+    <title>Ashmont Valley - {% block "title" %}{% endblock %}</title>
+
+    <link href='http://fonts.googleapis.com/css?family=Quattrocento' rel='stylesheet' type='text/css'>
+
+    <link href="{{ DESIGN_URL }}images/favico.png" type="image/png" rel="icon" />
+    <link href="{{ DESIGN_URL }}css/main.css" type="text/css" rel="stylesheet" />
+    <link href="{{ DESIGN_URL }}css/logo.css" type="text/css" rel="stylesheet" />
+    {% block "css" %}{% endblock %}
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ DESIGN_URL }}js/textSize.js"></script>
+    {% block "js" %}{% endblock %}
+  </head>
+
+  <body id="page-{% block body-pageid %}{{ PAGE_ID }}{% endblock %}" class="{% block body-classes %}{% endblock %}">
+    {% block "body" %}Do not use this page directly{% endblock %}
+  </body>
+</html>
