@@ -52,6 +52,7 @@ INSTALLED_APPS = (
     'mptt', 
     'menus',
     'sekizai',
+    'bootstrap3',
 
     'djangocms_picture',
     'djangocms_link',
@@ -103,4 +104,8 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(DATA_PATH, 'media')
 MEDIA_URL = '/media/'
 
+
+BOOTSTRAP3 = {
+    'include_jquery': True,
+}
 

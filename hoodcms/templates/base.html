@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load static %}
+{% load static bootstrap3 %}
 {% load cms_tags sekizai_tags %}
 
 <html lang="{{ LANGUAGE_CODE }}">
@@ -13,8 +13,10 @@
     <link href="{% static "css/main.css" %}" type="text/css" rel="stylesheet" />
     <link href="{% static "css/logo.css" %}" type="text/css" rel="stylesheet" />
 
+    {% bootstrap_css %}
     {% render_block "css" %}
 
+    {% bootstrap_javascript %}
     {% render_block "js" %}
 
     <meta name="Author" content="Martin and Victor" />
@@ -22,11 +24,11 @@
     <meta name="keywords" content="" />
   </head>
 
-  </head>
-
   <body>
     {% cms_toolbar %}
 
-    {% block "body" %}Do not use this page directly{% endblock %}
+    <div class="container">
+      {% block "body" %}Do not use this page directly{% endblock %}
+    </div>
   </body>
 </html>

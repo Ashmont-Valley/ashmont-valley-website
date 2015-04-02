@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load bootstrap3 %}
 {% load static menu_tags  %}
 
 {% block "body" %}
@@ -6,7 +7,11 @@
       <div id="cleartop">
         <div id="logo">
           <a href="/"><img src="{% static "images/title.png" %}" alt="Logo" title="Ashmont Valley Logo"></a>
-          <h2 id="title"><span class="ashmont"><span class="first-letter">A</span>shmont</span> <span class="valley"><span class="first-letter">V</span>alley</span> <span class="small" title="Website is NOT finished yet">[ ALPHA ]</span></h2>
+          <h2 id="title">
+            <span class="ashmont"><span class="first-letter">A</span>shmont</span>
+            <span class="valley"><span class="first-letter">V</span>alley</span> 
+            <span class="small" title="Website is NOT finished yet">[ ALPHA ]</span>
+          </h2>
         </div>
         {% include "header.html" %}
       </div>
@@ -17,10 +22,14 @@
     {% endblock %}
     </div>
 
+    {% bootstrap_messages %}
+
     {% block "super" %}
-      <div id="framed"><div class="wrapper">
-        {% block "content" %}{% endblock %}
-      </div></div>
+      <div id="framed">
+        <div class="wrapper row">
+          {% block "content" %}{% endblock %}
+        </div>
+      </div>
     {% endblock %}
 
     {% block "footer" %}
