@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static menu_tags  %}
 
 {% block "body" %}
   <div class="header">
@@ -10,13 +10,11 @@
         </div>
         {% include "header.html" %}
       </div>
+    {% block "menu" %}
       <div class="nav">
-        <ul>
-            <li><a href="/">Contacts</a>
-            <!--<ul><li><a href="/">SubItem</a></li></ul>-->
-            </li>
-        </ul>
+         <ul id="menu">{% show_menu %}</ul>      
       </div>
+    {% endblock %}
     </div>
 
     {% block "super" %}
