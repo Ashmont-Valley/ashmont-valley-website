@@ -53,7 +53,7 @@ INSTALLED_APPS = (
     'menus',
     'sekizai',
     'bootstrap3',
-
+    'happenings',
     'djangocms_picture',
     'djangocms_link',
     'djangocms_text_ckeditor',

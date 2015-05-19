@@ -1,0 +1,9 @@
+Creating a calendar app
+
+ * Creating an application in django
+ * Creating a calendar model
+ * Creating a Calendar page
+ * Creating a Calendar from said application
+ * Setting up the page
+ * Creating events/items to be added to the calendar
+
