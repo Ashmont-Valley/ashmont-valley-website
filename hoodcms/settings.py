@@ -53,11 +53,35 @@ INSTALLED_APPS = (
     'menus',
     'sekizai',
     'bootstrap3',
-    'happenings',
+    #'happenings',
     'djangocms_picture',
     'djangocms_link',
     'djangocms_text_ckeditor',
+    #'cmsplugin_cascade',
+    #'cmsplugin_cascade.extra_fields',  # optional
+    #'cmsplugin_cascade.sharable',  # optional
     'cms',
+)
+
+CMSPLUGIN_CASCADE_PLUGINS = (
+    'cmsplugin_cascade.bootstrap3',
+    'cmsplugin_cascade.bootstrap3.container',
+    'cmsplugin_cascade.link',
+)
+CMS_CASCADE_LEAF_PLUGINS = (
+'TextPlugin',
+'PicturePlugin',
+'LinkPlugin',
+'StylePlugin',
+'FormBuilderPlugin',
+'FilePlugin',
+'VideoPlugin',
+'VimeoVideoPlugin',
+'TabHeaderPlugin',
+'AccordionHeaderPlugin',
+'RepositoryDashboardPlugin',
+'SessionDashboardPlugin',
+'CMSLatestNewsPlugin',
 )
 
 MIDDLEWARE_CLASSES = (
