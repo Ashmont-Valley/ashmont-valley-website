@@ -1,0 +1,57 @@
+{% extends 'frame.html' %}
+
+{% block "content" %}
+
+<h1>Details for {{ self.object.name }}</h1>
+<p>Name: {{ object.name }}</p>
+<p>Type: {{ object.meeting_type }}</p>
+<p>Date: {{ object.meeting_date|date:"l j F" }}</p>
+
+{% if object.start_time %}
+    {% if object.end_time %}
+        <p>Start Time: {{ object.start_time }} End Time: {{ object.end_time }}</p>
+    {% else %}
+        <p>Start Time: {{ object.start_time }}</p>
+    {% endif %}
+{% endif %}
+
+{% if object.people_attending.all %}
+    People in Attendence:
+    {% for person in object.people_attending.all %}
+        {{ person }},
+    {% endfor %}
+{% endif %}
+<br/><br/>
+{% if object.people_absent.all %}
+    People Apologizing For Their Absence:
+    {% for person in object.people_absent.all %}
+        {{ person }},
+    {% endfor %} 
+{% endif %}
+<br/><br/>
+{% if object.people_guests.all %}
+    Guests:
+    {% for person in object.people_guests.all %}
+        {{ person }},
+    {% endfor %} 
+{% endif %}
+<br/><br/>
+{% if object.chair %}
+    <p>Chair: {{ object.chair }}</p>
+{% endif %}
+
+{% if object.secretary %}
+    <p>Secretary: {{ object.secretary }}</p>
+{% endif %}
+
+{% if object.notes.all %}
+    <p>Meeting Notes:</p>
+    {% for note in object.notes.all %}
+        <p>Note: {{ note.name }}<br/>Last Edited: {{ note.time_edited }} </p>
+        <p>{{ note.text }}</p>
+    {% endfor %}
+{% endif %}
+
+<a href="{% url 'meetings:meeting_index' %}">Back to Meeting Index</a>
+
+{% endblock %}

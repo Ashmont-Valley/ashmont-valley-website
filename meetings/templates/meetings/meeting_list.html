@@ -1,0 +1,26 @@
+{% extends 'frame.html' %}
+
+{% block "content" %}
+
+<h1>Meetings Index</h1>
+{% if object_list %}
+    <ul>
+    {% for meeting in object_list %}
+        {% if meeting.meeting_date > time_now %}
+            <li><a href="{% url 'meetings:meeting_detail' meeting.pk %}">
+            {{ meeting.name }}    on {{ meeting.meeting_date|date:"l j F" }}    with chair {{meeting.chair}}
+            </a></li>
+        {% else %}
+            <li><a href="{% url 'meetings:meeting_edit' meeting.pk %}">
+            {{ meeting.name }}    on {{ meeting.meeting_date|date:"l j F" }}    with chair {{meeting.chair}}
+            </a></li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No meetings yet.</p>
+{% endif %}
+
+<a href="{% url 'meetings:meeting_create' %}">Create a New Meeting</a>
+
+{% endblock %}
