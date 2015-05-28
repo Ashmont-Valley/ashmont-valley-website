@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 
-from meetings import views
+from meetings.views import *
 
 urlpatterns = patterns('',
     url(r'^$', views.IndexView.as_view(), name='meeting_index'),

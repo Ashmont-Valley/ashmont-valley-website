@@ -20,3 +20,4 @@ class MeetingEditForm(ModelForm):
         model = Meeting
         fields = ['start_time', 'end_time', 'chair', 'secretary',
             'people_attending', 'people_absent', 'people_guests']#,'notes']
+

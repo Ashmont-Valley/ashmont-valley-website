@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-{% load static bootstrap3 %}
-{% load cms_tags sekizai_tags %}
+{% load static bootstrap3 sekizai_tags %}
+<!--{ load sekizai_tags %}-->
 
 <html lang="{{ LANGUAGE_CODE }}">
   <head>
@@ -27,7 +27,7 @@
   </head>
 
   <body>
-    {% cms_toolbar %}
+    <!--{ cms_toolbar %}-->
 
     <div class="container">
       {% block "body" %}Do not use this page directly{% endblock %}

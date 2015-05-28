@@ -4,22 +4,53 @@
 
 <h1>Meetings Index</h1>
 {% if object_list %}
-    <ul>
+<table>
+    <thead>
+       <tr>
+           <th>Meeting Name</th>
+           <th>Meeting Type</th>
+           <th>Meeting Date</th>
+       </tr>
+    </thead>
+    <tbody>
     {% for meeting in object_list %}
-        {% if meeting.meeting_date > time_now %}
-            <li><a href="{% url 'meetings:meeting_detail' meeting.pk %}">
-            {{ meeting.name }}    on {{ meeting.meeting_date|date:"l j F" }}    with chair {{meeting.chair}}
-            </a></li>
+        {% if meeting.meeting_date <= time_now <= time_cutoff+meeting.meeting_date %}
+            <a href="{ url 'meetings:meeting_edit' meeting.pk %}">
+            <tr>
+            <th>{{ meeting.name }}</th>
+            <th>{{ meeting.meeting_type }}</th>
+            <th>{{ meeting.meeting_date }}</th>
+            <tr>
+            </a>
         {% else %}
-            <li><a href="{% url 'meetings:meeting_edit' meeting.pk %}">
-            {{ meeting.name }}    on {{ meeting.meeting_date|date:"l j F" }}    with chair {{meeting.chair}}
-            </a></li>
+            <a href="{ url 'meetings:meeting_edit' meeting.pk %}">
+            <tr>
+            <th>{{ meeting.name }}</th>
+            <th>{{ meeting.meeting_type }}</th>
+            <th>{{ meeting.meeting_date }}</th>
+            <tr>
+            </a>
         {% endif %}
     {% endfor %}
+
+<!--
+    <ul>
+    { for meeting in object_list %}
+        { if meeting.meeting_date > time_now %}
+            <li><a href="{ url 'meetings:meeting_detail' meeting.pk %}">
+            { meeting.name }}    on { meeting.meeting_date|date:"l j F" }}    with chair {meeting.chair}}
+            </a></li>
+        { else %}
+            <li><a href="{ url 'meetings:meeting_edit' meeting.pk %}">
+            { meeting.name }}    on { meeting.meeting_date|date:"l j F" }}    with chair {meeting.chair}}
+            </a></li>
+        { endif %}
+    { endfor %}
     </ul>
-{% else %}
+{ else %}
     <p>No meetings yet.</p>
-{% endif %}
+{ endif %}
+-->
 
 <a href="{% url 'meetings:meeting_create' %}">Create a New Meeting</a>
 

@@ -1,4 +1,5 @@
 from meetings.models import *
+from meetings.forms import *
 from django.contrib import admin
 
 
@@ -20,6 +21,8 @@ class MeetingAdmin(admin.ModelAdmin):
         ]
     list_display = ('name', 'meeting_date', 'chair','secretary')
     inlines= [NotesInline]
+    search_fields = ['name', 'meeting_date', 'chair', 'secretary']
+    list_filter = ['meeting_date', 'meeting_type']
 
 class TypeAdmin(admin.ModelAdmin):
     fieldsets = [
