@@ -23,7 +23,7 @@
             <tr>
             </a>
         {% else %}
-            <a href="{ url 'meetings:meeting_edit' meeting.pk %}">
+            <a href="{ url 'meetings:meeting_detail' meeting.pk %}">
             <tr>
             <th>{{ meeting.name }}</th>
             <th>{{ meeting.meeting_type }}</th>
@@ -33,24 +33,9 @@
         {% endif %}
     {% endfor %}
 
-<!--
-    <ul>
-    { for meeting in object_list %}
-        { if meeting.meeting_date > time_now %}
-            <li><a href="{ url 'meetings:meeting_detail' meeting.pk %}">
-            { meeting.name }}    on { meeting.meeting_date|date:"l j F" }}    with chair {meeting.chair}}
-            </a></li>
-        { else %}
-            <li><a href="{ url 'meetings:meeting_edit' meeting.pk %}">
-            { meeting.name }}    on { meeting.meeting_date|date:"l j F" }}    with chair {meeting.chair}}
-            </a></li>
-        { endif %}
-    { endfor %}
-    </ul>
-{ else %}
+{% else %}
     <p>No meetings yet.</p>
-{ endif %}
--->
+{% endif %}
 
 <a href="{% url 'meetings:meeting_create' %}">Create a New Meeting</a>
 

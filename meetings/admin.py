@@ -1,5 +1,4 @@
 from meetings.models import *
-from meetings.forms import *
 from django.contrib import admin
 
 
