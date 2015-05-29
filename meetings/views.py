@@ -5,33 +5,34 @@ from django.utils.translation import ugettext_lazy as _
 from meetings.models import *
 from meetings.forms import *
 
-import datetime
+from datetime import *
 
 class IndexView(ListView):
     model = Meeting
-    context = {'time_now':datetime.datetime.now(), 
-        'time_cutoff':datetime.timedelta(days=7)}
 
 class MeetingDetailView(DetailView):
     model = Meeting
 
-class MeetingCreateView(FormView):
+class MeetingCreateView(CreateView):
     form_class = MeetingCreateForm
-    template_name = 'meeting_create_form.html'
+    template_name = 'meetings/meeting_create_form.html'
+    model = Meeting
 
     def get_success_url(self):
-        return reverse('meeting:meeting_index')
+        return reverse('meetings:meeting_index')
 
-class MeetingEditView(FormView):
+class MeetingEditView(UpdateView):
     form_class = MeetingEditForm
-    template_name = 'meeting_edit_form.html'
+    template_name = 'meetings/meeting_edit_form.html'
+    model = Meeting
 
     def get_success_url(self):
-        return reverse('meeting:meeting_index')
+        return reverse('meetings:meeting_index')
 
-    def get_queryset(self):
+    def get_object(self):
         """edit view can only be accessed for meetings that have 
         happened in the past week"""
-        return Meeting.objects.filter(meeting_date__lte=datetime.datetime.now()
-                ).filter(meeting_date__gte=datetime.datetime.now()
-                        -datetime.timedelta(days=7))
+        obj = super(MeetingEditView, self).get_object()
+        if obj.is_editable():
+            return obj
+        raise obj.DoesNotExist('Is not editable')

@@ -1,5 +1,5 @@
 from django.db import models
-
+from datetime import *
 from django.utils.translation import ugettext_lazy as _
 
 class Person(models.Model):
@@ -42,11 +42,17 @@ class Meeting(models.Model):
         help_text=_("list of people who were guests at the meeting"), 
         blank=True, null=True)
     chair = models.ForeignKey(Person, related_name="chair",
-        help_text=_("chair of the meeting"))#, blank=True, null=True) 
+        help_text=_("chair of the meeting"), blank=True, null=True) 
     secretary = models.ForeignKey(Person, related_name='secretary',
         help_text=_("secretary of the meeting"), blank=True, null=True)
 
     ordering = ['-meeting_date']
+
+    def is_editable(self):
+        """meetings are editable if they have occurred in the past week"""
+        time_cutoff = timedelta(days=7)
+        return (self.meeting_date <= date.today() <= 
+                time_cutoff+self.meeting_date)
 
     def __str__(self):
         return self.name

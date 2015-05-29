@@ -3,8 +3,9 @@
 {% block "content" %}
 
 <h1>Meetings Index</h1>
+<h5>Click on a meeting to get started</h5>
 {% if object_list %}
-<table>
+<table class='table table-hover table-bordered'>
     <thead>
        <tr>
            <th>Meeting Name</th>
@@ -14,25 +15,24 @@
     </thead>
     <tbody>
     {% for meeting in object_list %}
-        {% if meeting.meeting_date <= time_now <= time_cutoff+meeting.meeting_date %}
-            <a href="{ url 'meetings:meeting_edit' meeting.pk %}">
+        {% if meeting.is_editable %}
             <tr>
-            <th>{{ meeting.name }}</th>
-            <th>{{ meeting.meeting_type }}</th>
-            <th>{{ meeting.meeting_date }}</th>
+            <td><a href="{% url 'meetings:meeting_edit' meeting.pk %}">
+            {{ meeting.name }}</a></td>
+            <td>{{ meeting.meeting_type }}</td>
+            <td>{{ meeting.meeting_date }}</td>
             <tr>
-            </a>
         {% else %}
-            <a href="{ url 'meetings:meeting_detail' meeting.pk %}">
             <tr>
-            <th>{{ meeting.name }}</th>
-            <th>{{ meeting.meeting_type }}</th>
-            <th>{{ meeting.meeting_date }}</th>
-            <tr>
+            <td><a href="{% url 'meetings:meeting_detail' meeting.pk %}">
+            {{ meeting.name }}</a></td>
+            <td>{{ meeting.meeting_type }}</td>
+            <td>{{ meeting.meeting_date }}</td>
             </a>
+            <tr>
         {% endif %}
     {% endfor %}
-
+</table>
 {% else %}
     <p>No meetings yet.</p>
 {% endif %}
