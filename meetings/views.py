@@ -13,6 +13,23 @@ class IndexView(ListView):
 class MeetingDetailView(DetailView):
     model = Meeting
 
+# This code doesn't yet work, it is committed to act as
+# a guide for the real developer.
+class AddMeetingNotes(UpdateView):
+    template_name = 'meetings/add_meeting_notes.html'
+    form_class = MeetingProceedingsForm
+    model = Meeting
+
+class AddMeetingNote(FormView, ObjectMixin):
+    form_class = NoteCreationForm
+    template_name = 'meetings/note.html'
+    model = Meeting
+
+    def on_form_valid(self):
+        obj = self.get_object().notes.create(content=self.request.POST['content'])
+        return self.render_to_response({ 'note': obj })
+
+
 class MeetingCreateView(CreateView):
     form_class = MeetingCreateForm
     template_name = 'meetings/meeting_create_form.html'
@@ -36,3 +53,4 @@ class MeetingEditView(UpdateView):
         if obj.is_editable():
             return obj
         raise obj.DoesNotExist('Is not editable')
+

@@ -1,0 +1,17 @@
+{% extend "base.html" %}
+
+{% black "content" %}
+
+<h1>Meeting Started {{ object.start_time }}</h1>
+
+{{ form.late_arrivals }}
+
+<div id="notes">
+  {% for note in object.notes.all %}
+    {% include "meetings/note.html" %}
+  {% endfor %}
+</div>
+
+{% endblock %}
+
+
