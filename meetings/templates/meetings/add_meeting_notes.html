@@ -1,9 +1,31 @@
 {% extend "base.html" %}
 
-{% black "content" %}
+{% block "content" %}
 
 <h1>Meeting Started {{ object.start_time }}</h1>
+<p>Name: {{ object.name }}</p>
+<p>Type: {{ object.meeting_type }}</p>
+<p>Date: {{ object.meeting_date|date:"l j F" }}</p>
+People in Attendence:
+    {% for person in object.people_attending.all %}
+        {{ person }},
+    {% endfor %}
+<br/><br/>
+People Apologizing For Their Absence:
+    {% for person in object.people_absent.all %}
+        {{ person }},
+    {% endfor %}
+<br/><br/>
+Guests:
+    {% for person in object.people_guests.all %}
+        {{ person }},
+    {% endfor %}
+<p>Chair: {{ object.chair }}</p>
+<p>Secretary: {{ object.secretary }}</p>
 
+<form action="" method='post'/>
+    {% csrf_token %}
+    {% bootstrap_form form %}
 {{ form.late_arrivals }}
 
 <div id="notes">

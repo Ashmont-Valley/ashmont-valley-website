@@ -41,6 +41,10 @@ class Meeting(models.Model):
         related_name='people_guests',
         help_text=_("list of people who were guests at the meeting"), 
         blank=True, null=True)
+    people_late = models.ManyToManyField(Person,
+        related_name='people_late',
+        help_text=_("list of pople who arrived late at the meeting"),
+        blank=True, null=True)
     chair = models.ForeignKey(Person, related_name="chair",
         help_text=_("chair of the meeting"), blank=True, null=True) 
     secretary = models.ForeignKey(Person, related_name='secretary',
@@ -60,8 +64,7 @@ class Meeting(models.Model):
 class Note(models.Model):
     meeting = models.ForeignKey(Meeting, related_name='notes',
         help_text=_("meeting that the note is for"))
-    name = models.CharField(help_text=_("name of the note"), max_length=100,
-        default="Note")
+    name = models.CharField(help_text=_("name of the note"), max_length=100)
     text = models.TextField(help_text=_("text of the note"))
     time_created = models.DateTimeField(
         help_text=_("time at which the note was created"), auto_now_add=True)

@@ -36,6 +36,14 @@
     {% endfor %} 
 {% endif %}
 <br/><br/>
+{% if object.people_guests.all %}
+    Late Arrivals:
+    {% for person in object.people_late.all %}
+        {{ person }},
+    {% endfor %}
+{% endif %}
+<br/><br/>
+
 {% if object.chair %}
     <p>Chair: {{ object.chair }}</p>
 {% endif %}

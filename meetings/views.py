@@ -6,6 +6,7 @@ from meetings.models import *
 from meetings.forms import *
 
 from datetime import *
+from time import *
 
 class IndexView(ListView):
     model = Meeting
@@ -15,12 +16,15 @@ class MeetingDetailView(DetailView):
 
 # This code doesn't yet work, it is committed to act as
 # a guide for the real developer.
-class AddMeetingNotes(UpdateView):
+class MeetingAddNotesView(UpdateView):
     template_name = 'meetings/add_meeting_notes.html'
     form_class = MeetingProceedingsForm
     model = Meeting
 
-class AddMeetingNote(FormView, ObjectMixin):
+    def get_success_url(self):
+        return reverse('meetings:meeting_index')
+
+class AddMeetingNote(FormView, detail.SingleObjectMixin):
     form_class = NoteCreationForm
     template_name = 'meetings/note.html'
     model = Meeting
@@ -36,15 +40,23 @@ class MeetingCreateView(CreateView):
     model = Meeting
 
     def get_success_url(self):
-        return reverse('meetings:meeting_index')
+        obj = self.get_object()
+        if obj.is_editable(): 
+            return reverse('meetings:meeting_edit', args=[obj.pk])
+        return reverse('meetings:meeting_detail', args=[obj.pk])
 
 class MeetingEditView(UpdateView):
     form_class = MeetingEditForm
     template_name = 'meetings/meeting_edit_form.html'
     model = Meeting
 
+    def form_valid(self, form):
+        obj = self.get_object()
+        obj.start_time = datetime.now()
+        return super(MeetingEditView, self).form_valid(form)
+
     def get_success_url(self):
-        return reverse('meetings:meeting_index')
+        return reverse('meetings:meeting_proceedings', args=[self.get_object().pk])
 
     def get_object(self):
         """edit view can only be accessed for meetings that have 
