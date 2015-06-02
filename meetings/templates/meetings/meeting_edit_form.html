@@ -19,7 +19,7 @@ span {
 <span>Type:</span> {{ object.meeting_type }}<br/>
 <span>Date:</span> {{ object.meeting_date|date:"l j F" }}
 </p>
-<form action="" method='post'/>
+<form action="" method='post'>
     {% csrf_token %}
     {% bootstrap_form form %}
     <input type='submit' value='Begin Meeting'/>

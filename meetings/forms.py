@@ -23,7 +23,7 @@ class MeetingProceedingsForm(ModelForm):
         model = Meeting
         fields = ['people_late']
 
-class NoteCreationForm(Form):
-    name = CharField(max_length=100)
-    text = CharField()
-
+class NoteCreationForm(ModelForm):
+    class Meta:
+        model = Note
+        fields = ['name', 'text']

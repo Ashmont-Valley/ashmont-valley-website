@@ -54,7 +54,7 @@ class Meeting(models.Model):
 
     def is_editable(self):
         """meetings are editable if they have occurred in the past week"""
-        time_cutoff = timedelta(days=7)
+        time_cutoff = timedelta(days=2)
         return (self.meeting_date <= date.today() <= 
                 time_cutoff+self.meeting_date)
 

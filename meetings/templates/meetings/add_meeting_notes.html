@@ -1,6 +1,17 @@
-{% extend "base.html" %}
+{% extends "frame.html" %}
+{% load bootstrap3 %}
 
 {% block "content" %}
+
+<!--<script src="notes.js"></script>-->
+<script>
+$(document).ready(function(){
+    $("#new_note_btn").click(function(){
+        $("#notes").before("{% include 'meetings/note.html' %}");
+    });
+});
+</script>
+<!--the above isn't working - why?-->
 
 <h1>Meeting Started {{ object.start_time }}</h1>
 <p>Name: {{ object.name }}</p>
@@ -20,18 +31,23 @@ Guests:
     {% for person in object.people_guests.all %}
         {{ person }},
     {% endfor %}
+<br/><br/>
 <p>Chair: {{ object.chair }}</p>
 <p>Secretary: {{ object.secretary }}</p>
 
-<form action="" method='post'/>
+<form action="" method='post'>
     {% csrf_token %}
     {% bootstrap_form form %}
-{{ form.late_arrivals }}
+    <input type='submit' value='End Meeting'/>
+</form>
 
+<br/><br/>
+<p>Meeting Notes:</p>
 <div id="notes">
-  {% for note in object.notes.all %}
-    {% include "meetings/note.html" %}
-  {% endfor %}
+    <button class='btn btn-default' id="new_note_btn">Create Another Note</button>
+    {% for note in object.notes.all %}
+        {% include "meetings/note.html" %}
+    {% endfor %}
 </div>
 
 {% endblock %}
