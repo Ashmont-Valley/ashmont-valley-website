@@ -14,8 +14,6 @@ class IndexView(ListView):
 class MeetingDetailView(DetailView):
     model = Meeting
 
-# This code doesn't yet work, it is committed to act as
-# a guide for the real developer.
 class MeetingAddNotesView(UpdateView):
     template_name = 'meetings/add_meeting_notes.html'
     form_class = MeetingProceedingsForm
@@ -33,6 +31,9 @@ class AddMeetingNote(FormView, SingleObjectMixin):
     template_name = 'meetings/note.html'
     model = Meeting
 
+#this seems to create a new note everytime the form is submitted
+#should there be a separate view for moreely updating notes instead
+#of creating them? Or can we do that solely with Ajax?
     def form_valid(self, form):
         obj = self.get_object().notes.create(content=self.request.POST['content'])
         return self.render_to_response({ 'note': obj })

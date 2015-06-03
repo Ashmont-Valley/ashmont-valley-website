@@ -3,7 +3,8 @@
 
 {% block "content" %}
 
-<!--<script src="notes.js"></script>-->
+<!--<script src="notes.js"></script>
+I'm going to move all of the script into a separate file later-->
 <script>
 $(document).ready(function(){
     $("#new_note_btn").click(function(){
@@ -44,6 +45,7 @@ Guests:
 <br/><br/>
 <p>Meeting Notes:</p>
 <button class='btn btn-default' id="new_note_btn">Create Another Note</button>
+<!--new notes are supposed to be inserted here-->
 <div id="notes">
     {% for note in object.notes.all %}
         {% include "meetings/note.html" %}
