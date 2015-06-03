@@ -43,13 +43,11 @@ Guests:
 
 <br/><br/>
 <p>Meeting Notes:</p>
+<button class='btn btn-default' id="new_note_btn">Create Another Note</button>
 <div id="notes">
-    <button class='btn btn-default' id="new_note_btn">Create Another Note</button>
     {% for note in object.notes.all %}
         {% include "meetings/note.html" %}
     {% endfor %}
 </div>
 
 {% endblock %}
-
-

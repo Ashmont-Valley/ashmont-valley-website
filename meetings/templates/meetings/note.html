@@ -1,7 +1,4 @@
-
-<!--OR?-->
-
-<!--is the form tag necessary here?-->
+<!--this currently only works if the note already exists-->
 <form action='' method='post'>
     <div class='form-group'>
         <label for='name'>Name:</label>
@@ -11,10 +8,17 @@
         <textarea class='form-control' rows=4 id='text`'>{{ note.text }}</textarea>
     </div>
 </form>
-<!--does this work with django like it should?-->
+
+<!--I'll put the script in a separate file later-->
 <script>
 $(document).ready(function(){
-
+    $("#note_form").keypress(eventData, save_note);
 });
+
+function save_note(eventData) {
+    if(eventData.which == 13) {
+        {% csrf_token %}
+        $.post("{% url 'meetings:add_note' note.meeting.pk %}", $("#note_form").serialize())
+    }
 }
 </script>

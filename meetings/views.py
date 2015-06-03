@@ -33,7 +33,7 @@ class AddMeetingNote(FormView, SingleObjectMixin):
     template_name = 'meetings/note.html'
     model = Meeting
 
-    def form_valid(self):
+    def form_valid(self, form):
         obj = self.get_object().notes.create(content=self.request.POST['content'])
         return self.render_to_response({ 'note': obj })
 

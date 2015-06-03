@@ -13,4 +13,6 @@ urlpatterns = patterns('',
                                             name='meeting_create'),
     url(r'^proceedings/(?P<pk>\d+)/$',  MeetingAddNotesView.as_view(), 
                                             name='meeting_proceedings'),
+    url(r'^add_note/(?P<pk>\d+)/$',     AddMeetingNote.as_view(),
+                                            name='add_note'),
 )
