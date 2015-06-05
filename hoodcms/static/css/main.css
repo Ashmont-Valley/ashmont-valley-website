@@ -847,3 +847,12 @@ hr {
 .media tr:first-child td:last-child{
     border-width:0px 0px 1px 1px;
 }
+.alert {
+  margin-bottom: 0px !important;
+}
+.note {
+    padding: 8px;
+    margin-bottom: 4px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}

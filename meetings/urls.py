@@ -1,18 +1,17 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import patterns, url, include
 
 from meetings.views import *
 
+def url_tree(regex, *urls):
+    return url(regex, include(patterns('', *urls)))
+
 urlpatterns = patterns('',
-    url(r'^$',                          IndexView.as_view(),         
-                                            name='meeting_index'),
-    url(r'^detail/(?P<pk>\d+)/$',       MeetingDetailView.as_view(), 
-                                            name='meeting_detail'),
-    url(r'^edit/(?P<pk>\d+)/$',         MeetingEditView.as_view(),   
-                                            name='meeting_edit'),
-    url(r'^create/$',                   MeetingCreateView.as_view(), 
-                                            name='meeting_create'),
-    url(r'^proceedings/(?P<pk>\d+)/$',  MeetingAddNotesView.as_view(), 
-                                            name='meeting_proceedings'),
-    url(r'^add_note/(?P<pk>\d+)/$',     AddMeetingNote.as_view(),
-                                            name='add_note'),
+    url(r'^$',                    IndexView.as_view(),            name='index'),
+    url(r'^create/$',             MeetingCreateView.as_view(),    name='create'),
+    url_tree(r'^(?P<pk>\d+)/',
+        url(r'^detail/$',         MeetingDetailView.as_view(),    name='detail'),
+        url(r'^add_note/$',       AddMeetingNote.as_view(),       name='add_note'),
+        url(r'^edit/$',           MeetingEditView.as_view(),      name='edit'),
+        url(r'^proceedings/$',    MeetingAddNotesView.as_view(),  name='proceedings'),
+    ),
 )

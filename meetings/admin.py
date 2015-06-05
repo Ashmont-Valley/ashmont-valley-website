@@ -33,7 +33,6 @@ class PersonAdmin(admin.ModelAdmin):
         (None, {'fields':['name']}),
         ]
 
-
 admin.site.register(Type, TypeAdmin)
 admin.site.register(Person, PersonAdmin)
 admin.site.register(Meeting, MeetingAdmin)

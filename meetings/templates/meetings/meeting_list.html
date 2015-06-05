@@ -17,14 +17,14 @@
     {% for meeting in object_list %}
         {% if meeting.is_editable %}
             <tr>
-            <td><a href="{% url 'meetings:meeting_edit' meeting.pk %}">
+            <td><a href="{% url 'meetings:edit' meeting.pk %}">
             {{ meeting.name }}</a></td>
             <td>{{ meeting.meeting_type }}</td>
             <td>{{ meeting.meeting_date }}</td>
             <tr>
         {% else %}
             <tr>
-            <td><a href="{% url 'meetings:meeting_detail' meeting.pk %}">
+            <td><a href="{% url 'meetings:detail' meeting.pk %}">
             {{ meeting.name }}</a></td>
             <td>{{ meeting.meeting_type }}</td>
             <td>{{ meeting.meeting_date }}</td>
@@ -37,6 +37,6 @@
     <p>No meetings yet.</p>
 {% endif %}
 
-<a href="{% url 'meetings:meeting_create' %}">Create a New Meeting</a>
+<a href="{% url 'meetings:create' %}">Create a New Meeting</a>
 
 {% endblock %}

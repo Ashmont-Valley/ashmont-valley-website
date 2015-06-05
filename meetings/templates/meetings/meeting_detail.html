@@ -55,12 +55,11 @@
 {% if object.notes.all %}
     <p>Meeting Notes:</p>
     {% for note in object.notes.all %}
-        <p>Note: {{ note.name }}<br/>Last Edited: {{ note.time_edited }} </p>
         <p>{{ note.text }}</p>
     {% endfor %}
 {% endif %}
 
-<a class='btn btn-default' href="{% url 'meetings:meeting_index' %}" role='button'>Back to Meeting Index</a>
+<a class='btn btn-default' href="{% url 'meetings:index' %}" role='button'>Back to Meeting Index</a>
 
 
 {% endblock %}

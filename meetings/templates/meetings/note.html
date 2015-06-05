@@ -1,29 +1,5 @@
-<!--this currently only works if the note already exists
-I'm thinking I can simply create a new blank note in add_meeting_notes.html
-when the 'add new note' button is pressed
-and then feed that note into here. Then I'll have to give the Note class
-a default name so I can actually do that.-->
-<form action='' method='post' id='note_form'>
-    <div class='form-group'>
-        <label for='name'>Name:</label>
-        <input type='text' class='form-control' id='name' value="{{ note.name }}"/>
-    </div>
-    <div class='form-group'>
-        <textarea class='form-control' rows=4 id='text`'>{{ note.text }}</textarea>
-    </div>
-</form>
+<div class="note bg-success alert-dismissable">
+  <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  {{ note.text }}
+</div>
 
-<!--I'll put the script in a separate file later-->
-<script>
-$(document).ready(function(){
-    $("#note_form").keypress(eventData, save_note);
-});
-
-function save_note(eventData) {
-    //if the enter key is pressed
-    if(eventData.which == 13) {
-        {% csrf_token %}
-        $.post("{% url 'meetings:add_note' note.meeting.pk %}", $("#note_form").serialize())
-    }
-}
-</script>

@@ -64,7 +64,6 @@ class Meeting(models.Model):
 class Note(models.Model):
     meeting = models.ForeignKey(Meeting, related_name='notes',
         help_text=_("meeting that the note is for"))
-    name = models.CharField(help_text=_("name of the note"), max_length=100)
     text = models.TextField(help_text=_("text of the note"))
     time_created = models.DateTimeField(
         help_text=_("time at which the note was created"), auto_now_add=True)
@@ -72,5 +71,5 @@ class Note(models.Model):
         help_text=_("time at which the note was last edited"), auto_now=True)
 
     def __str__(self):
-        return "note %d for meeting %s" % (self.pk, self.meeting)
+        return self.text
 

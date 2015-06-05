@@ -8,11 +8,11 @@ $(document).ready(function() {
       if(button.data('ajax')) {
         $.ajax({
           method: this.method,
-          url:    this.target,
+          url:    this.action,
           data:   $(this).serialize(),
           success: function(response) {
-            //form.find('.form_result').html(response);
-            $(button).html("Saved!");
+            $(response).insertBefore('#note_form');
+            $('#note_text_box').val("");
           },
           error: function(response) {
             document.write(response);

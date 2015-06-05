@@ -23,7 +23,8 @@ class MeetingProceedingsForm(ModelForm):
         model = Meeting
         fields = ['people_late']
 
-class NoteCreationForm(ModelForm):
+class NoteUpdateForm(ModelForm):
     class Meta:
         model = Note
-        fields = ['name', 'text']
+        fields = ['text', 'meeting']
+

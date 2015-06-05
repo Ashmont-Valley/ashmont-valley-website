@@ -4,6 +4,8 @@ from django.views.generic.edit import SingleObjectMixin
 from django.utils.translation import ugettext_lazy as _
 from meetings.models import *
 from meetings.forms import *
+from django.contrib import messages
+from django.shortcuts import redirect
 
 from datetime import *
 from time import *
@@ -24,20 +26,37 @@ class MeetingAddNotesView(UpdateView):
         return super(MeetingAddNotesView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse('meetings:meeting_index')
+        return reverse('meetings:index')
 
-class AddMeetingNote(FormView, SingleObjectMixin):
-    form_class = NoteCreationForm
+class AddMeetingNote(CreateView):
     template_name = 'meetings/note.html'
-    model = Meeting
+    model = Note
+    form_class = NoteUpdateForm
 
-#this seems to create a new note everytime the form is submitted
-#should there be a separate view for moreely updating notes instead
-#of creating them? Or can we do that solely with Ajax?
     def form_valid(self, form):
-        obj = self.get_object().notes.create(content=self.request.POST['content'])
-        return self.render_to_response({ 'note': obj })
+        messages.warning(self.request, 'You have successfully created a new note')
+        if self.request.is_ajax():
+            obj = form.save()
+            return self.render_to_response({ 'note': obj })
+        return super(AddMeetingNote, self).form_valid(form)
 
+    def get_meeting(self):
+        return Meeting.objects.get(pk=self.kwargs['pk'])
+
+    def form_invalid(self, form):
+        messages.warning(self.request, 'The submitted form was invalid')
+        return redirect(reverse('meetings:proceedings', args=[self.get_meeting().pk]))
+
+    def get_success_url(self):
+        return reverse('meetings:proceedings', args=[self.get_meeting().pk])
+
+
+class UpdateMeetingNote(UpdateView):
+    #this doesn't work right now. need to add url and change html to point at url.
+    #I want to get things working as they are now before making things even more complicated
+    form_class = NoteUpdateForm
+    template_name = 'meetings/note.html'
+    model = Note
 
 class MeetingCreateView(CreateView):
     form_class = MeetingCreateForm
@@ -47,8 +66,8 @@ class MeetingCreateView(CreateView):
     def get_success_url(self):
         obj = self.object
         if obj.is_editable(): 
-            return reverse('meetings:meeting_edit', args=[obj.pk])
-        return reverse('meetings:meeting_detail', args=[obj.pk])
+            return reverse('meetings:edit', args=[obj.pk])
+        return reverse('meetings:detail', args=[obj.pk])
 
 class MeetingEditView(UpdateView):
     form_class = MeetingEditForm
@@ -61,7 +80,7 @@ class MeetingEditView(UpdateView):
         return super(MeetingEditView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse('meetings:meeting_proceedings', args=[self.object.pk])
+        return reverse('meetings:proceedings', args=[self.object.pk])
 
     def get_object(self):
         """edit view can only be accessed for meetings that have 

@@ -1,18 +1,11 @@
 {% extends "frame.html" %}
-{% load bootstrap3 %}
+{% load bootstrap3 static sekizai_tags %}
 
 {% block "content" %}
 
-<!--<script src="notes.js"></script>
-I'm going to move all of the script into a separate file later-->
-<script>
-$(document).ready(function(){
-    $("#new_note_btn").click(function(){
-        $("#notes").before("{% include 'meetings/note.html' %}");
-    });
-});
-</script>
-<!--the above isn't working - why?-->
+    {% addtoblock "js" %}
+        <script src="{% static "js/meetings.js" %}" type="text/javascript"></script>
+    {% endaddtoblock %}
 
 <h1>Meeting Started {{ object.start_time }}</h1>
 <p>Name: {{ object.name }}</p>
@@ -36,20 +29,25 @@ Guests:
 <p>Chair: {{ object.chair }}</p>
 <p>Secretary: {{ object.secretary }}</p>
 
-<form action="" method='post'>
-    {% csrf_token %}
-    {% bootstrap_form form %}
-    <input type='submit' value='End Meeting'/>
-</form>
-
-<br/><br/>
 <p>Meeting Notes:</p>
-<button class='btn btn-default' id="new_note_btn">Create Another Note</button>
-<!--new notes are supposed to be inserted here-->
 <div id="notes">
     {% for note in object.notes.all %}
         {% include "meetings/note.html" %}
     {% endfor %}
+<form action="{% url 'meetings:add_note' object.pk %}" class='form-inline' method='post' id='note_form'>
+    {% csrf_token %}
+    <div class='form-group'><!--want to make it wider-->
+        <input type="text" class='form-control' rows=4 name='text' placeholder="New Note" id='note_text_box'>
+        <input type="hidden" name='meeting' value="{{ object.pk }}">
+        <button class='btn btn-default pull-right' id="new_note_btn" type="submit" data-ajax='True'><span class='glyphicon glyphicon-plus'></span></button>
+    </div>
+</form>
 </div>
+
+<form action="" method='post' class='col-md-4'>
+    {% csrf_token %}
+    <!--{ bootstrap_field form.people_late %}-->
+    <input type='submit' value='End Meeting'/>
+</form>
 
 {% endblock %}
