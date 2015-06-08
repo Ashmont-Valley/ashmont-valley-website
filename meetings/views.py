@@ -53,10 +53,13 @@ class AddMeetingNote(CreateView):
     def get_success_url(self):
         return reverse('meetings:proceedings', args=[self.get_meeting().pk])
 
+class DeleteMeetingNote(DeleteView):
+    model = Note
+    
+    def get_success_url(self):
+        return reverse('meetings:proceedings', args=[self.get_meeting().pk])
 
 class UpdateMeetingNote(UpdateView):
-    #this doesn't work right now. need to add url and change html to point at url.
-    #I want to get things working as they are now before making things even more complicated
     form_class = NoteUpdateForm
     template_name = 'meetings/note.html'
     model = Note
