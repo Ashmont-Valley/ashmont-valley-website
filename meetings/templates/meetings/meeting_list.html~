@@ -2,7 +2,7 @@
 
 {% block "content" %}
 
-<h1>Meetings</h1>
+<h1>Meetings Index</h1>
 <h5>Click on a meeting to get started</h5>
 {% if object_list %}
 <table class='table table-hover table-bordered'>
