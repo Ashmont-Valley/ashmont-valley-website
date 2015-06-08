@@ -13,6 +13,9 @@ from time import *
 class IndexView(ListView):
     model = Meeting
 
+    def get_queryset(self):
+        return Meeting.objects.order_by('-meeting_date', 'name')
+
 class MeetingDetailView(DetailView):
     model = Meeting
 

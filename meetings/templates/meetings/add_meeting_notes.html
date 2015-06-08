@@ -36,7 +36,7 @@ Guests:
     {% endfor %}
 <form action="{% url 'meetings:add_note' object.pk %}" class='form-inline' method='post' id='note_form'>
     {% csrf_token %}
-    <div class='form-group'><!--want to make it wider-->
+    <div class='form-group'>
         <input type="text" class='form-control' rows=4 name='text' placeholder="New Note" id='note_text_box'>
         <input type="hidden" name='meeting' value="{{ object.pk }}">
         <button class='btn btn-default pull-right' id="new_note_btn" type="submit" data-ajax='True'><span class='glyphicon glyphicon-plus'></span></button>
@@ -44,10 +44,12 @@ Guests:
 </form>
 </div>
 
-<form action="" method='post' class='col-md-4'>
+<form action="" method='post'>
     {% csrf_token %}
     <!--{ bootstrap_field form.people_late %}-->
     <input type='submit' value='End Meeting'/>
 </form>
+<br/><br/>
+<a class='btn btn-default' href="{% url 'meetings:index' %}" role='button'>Back to Meeting Index</a>
 
 {% endblock %}

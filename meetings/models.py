@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import *
+from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 
 class Person(models.Model):
@@ -54,9 +55,17 @@ class Meeting(models.Model):
 
     def is_editable(self):
         """meetings are editable if they have occurred in the past week"""
-        time_cutoff = timedelta(days=2)
+        time_cutoff = timedelta(days=14)
         return (self.meeting_date <= date.today() <= 
                 time_cutoff+self.meeting_date)
+
+    def get_absolute_url(self):
+        if self.is_editable():
+            if self.start_time:
+                return reverse('meetings:proceedings', args=[self.pk])
+            return reverse('meetings:edit', args=[self.pk])
+        return reverse('meetings:detail', args=[self.pk])
+        
 
     def __str__(self):
         return self.name
