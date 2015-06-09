@@ -5,32 +5,54 @@
 <h1>Meetings</h1>
 <h5>Click on a meeting to get started</h5>
 {% if object_list %}
-<table class='table table-hover table-bordered'>
-    <thead>
-       <tr>
-           <th>Meeting Name</th>
-           <th>Meeting Type</th>
-           <th>Meeting Date</th>
-           <th>Start Time</th>
-           <th>End Time</th>
-       </tr>
-    </thead>
-    <tbody>
-    {% for meeting in object_list %}
-        <tr>
-            <td><a href={{ meeting.get_absolute_url }}>
-            {{ meeting.name }}</a></td>
-            <td>{{ meeting.meeting_type }}</td>
-            <td>{{ meeting.meeting_date }}</td>
-            <td>{{ meeting.start_time }}</td>
-            <td>{{ meeting.end_time }}</td>
-        </tr>
-    {% endfor %}
-</table>
+    <table class='table table-hover table-bordered'>
+        <thead>
+           <tr>
+               <th>Meeting Name</th>
+               <th>Meeting Type</th>
+               <th>Meeting Date</th>
+               <th>Start Time</th>
+               <th>End Time</th>
+           </tr>
+        </thead>
+        <tbody>
+        {% for meeting in object_list %}
+            <tr>
+                <td><a href={{ meeting.get_absolute_url }}>
+                {{ meeting.name }}</a></td>
+                <td>{{ meeting.meeting_type }}</td>
+                <td>{{ meeting.meeting_date }}</td>
+                <td>{{ meeting.start_time }}</td>
+                <td>{{ meeting.end_time }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    {% if is_paginated %}
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                <a class='btn btn-default' role='button' href="?page={{ page_obj.previous_page_number }}">
+                    <span class='glyphicon glyphicon-chevron-left'></span></a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                <a class='btn btn-default' role='button' href="?page={{ page_obj.next_page_number }}">
+                    <span class='glyphicon glyphicon-chevron-right'></span></a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+
 {% else %}
     <p>No meetings yet.</p>
 {% endif %}
 
+<br/><br/>
 <a class='btn btn-default' role='button' href="{% url 'meetings:create' %}">Create a New Meeting</a>
 
 {% endblock %}

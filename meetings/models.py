@@ -50,8 +50,7 @@ class Meeting(models.Model):
         help_text=_("chair of the meeting"), blank=True, null=True) 
     secretary = models.ForeignKey(Person, related_name='secretary',
         help_text=_("secretary of the meeting"), blank=True, null=True)
-
-    ordering = ['-meeting_date']
+    ordering = ['-meeting_date', 'name']
 
     def is_editable(self):
         """meetings are editable if they have occurred in the past week"""

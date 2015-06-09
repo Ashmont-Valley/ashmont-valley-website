@@ -12,6 +12,7 @@ from time import *
 
 class IndexView(ListView):
     model = Meeting
+    paginate_by = 10
 
     def get_queryset(self):
         return Meeting.objects.order_by('-meeting_date', 'name')
