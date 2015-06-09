@@ -34,7 +34,7 @@ Guests:
     {% for note in object.notes.all %}
         {% include "meetings/note.html" %}
     {% endfor %}
-<form action="{% url 'meetings:add_note' object.pk %}" class='form-inline' method='post' id='note_form' class='note_form'>
+<form action="{% url 'meetings:add_note' object.pk %}" class='form-inline' method='post' id='add_note'>
     {% csrf_token %}
     <div class='form-group'>
         <input type="text" class='form-control' rows=4 name='text' placeholder="New Note" id='note_text_box'>

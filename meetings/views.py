@@ -6,6 +6,7 @@ from meetings.models import *
 from meetings.forms import *
 from django.contrib import messages
 from django.shortcuts import redirect
+from django.http import HttpResponse
 
 from datetime import *
 from time import *
@@ -56,9 +57,16 @@ class AddMeetingNote(CreateView):
 
 class DeleteMeetingNote(DeleteView):
     model = Note
-    
+
+    def delete(self, *args, **kwargs):
+        note_pk = self.get_object().pk
+        response = super(DeleteMeetingNote, self).delete(*args, **kwargs)
+        if self.request.is_ajax():
+            return HttpResponse(str(note_pk), content_type="text/plain")
+        return response
+
     def get_success_url(self):
-        return reverse('meetings:proceedings', args=[self.get_meeting().pk])
+        return reverse('meetings:proceedings', args=[self.get_object().meeting.pk])
 
 class UpdateMeetingNote(UpdateView):
     form_class = NoteUpdateForm
