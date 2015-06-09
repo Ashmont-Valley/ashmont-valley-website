@@ -7,11 +7,12 @@ from meetings.forms import *
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.http import HttpResponse
+from hoodcms.mixins import AccessMixin
 
 from datetime import *
 from time import *
 
-class IndexView(ListView):
+class IndexView(AccessMixin, ListView):
     model = Meeting
     paginate_by = 10
 
