@@ -50,19 +50,20 @@ INSTALLED_APPS = (
     'meetings',
     'hoodcms',
 
-    #'treebeard',
-    #'menus',
+    'treebeard',
+    'menus',
+    'cms',
     'sekizai',
     'bootstrap3',
     'ajax_select',
+
     #'happenings',
     #'djangocms_picture',
     #'djangocms_link',
-    #'djangocms_text_ckeditor',
+    'djangocms_text_ckeditor',
     #'cmsplugin_cascade',
     #'cmsplugin_cascade.extra_fields',  # optional
     #'cmsplugin_cascade.sharable',  # optional
-    #'cms',
 )
 
 #CMSPLUGIN_CASCADE_PLUGINS = (
@@ -95,9 +96,9 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    #'cms.middleware.user.CurrentUserMiddleware',
-    #'cms.middleware.page.CurrentPageMiddleware',
-    #'cms.middleware.toolbar.ToolbarMiddleware',
+    'cms.middleware.user.CurrentUserMiddleware',
+    'cms.middleware.page.CurrentPageMiddleware',
+    'cms.middleware.toolbar.ToolbarMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -109,17 +110,13 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.media',
     'django.core.context_processors.static',
     'sekizai.context_processors.sekizai',
-    #'cms.context_processors.cms_settings',
+    'cms.context_processors.cms_settings',
 )
 
-# Make django-cms 3.0.12 compatible with django-1.7.x
 MIGRATION_MODULES = {
-    #'cms': 'cms.migrations_django',
-    #'menus': 'menus.migrations_django',
-    # This is nuts
     #'djangocms_picture' : 'djangocms_picture.migrations_django',
     #'djangocms_link' : 'djangocms_link.migrations_django',
-    #'djangocms_text_ckeditor' : 'djangocms_text_ckeditor.migrations_django',
+    'djangocms_text_ckeditor' : 'djangocms_text_ckeditor.migrations_django',
 }
 
 # Place where static files are served in live (not used in dev)

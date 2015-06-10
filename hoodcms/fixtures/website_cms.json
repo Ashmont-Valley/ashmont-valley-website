@@ -1,0 +1,2184 @@
+[
+{
+  "fields": {
+    "domain": "example.com",
+    "name": "example.com"
+  },
+  "model": "sites.site",
+  "pk": 1
+},
+{
+  "fields": {
+    "model": "logentry",
+    "name": "log entry",
+    "app_label": "admin"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 1
+},
+{
+  "fields": {
+    "model": "site",
+    "name": "site",
+    "app_label": "sites"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 2
+},
+{
+  "fields": {
+    "model": "permission",
+    "name": "permission",
+    "app_label": "auth"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 3
+},
+{
+  "fields": {
+    "model": "group",
+    "name": "group",
+    "app_label": "auth"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 4
+},
+{
+  "fields": {
+    "model": "user",
+    "name": "user",
+    "app_label": "auth"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 5
+},
+{
+  "fields": {
+    "model": "contenttype",
+    "name": "content type",
+    "app_label": "contenttypes"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 6
+},
+{
+  "fields": {
+    "model": "session",
+    "name": "session",
+    "app_label": "sessions"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 7
+},
+{
+  "fields": {
+    "model": "cachekey",
+    "name": "cache key",
+    "app_label": "menus"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 8
+},
+{
+  "fields": {
+    "model": "picture",
+    "name": "picture",
+    "app_label": "djangocms_picture"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 9
+},
+{
+  "fields": {
+    "model": "link",
+    "name": "link",
+    "app_label": "djangocms_link"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 10
+},
+{
+  "fields": {
+    "model": "text",
+    "name": "text",
+    "app_label": "djangocms_text_ckeditor"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 11
+},
+{
+  "fields": {
+    "model": "usersettings",
+    "name": "user setting",
+    "app_label": "cms"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 12
+},
+{
+  "fields": {
+    "model": "placeholder",
+    "name": "placeholder",
+    "app_label": "cms"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 13
+},
+{
+  "fields": {
+    "model": "cmsplugin",
+    "name": "cms plugin",
+    "app_label": "cms"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 14
+},
+{
+  "fields": {
+    "model": "page",
+    "name": "page",
+    "app_label": "cms"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 15
+},
+{
+  "fields": {
+    "model": "globalpagepermission",
+    "name": "Page global permission",
+    "app_label": "cms"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 16
+},
+{
+  "fields": {
+    "model": "pagepermission",
+    "name": "Page permission",
+    "app_label": "cms"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 17
+},
+{
+  "fields": {
+    "model": "pageuser",
+    "name": "User (page)",
+    "app_label": "cms"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 18
+},
+{
+  "fields": {
+    "model": "pageusergroup",
+    "name": "User group (page)",
+    "app_label": "cms"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 19
+},
+{
+  "fields": {
+    "model": "title",
+    "name": "title",
+    "app_label": "cms"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 20
+},
+{
+  "fields": {
+    "model": "placeholderreference",
+    "name": "placeholder reference",
+    "app_label": "cms"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 21
+},
+{
+  "fields": {
+    "model": "staticplaceholder",
+    "name": "static placeholder",
+    "app_label": "cms"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 22
+},
+{
+  "fields": {
+    "model": "aliaspluginmodel",
+    "name": "alias plugin model",
+    "app_label": "cms"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 23
+},
+{
+  "fields": {
+    "model": "sharedglossary",
+    "name": "Shared between Plugins",
+    "app_label": "cmsplugin_cascade"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 24
+},
+{
+  "fields": {
+    "model": "cascadeelement",
+    "name": "cascade element",
+    "app_label": "cmsplugin_cascade"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 25
+},
+{
+  "fields": {
+    "model": "sharablecascadeelement",
+    "name": "sharable cascade element",
+    "app_label": "cmsplugin_cascade"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 26
+},
+{
+  "fields": {
+    "model": "pluginextrafields",
+    "name": "Custom CSS classes and styles",
+    "app_label": "cmsplugin_cascade"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 27
+},
+{
+  "fields": {
+    "model": "panelgrouppluginmodel",
+    "name": "panel group plugin model",
+    "app_label": "cmsplugin_cascade"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 28
+},
+{
+  "fields": {
+    "model": "bootstrapcontainerpluginmodel",
+    "name": "bootstrap container plugin model",
+    "app_label": "cmsplugin_cascade"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 29
+},
+{
+  "fields": {
+    "model": "bootstrapimagepluginmodel",
+    "name": "bootstrap image plugin model",
+    "app_label": "cmsplugin_cascade"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 30
+},
+{
+  "fields": {
+    "model": "bootstrapbuttonpluginmodel",
+    "name": "bootstrap button plugin model",
+    "app_label": "cmsplugin_cascade"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 31
+},
+{
+  "fields": {
+    "model": "cascadepluginbasemodel",
+    "name": "cascade plugin base model",
+    "app_label": "cmsplugin_cascade"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 32
+},
+{
+  "fields": {
+    "model": "bootstrappluginbasemodel",
+    "name": "bootstrap plugin base model",
+    "app_label": "cmsplugin_cascade"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 33
+},
+{
+  "fields": {
+    "model": "textlinkpluginmodel",
+    "name": "text link plugin model",
+    "app_label": "cmsplugin_cascade"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 34
+},
+{
+  "fields": {
+    "model": "carouselslidepluginmodel",
+    "name": "carousel slide plugin model",
+    "app_label": "cmsplugin_cascade"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 35
+},
+{
+  "fields": {
+    "model": "bootstrapcolumnpluginmodel",
+    "name": "bootstrap column plugin model",
+    "app_label": "cmsplugin_cascade"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 36
+},
+{
+  "fields": {
+    "model": "bootstrappicturepluginmodel",
+    "name": "bootstrap picture plugin model",
+    "app_label": "cmsplugin_cascade"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 37
+},
+{
+  "fields": {
+    "model": "bootstraprowpluginmodel",
+    "name": "bootstrap row plugin model",
+    "app_label": "cmsplugin_cascade"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 38
+},
+{
+  "fields": {
+    "model": "linkpluginbasemodel",
+    "name": "link plugin base model",
+    "app_label": "cmsplugin_cascade"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 39
+},
+{
+  "fields": {
+    "model": "horizontalrulepluginmodel",
+    "name": "horizontal rule plugin model",
+    "app_label": "cmsplugin_cascade"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 40
+},
+{
+  "fields": {
+    "model": "carouselpluginmodel",
+    "name": "carousel plugin model",
+    "app_label": "cmsplugin_cascade"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 41
+},
+{
+  "fields": {
+    "model": "panelpluginmodel",
+    "name": "panel plugin model",
+    "app_label": "cmsplugin_cascade"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 42
+},
+{
+  "fields": {
+    "model": "simplewrapperpluginmodel",
+    "name": "simple wrapper plugin model",
+    "app_label": "cmsplugin_cascade"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 43
+},
+{
+  "fields": {
+    "model": "person",
+    "name": "person",
+    "app_label": "meetings"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 44
+},
+{
+  "fields": {
+    "model": "type",
+    "name": "type",
+    "app_label": "meetings"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 45
+},
+{
+  "fields": {
+    "model": "meeting",
+    "name": "meeting",
+    "app_label": "meetings"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 46
+},
+{
+  "fields": {
+    "model": "note",
+    "name": "note",
+    "app_label": "meetings"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 47
+},
+{
+  "fields": {
+    "expire_date": "2015-04-13T18:09:42.685Z",
+    "session_data": "NzZmNWQ1NzBiODVkNTA5ODc2NzdlMGI1NzRmZGM0MjVkZjFmZWE4YTp7ImNtc19hZG1pbl9zaXRlIjoxLCJfYXV0aF91c2VyX2lkIjoxLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsImNtc19sb2dfbGF0ZXN0IjoxLCJjbXNfZWRpdCI6dHJ1ZSwiX2F1dGhfdXNlcl9oYXNoIjoiMzgyYmFmZjE4ZjQ3YzgwYjNhYWFmNGUzMjc2MmI3YzdkMWJjMjEzZiJ9"
+  },
+  "model": "sessions.session",
+  "pk": "1h82etoqq12dotn1ryjz7c4vret1w0h0"
+},
+{
+  "fields": {
+    "expire_date": "2015-06-24T20:50:04.917Z",
+    "session_data": "MzNjNmY5ODEwN2ExNmEzYTZhM2I4NjUxMWIyMjQyNTYwNjQyNjU5ZTp7fQ=="
+  },
+  "model": "sessions.session",
+  "pk": "35dhpnm2d06qibdv3fgwgrag1jdnfmkn"
+},
+{
+  "fields": {
+    "expire_date": "2015-06-24T20:57:09.855Z",
+    "session_data": "MWMzZjVkNmEyYTE0N2QzM2UxMDA0YWNlM2U2ZTU5MmVmNmZiOTc3Yzp7ImNtc190b29sYmFyX2Rpc2FibGVkIjpmYWxzZSwiX2F1dGhfdXNlcl9pZCI6MSwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJjbXNfZWRpdCI6ZmFsc2UsIl9hdXRoX3VzZXJfaGFzaCI6IjM4MmJhZmYxOGY0N2M4MGIzYWFhZjRlMzI3NjJiN2M3ZDFiYzIxM2YifQ=="
+  },
+  "model": "sessions.session",
+  "pk": "48ktq7sictb29ikgm2gbs24k7x68y7e0"
+},
+{
+  "fields": {
+    "expire_date": "2015-06-02T17:54:31.275Z",
+    "session_data": "ZjhkYzdjMDQ0MWNlMWM0OTlhM2VkNzBlOGU4MDNjY2JlN2EwNDBiZjp7Il9hdXRoX3VzZXJfaGFzaCI6IjM4MmJhZmYxOGY0N2M4MGIzYWFhZjRlMzI3NjJiN2M3ZDFiYzIxM2YiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9"
+  },
+  "model": "sessions.session",
+  "pk": "8gp6kojgzv3vg2terzevt66cjba2p97c"
+},
+{
+  "fields": {
+    "expire_date": "2015-04-16T00:42:08.233Z",
+    "session_data": "MDZmOWJlYTA0ZTlmMjE5NWI3MzcxOGZkMDU0MDhhMzM0ZGFiYzEzNTp7ImNtc19hZG1pbl9zaXRlIjoxLCJfYXV0aF91c2VyX2hhc2giOiIzODJiYWZmMThmNDdjODBiM2FhYWY0ZTMyNzYyYjdjN2QxYmMyMTNmIiwiY21zX2VkaXQiOmZhbHNlLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9"
+  },
+  "model": "sessions.session",
+  "pk": "a6w4yheyfkqks8wvj6y2jjr6i84aipyw"
+},
+{
+  "fields": {
+    "expire_date": "2015-04-16T22:53:02.633Z",
+    "session_data": "ZjhkYzdjMDQ0MWNlMWM0OTlhM2VkNzBlOGU4MDNjY2JlN2EwNDBiZjp7Il9hdXRoX3VzZXJfaGFzaCI6IjM4MmJhZmYxOGY0N2M4MGIzYWFhZjRlMzI3NjJiN2M3ZDFiYzIxM2YiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9"
+  },
+  "model": "sessions.session",
+  "pk": "ec1twzavwx2ct920b599e7ju99u5ztau"
+},
+{
+  "fields": {
+    "key": "menu_cache_menu_nodes_en_1_1_user",
+    "site": 1,
+    "language": "en"
+  },
+  "model": "menus.cachekey",
+  "pk": 7
+},
+{
+  "fields": {
+    "slot": "clipboard",
+    "default_width": null
+  },
+  "model": "cms.placeholder",
+  "pk": 1
+},
+{
+  "fields": {
+    "slot": "normal_template_content",
+    "default_width": null
+  },
+  "model": "cms.placeholder",
+  "pk": 2
+},
+{
+  "fields": {
+    "slot": "normal_template_content",
+    "default_width": null
+  },
+  "model": "cms.placeholder",
+  "pk": 3
+},
+{
+  "fields": {
+    "slot": "normal_template_content",
+    "default_width": null
+  },
+  "model": "cms.placeholder",
+  "pk": 4
+},
+{
+  "fields": {
+    "slot": "normal_template_content",
+    "default_width": null
+  },
+  "model": "cms.placeholder",
+  "pk": 5
+},
+{
+  "fields": {
+    "changed_date": "2015-06-10T20:56:14.965Z",
+    "language": "en",
+    "parent": null,
+    "numchild": 0,
+    "creation_date": "2015-06-10T20:55:30.675Z",
+    "depth": 1,
+    "position": 0,
+    "path": "0001",
+    "placeholder": 4,
+    "plugin_type": "TextPlugin"
+  },
+  "model": "cms.cmsplugin",
+  "pk": 1
+},
+{
+  "fields": {
+    "changed_date": "2015-06-10T20:57:08.587Z",
+    "language": "en",
+    "parent": null,
+    "numchild": 0,
+    "creation_date": "2015-06-10T20:55:30.675Z",
+    "depth": 1,
+    "position": 0,
+    "path": "0002",
+    "placeholder": 2,
+    "plugin_type": "TextPlugin"
+  },
+  "model": "cms.cmsplugin",
+  "pk": 2
+},
+{
+  "fields": {
+    "navigation_extenders": null,
+    "site": 1,
+    "application_namespace": null,
+    "path": "0001",
+    "in_navigation": true,
+    "reverse_id": null,
+    "login_required": false,
+    "created_by": "admin",
+    "languages": "en",
+    "publication_end_date": null,
+    "template": "INHERIT",
+    "placeholders": [
+      4
+    ],
+    "changed_date": "2015-06-10T20:57:08.651Z",
+    "limit_visibility_in_menu": null,
+    "parent": null,
+    "numchild": 0,
+    "soft_root": false,
+    "is_home": true,
+    "publication_date": "2015-03-30T18:08:00.199Z",
+    "creation_date": "2015-03-30T18:08:00.104Z",
+    "publisher_public": 2,
+    "application_urls": null,
+    "changed_by": "admin",
+    "publisher_is_draft": true,
+    "xframe_options": 0,
+    "depth": 1,
+    "revision_id": 0
+  },
+  "model": "cms.page",
+  "pk": 1
+},
+{
+  "fields": {
+    "navigation_extenders": null,
+    "site": 1,
+    "application_namespace": null,
+    "path": "0002",
+    "in_navigation": true,
+    "reverse_id": null,
+    "login_required": false,
+    "created_by": "admin",
+    "languages": "en",
+    "publication_end_date": null,
+    "template": "INHERIT",
+    "placeholders": [
+      2
+    ],
+    "changed_date": "2015-06-10T20:57:08.628Z",
+    "limit_visibility_in_menu": null,
+    "parent": null,
+    "numchild": 0,
+    "soft_root": false,
+    "is_home": true,
+    "publication_date": "2015-03-30T18:08:00.199Z",
+    "creation_date": "2015-03-30T18:08:00.205Z",
+    "publisher_public": 1,
+    "application_urls": null,
+    "changed_by": "admin",
+    "publisher_is_draft": false,
+    "xframe_options": 0,
+    "depth": 1,
+    "revision_id": 0
+  },
+  "model": "cms.page",
+  "pk": 2
+},
+{
+  "fields": {
+    "navigation_extenders": null,
+    "site": 1,
+    "application_namespace": null,
+    "path": "0003",
+    "in_navigation": true,
+    "reverse_id": null,
+    "login_required": false,
+    "created_by": "admin",
+    "languages": "en",
+    "publication_end_date": null,
+    "template": "INHERIT",
+    "placeholders": [
+      3
+    ],
+    "changed_date": "2015-06-10T20:49:54.916Z",
+    "limit_visibility_in_menu": null,
+    "parent": null,
+    "numchild": 0,
+    "soft_root": false,
+    "is_home": false,
+    "publication_date": "2015-04-02T00:36:57.424Z",
+    "creation_date": "2015-04-02T00:34:22.698Z",
+    "publisher_public": 4,
+    "application_urls": null,
+    "changed_by": "admin",
+    "publisher_is_draft": true,
+    "xframe_options": 0,
+    "depth": 1,
+    "revision_id": 0
+  },
+  "model": "cms.page",
+  "pk": 3
+},
+{
+  "fields": {
+    "navigation_extenders": null,
+    "site": 1,
+    "application_namespace": null,
+    "path": "0004",
+    "in_navigation": true,
+    "reverse_id": null,
+    "login_required": false,
+    "created_by": "admin",
+    "languages": "en",
+    "publication_end_date": null,
+    "template": "INHERIT",
+    "placeholders": [
+      5
+    ],
+    "changed_date": "2015-06-10T20:49:54.916Z",
+    "limit_visibility_in_menu": null,
+    "parent": null,
+    "numchild": 0,
+    "soft_root": false,
+    "is_home": false,
+    "publication_date": "2015-04-02T00:36:57.424Z",
+    "creation_date": "2015-04-02T00:36:57.432Z",
+    "publisher_public": 3,
+    "application_urls": null,
+    "changed_by": "admin",
+    "publisher_is_draft": false,
+    "xframe_options": 0,
+    "depth": 1,
+    "revision_id": 0
+  },
+  "model": "cms.page",
+  "pk": 4
+},
+{
+  "fields": {
+    "menu_title": "",
+    "meta_description": "",
+    "page_title": "",
+    "language": "en",
+    "title": "Home",
+    "has_url_overwrite": false,
+    "redirect": null,
+    "publisher_is_draft": true,
+    "page": 1,
+    "published": true,
+    "path": "",
+    "publisher_state": 0,
+    "creation_date": "2015-03-30T18:08:00.153Z",
+    "slug": "home",
+    "publisher_public": 2
+  },
+  "model": "cms.title",
+  "pk": 1
+},
+{
+  "fields": {
+    "menu_title": "",
+    "meta_description": "",
+    "page_title": "",
+    "language": "en",
+    "title": "Home",
+    "has_url_overwrite": false,
+    "redirect": null,
+    "publisher_is_draft": false,
+    "page": 2,
+    "published": true,
+    "path": "",
+    "publisher_state": 0,
+    "creation_date": "2015-03-30T18:08:00.153Z",
+    "slug": "home",
+    "publisher_public": 1
+  },
+  "model": "cms.title",
+  "pk": 2
+},
+{
+  "fields": {
+    "menu_title": "",
+    "meta_description": "",
+    "page_title": "",
+    "language": "en",
+    "title": "About",
+    "has_url_overwrite": false,
+    "redirect": null,
+    "publisher_is_draft": true,
+    "page": 3,
+    "published": true,
+    "path": "about",
+    "publisher_state": 0,
+    "creation_date": "2015-04-02T00:34:22.751Z",
+    "slug": "about",
+    "publisher_public": 4
+  },
+  "model": "cms.title",
+  "pk": 3
+},
+{
+  "fields": {
+    "menu_title": "",
+    "meta_description": "",
+    "page_title": "",
+    "language": "en",
+    "title": "About",
+    "has_url_overwrite": false,
+    "redirect": null,
+    "publisher_is_draft": false,
+    "page": 4,
+    "published": true,
+    "path": "about",
+    "publisher_state": 0,
+    "creation_date": "2015-04-02T00:34:22.751Z",
+    "slug": "about",
+    "publisher_public": 3
+  },
+  "model": "cms.title",
+  "pk": 4
+},
+{
+  "fields": {
+    "body": "<h1>Welcome to Ashmont Valley</h1>\n\n<p>We are a community of neighbours in Boston's largest district Dorchester. Friendly, welcoming and great fun.</p>\n"
+  },
+  "model": "djangocms_text_ckeditor.text",
+  "pk": 1
+},
+{
+  "fields": {
+    "body": "<h1>Welcome to Ashmont Valley</h1>\n\n<p>We are a community of neighbours in Boston's largest district Dorchester. Friendly, welcoming and great fun.</p>\n"
+  },
+  "model": "djangocms_text_ckeditor.text",
+  "pk": 2
+},
+{
+  "fields": {
+    "codename": "add_logentry",
+    "name": "Can add log entry",
+    "content_type": 1
+  },
+  "model": "auth.permission",
+  "pk": 1
+},
+{
+  "fields": {
+    "codename": "change_logentry",
+    "name": "Can change log entry",
+    "content_type": 1
+  },
+  "model": "auth.permission",
+  "pk": 2
+},
+{
+  "fields": {
+    "codename": "delete_logentry",
+    "name": "Can delete log entry",
+    "content_type": 1
+  },
+  "model": "auth.permission",
+  "pk": 3
+},
+{
+  "fields": {
+    "codename": "add_site",
+    "name": "Can add site",
+    "content_type": 2
+  },
+  "model": "auth.permission",
+  "pk": 4
+},
+{
+  "fields": {
+    "codename": "change_site",
+    "name": "Can change site",
+    "content_type": 2
+  },
+  "model": "auth.permission",
+  "pk": 5
+},
+{
+  "fields": {
+    "codename": "delete_site",
+    "name": "Can delete site",
+    "content_type": 2
+  },
+  "model": "auth.permission",
+  "pk": 6
+},
+{
+  "fields": {
+    "codename": "add_permission",
+    "name": "Can add permission",
+    "content_type": 3
+  },
+  "model": "auth.permission",
+  "pk": 7
+},
+{
+  "fields": {
+    "codename": "change_permission",
+    "name": "Can change permission",
+    "content_type": 3
+  },
+  "model": "auth.permission",
+  "pk": 8
+},
+{
+  "fields": {
+    "codename": "delete_permission",
+    "name": "Can delete permission",
+    "content_type": 3
+  },
+  "model": "auth.permission",
+  "pk": 9
+},
+{
+  "fields": {
+    "codename": "add_group",
+    "name": "Can add group",
+    "content_type": 4
+  },
+  "model": "auth.permission",
+  "pk": 10
+},
+{
+  "fields": {
+    "codename": "change_group",
+    "name": "Can change group",
+    "content_type": 4
+  },
+  "model": "auth.permission",
+  "pk": 11
+},
+{
+  "fields": {
+    "codename": "delete_group",
+    "name": "Can delete group",
+    "content_type": 4
+  },
+  "model": "auth.permission",
+  "pk": 12
+},
+{
+  "fields": {
+    "codename": "add_user",
+    "name": "Can add user",
+    "content_type": 5
+  },
+  "model": "auth.permission",
+  "pk": 13
+},
+{
+  "fields": {
+    "codename": "change_user",
+    "name": "Can change user",
+    "content_type": 5
+  },
+  "model": "auth.permission",
+  "pk": 14
+},
+{
+  "fields": {
+    "codename": "delete_user",
+    "name": "Can delete user",
+    "content_type": 5
+  },
+  "model": "auth.permission",
+  "pk": 15
+},
+{
+  "fields": {
+    "codename": "add_contenttype",
+    "name": "Can add content type",
+    "content_type": 6
+  },
+  "model": "auth.permission",
+  "pk": 16
+},
+{
+  "fields": {
+    "codename": "change_contenttype",
+    "name": "Can change content type",
+    "content_type": 6
+  },
+  "model": "auth.permission",
+  "pk": 17
+},
+{
+  "fields": {
+    "codename": "delete_contenttype",
+    "name": "Can delete content type",
+    "content_type": 6
+  },
+  "model": "auth.permission",
+  "pk": 18
+},
+{
+  "fields": {
+    "codename": "add_session",
+    "name": "Can add session",
+    "content_type": 7
+  },
+  "model": "auth.permission",
+  "pk": 19
+},
+{
+  "fields": {
+    "codename": "change_session",
+    "name": "Can change session",
+    "content_type": 7
+  },
+  "model": "auth.permission",
+  "pk": 20
+},
+{
+  "fields": {
+    "codename": "delete_session",
+    "name": "Can delete session",
+    "content_type": 7
+  },
+  "model": "auth.permission",
+  "pk": 21
+},
+{
+  "fields": {
+    "codename": "add_cachekey",
+    "name": "Can add cache key",
+    "content_type": 8
+  },
+  "model": "auth.permission",
+  "pk": 22
+},
+{
+  "fields": {
+    "codename": "change_cachekey",
+    "name": "Can change cache key",
+    "content_type": 8
+  },
+  "model": "auth.permission",
+  "pk": 23
+},
+{
+  "fields": {
+    "codename": "delete_cachekey",
+    "name": "Can delete cache key",
+    "content_type": 8
+  },
+  "model": "auth.permission",
+  "pk": 24
+},
+{
+  "fields": {
+    "codename": "add_picture",
+    "name": "Can add picture",
+    "content_type": 9
+  },
+  "model": "auth.permission",
+  "pk": 25
+},
+{
+  "fields": {
+    "codename": "change_picture",
+    "name": "Can change picture",
+    "content_type": 9
+  },
+  "model": "auth.permission",
+  "pk": 26
+},
+{
+  "fields": {
+    "codename": "delete_picture",
+    "name": "Can delete picture",
+    "content_type": 9
+  },
+  "model": "auth.permission",
+  "pk": 27
+},
+{
+  "fields": {
+    "codename": "add_link",
+    "name": "Can add link",
+    "content_type": 10
+  },
+  "model": "auth.permission",
+  "pk": 28
+},
+{
+  "fields": {
+    "codename": "change_link",
+    "name": "Can change link",
+    "content_type": 10
+  },
+  "model": "auth.permission",
+  "pk": 29
+},
+{
+  "fields": {
+    "codename": "delete_link",
+    "name": "Can delete link",
+    "content_type": 10
+  },
+  "model": "auth.permission",
+  "pk": 30
+},
+{
+  "fields": {
+    "codename": "add_text",
+    "name": "Can add text",
+    "content_type": 11
+  },
+  "model": "auth.permission",
+  "pk": 31
+},
+{
+  "fields": {
+    "codename": "change_text",
+    "name": "Can change text",
+    "content_type": 11
+  },
+  "model": "auth.permission",
+  "pk": 32
+},
+{
+  "fields": {
+    "codename": "delete_text",
+    "name": "Can delete text",
+    "content_type": 11
+  },
+  "model": "auth.permission",
+  "pk": 33
+},
+{
+  "fields": {
+    "codename": "add_usersettings",
+    "name": "Can add user setting",
+    "content_type": 12
+  },
+  "model": "auth.permission",
+  "pk": 34
+},
+{
+  "fields": {
+    "codename": "change_usersettings",
+    "name": "Can change user setting",
+    "content_type": 12
+  },
+  "model": "auth.permission",
+  "pk": 35
+},
+{
+  "fields": {
+    "codename": "delete_usersettings",
+    "name": "Can delete user setting",
+    "content_type": 12
+  },
+  "model": "auth.permission",
+  "pk": 36
+},
+{
+  "fields": {
+    "codename": "add_placeholder",
+    "name": "Can add placeholder",
+    "content_type": 13
+  },
+  "model": "auth.permission",
+  "pk": 37
+},
+{
+  "fields": {
+    "codename": "change_placeholder",
+    "name": "Can change placeholder",
+    "content_type": 13
+  },
+  "model": "auth.permission",
+  "pk": 38
+},
+{
+  "fields": {
+    "codename": "delete_placeholder",
+    "name": "Can delete placeholder",
+    "content_type": 13
+  },
+  "model": "auth.permission",
+  "pk": 39
+},
+{
+  "fields": {
+    "codename": "add_cmsplugin",
+    "name": "Can add cms plugin",
+    "content_type": 14
+  },
+  "model": "auth.permission",
+  "pk": 40
+},
+{
+  "fields": {
+    "codename": "change_cmsplugin",
+    "name": "Can change cms plugin",
+    "content_type": 14
+  },
+  "model": "auth.permission",
+  "pk": 41
+},
+{
+  "fields": {
+    "codename": "delete_cmsplugin",
+    "name": "Can delete cms plugin",
+    "content_type": 14
+  },
+  "model": "auth.permission",
+  "pk": 42
+},
+{
+  "fields": {
+    "codename": "add_page",
+    "name": "Can add page",
+    "content_type": 15
+  },
+  "model": "auth.permission",
+  "pk": 43
+},
+{
+  "fields": {
+    "codename": "change_page",
+    "name": "Can change page",
+    "content_type": 15
+  },
+  "model": "auth.permission",
+  "pk": 44
+},
+{
+  "fields": {
+    "codename": "delete_page",
+    "name": "Can delete page",
+    "content_type": 15
+  },
+  "model": "auth.permission",
+  "pk": 45
+},
+{
+  "fields": {
+    "codename": "view_page",
+    "name": "Can view page",
+    "content_type": 15
+  },
+  "model": "auth.permission",
+  "pk": 46
+},
+{
+  "fields": {
+    "codename": "publish_page",
+    "name": "Can publish page",
+    "content_type": 15
+  },
+  "model": "auth.permission",
+  "pk": 47
+},
+{
+  "fields": {
+    "codename": "edit_static_placeholder",
+    "name": "Can edit static placeholders",
+    "content_type": 15
+  },
+  "model": "auth.permission",
+  "pk": 48
+},
+{
+  "fields": {
+    "codename": "add_globalpagepermission",
+    "name": "Can add Page global permission",
+    "content_type": 16
+  },
+  "model": "auth.permission",
+  "pk": 49
+},
+{
+  "fields": {
+    "codename": "change_globalpagepermission",
+    "name": "Can change Page global permission",
+    "content_type": 16
+  },
+  "model": "auth.permission",
+  "pk": 50
+},
+{
+  "fields": {
+    "codename": "delete_globalpagepermission",
+    "name": "Can delete Page global permission",
+    "content_type": 16
+  },
+  "model": "auth.permission",
+  "pk": 51
+},
+{
+  "fields": {
+    "codename": "add_pagepermission",
+    "name": "Can add Page permission",
+    "content_type": 17
+  },
+  "model": "auth.permission",
+  "pk": 52
+},
+{
+  "fields": {
+    "codename": "change_pagepermission",
+    "name": "Can change Page permission",
+    "content_type": 17
+  },
+  "model": "auth.permission",
+  "pk": 53
+},
+{
+  "fields": {
+    "codename": "delete_pagepermission",
+    "name": "Can delete Page permission",
+    "content_type": 17
+  },
+  "model": "auth.permission",
+  "pk": 54
+},
+{
+  "fields": {
+    "codename": "add_pageuser",
+    "name": "Can add User (page)",
+    "content_type": 18
+  },
+  "model": "auth.permission",
+  "pk": 55
+},
+{
+  "fields": {
+    "codename": "change_pageuser",
+    "name": "Can change User (page)",
+    "content_type": 18
+  },
+  "model": "auth.permission",
+  "pk": 56
+},
+{
+  "fields": {
+    "codename": "delete_pageuser",
+    "name": "Can delete User (page)",
+    "content_type": 18
+  },
+  "model": "auth.permission",
+  "pk": 57
+},
+{
+  "fields": {
+    "codename": "add_pageusergroup",
+    "name": "Can add User group (page)",
+    "content_type": 19
+  },
+  "model": "auth.permission",
+  "pk": 58
+},
+{
+  "fields": {
+    "codename": "change_pageusergroup",
+    "name": "Can change User group (page)",
+    "content_type": 19
+  },
+  "model": "auth.permission",
+  "pk": 59
+},
+{
+  "fields": {
+    "codename": "delete_pageusergroup",
+    "name": "Can delete User group (page)",
+    "content_type": 19
+  },
+  "model": "auth.permission",
+  "pk": 60
+},
+{
+  "fields": {
+    "codename": "add_title",
+    "name": "Can add title",
+    "content_type": 20
+  },
+  "model": "auth.permission",
+  "pk": 61
+},
+{
+  "fields": {
+    "codename": "change_title",
+    "name": "Can change title",
+    "content_type": 20
+  },
+  "model": "auth.permission",
+  "pk": 62
+},
+{
+  "fields": {
+    "codename": "delete_title",
+    "name": "Can delete title",
+    "content_type": 20
+  },
+  "model": "auth.permission",
+  "pk": 63
+},
+{
+  "fields": {
+    "codename": "add_placeholderreference",
+    "name": "Can add placeholder reference",
+    "content_type": 21
+  },
+  "model": "auth.permission",
+  "pk": 64
+},
+{
+  "fields": {
+    "codename": "change_placeholderreference",
+    "name": "Can change placeholder reference",
+    "content_type": 21
+  },
+  "model": "auth.permission",
+  "pk": 65
+},
+{
+  "fields": {
+    "codename": "delete_placeholderreference",
+    "name": "Can delete placeholder reference",
+    "content_type": 21
+  },
+  "model": "auth.permission",
+  "pk": 66
+},
+{
+  "fields": {
+    "codename": "add_staticplaceholder",
+    "name": "Can add static placeholder",
+    "content_type": 22
+  },
+  "model": "auth.permission",
+  "pk": 67
+},
+{
+  "fields": {
+    "codename": "change_staticplaceholder",
+    "name": "Can change static placeholder",
+    "content_type": 22
+  },
+  "model": "auth.permission",
+  "pk": 68
+},
+{
+  "fields": {
+    "codename": "delete_staticplaceholder",
+    "name": "Can delete static placeholder",
+    "content_type": 22
+  },
+  "model": "auth.permission",
+  "pk": 69
+},
+{
+  "fields": {
+    "codename": "add_aliaspluginmodel",
+    "name": "Can add alias plugin model",
+    "content_type": 23
+  },
+  "model": "auth.permission",
+  "pk": 70
+},
+{
+  "fields": {
+    "codename": "change_aliaspluginmodel",
+    "name": "Can change alias plugin model",
+    "content_type": 23
+  },
+  "model": "auth.permission",
+  "pk": 71
+},
+{
+  "fields": {
+    "codename": "delete_aliaspluginmodel",
+    "name": "Can delete alias plugin model",
+    "content_type": 23
+  },
+  "model": "auth.permission",
+  "pk": 72
+},
+{
+  "fields": {
+    "codename": "add_sharedglossary",
+    "name": "Can add Shared between Plugins",
+    "content_type": 24
+  },
+  "model": "auth.permission",
+  "pk": 73
+},
+{
+  "fields": {
+    "codename": "change_sharedglossary",
+    "name": "Can change Shared between Plugins",
+    "content_type": 24
+  },
+  "model": "auth.permission",
+  "pk": 74
+},
+{
+  "fields": {
+    "codename": "delete_sharedglossary",
+    "name": "Can delete Shared between Plugins",
+    "content_type": 24
+  },
+  "model": "auth.permission",
+  "pk": 75
+},
+{
+  "fields": {
+    "codename": "add_cascadeelement",
+    "name": "Can add cascade element",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 76
+},
+{
+  "fields": {
+    "codename": "change_cascadeelement",
+    "name": "Can change cascade element",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 77
+},
+{
+  "fields": {
+    "codename": "delete_cascadeelement",
+    "name": "Can delete cascade element",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 78
+},
+{
+  "fields": {
+    "codename": "add_sharablecascadeelement",
+    "name": "Can add sharable cascade element",
+    "content_type": 26
+  },
+  "model": "auth.permission",
+  "pk": 79
+},
+{
+  "fields": {
+    "codename": "change_sharablecascadeelement",
+    "name": "Can change sharable cascade element",
+    "content_type": 26
+  },
+  "model": "auth.permission",
+  "pk": 80
+},
+{
+  "fields": {
+    "codename": "delete_sharablecascadeelement",
+    "name": "Can delete sharable cascade element",
+    "content_type": 26
+  },
+  "model": "auth.permission",
+  "pk": 81
+},
+{
+  "fields": {
+    "codename": "add_pluginextrafields",
+    "name": "Can add Custom CSS classes and styles",
+    "content_type": 27
+  },
+  "model": "auth.permission",
+  "pk": 82
+},
+{
+  "fields": {
+    "codename": "change_pluginextrafields",
+    "name": "Can change Custom CSS classes and styles",
+    "content_type": 27
+  },
+  "model": "auth.permission",
+  "pk": 83
+},
+{
+  "fields": {
+    "codename": "delete_pluginextrafields",
+    "name": "Can delete Custom CSS classes and styles",
+    "content_type": 27
+  },
+  "model": "auth.permission",
+  "pk": 84
+},
+{
+  "fields": {
+    "codename": "add_cascadepluginbasemodel",
+    "name": "Can add cascade plugin base model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 85
+},
+{
+  "fields": {
+    "codename": "change_cascadepluginbasemodel",
+    "name": "Can change cascade plugin base model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 86
+},
+{
+  "fields": {
+    "codename": "delete_cascadepluginbasemodel",
+    "name": "Can delete cascade plugin base model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 87
+},
+{
+  "fields": {
+    "codename": "add_linkpluginbasemodel",
+    "name": "Can add link plugin base model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 88
+},
+{
+  "fields": {
+    "codename": "change_linkpluginbasemodel",
+    "name": "Can change link plugin base model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 89
+},
+{
+  "fields": {
+    "codename": "delete_linkpluginbasemodel",
+    "name": "Can delete link plugin base model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 90
+},
+{
+  "fields": {
+    "codename": "add_bootstrapbuttonpluginmodel",
+    "name": "Can add bootstrap button plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 91
+},
+{
+  "fields": {
+    "codename": "change_bootstrapbuttonpluginmodel",
+    "name": "Can change bootstrap button plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 92
+},
+{
+  "fields": {
+    "codename": "delete_bootstrapbuttonpluginmodel",
+    "name": "Can delete bootstrap button plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 93
+},
+{
+  "fields": {
+    "codename": "add_bootstrappluginbasemodel",
+    "name": "Can add bootstrap plugin base model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 94
+},
+{
+  "fields": {
+    "codename": "change_bootstrappluginbasemodel",
+    "name": "Can change bootstrap plugin base model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 95
+},
+{
+  "fields": {
+    "codename": "delete_bootstrappluginbasemodel",
+    "name": "Can delete bootstrap plugin base model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 96
+},
+{
+  "fields": {
+    "codename": "add_bootstrapimagepluginmodel",
+    "name": "Can add bootstrap image plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 97
+},
+{
+  "fields": {
+    "codename": "change_bootstrapimagepluginmodel",
+    "name": "Can change bootstrap image plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 98
+},
+{
+  "fields": {
+    "codename": "delete_bootstrapimagepluginmodel",
+    "name": "Can delete bootstrap image plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 99
+},
+{
+  "fields": {
+    "codename": "add_bootstrappicturepluginmodel",
+    "name": "Can add bootstrap picture plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 100
+},
+{
+  "fields": {
+    "codename": "change_bootstrappicturepluginmodel",
+    "name": "Can change bootstrap picture plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 101
+},
+{
+  "fields": {
+    "codename": "delete_bootstrappicturepluginmodel",
+    "name": "Can delete bootstrap picture plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 102
+},
+{
+  "fields": {
+    "codename": "add_carouselpluginmodel",
+    "name": "Can add carousel plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 103
+},
+{
+  "fields": {
+    "codename": "change_carouselpluginmodel",
+    "name": "Can change carousel plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 104
+},
+{
+  "fields": {
+    "codename": "delete_carouselpluginmodel",
+    "name": "Can delete carousel plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 105
+},
+{
+  "fields": {
+    "codename": "add_carouselslidepluginmodel",
+    "name": "Can add carousel slide plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 106
+},
+{
+  "fields": {
+    "codename": "change_carouselslidepluginmodel",
+    "name": "Can change carousel slide plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 107
+},
+{
+  "fields": {
+    "codename": "delete_carouselslidepluginmodel",
+    "name": "Can delete carousel slide plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 108
+},
+{
+  "fields": {
+    "codename": "add_panelgrouppluginmodel",
+    "name": "Can add panel group plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 109
+},
+{
+  "fields": {
+    "codename": "change_panelgrouppluginmodel",
+    "name": "Can change panel group plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 110
+},
+{
+  "fields": {
+    "codename": "delete_panelgrouppluginmodel",
+    "name": "Can delete panel group plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 111
+},
+{
+  "fields": {
+    "codename": "add_panelpluginmodel",
+    "name": "Can add panel plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 112
+},
+{
+  "fields": {
+    "codename": "change_panelpluginmodel",
+    "name": "Can change panel plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 113
+},
+{
+  "fields": {
+    "codename": "delete_panelpluginmodel",
+    "name": "Can delete panel plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 114
+},
+{
+  "fields": {
+    "codename": "add_bootstrapcontainerpluginmodel",
+    "name": "Can add bootstrap container plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 115
+},
+{
+  "fields": {
+    "codename": "change_bootstrapcontainerpluginmodel",
+    "name": "Can change bootstrap container plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 116
+},
+{
+  "fields": {
+    "codename": "delete_bootstrapcontainerpluginmodel",
+    "name": "Can delete bootstrap container plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 117
+},
+{
+  "fields": {
+    "codename": "add_bootstraprowpluginmodel",
+    "name": "Can add bootstrap row plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 118
+},
+{
+  "fields": {
+    "codename": "change_bootstraprowpluginmodel",
+    "name": "Can change bootstrap row plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 119
+},
+{
+  "fields": {
+    "codename": "delete_bootstraprowpluginmodel",
+    "name": "Can delete bootstrap row plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 120
+},
+{
+  "fields": {
+    "codename": "add_bootstrapcolumnpluginmodel",
+    "name": "Can add bootstrap column plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 121
+},
+{
+  "fields": {
+    "codename": "change_bootstrapcolumnpluginmodel",
+    "name": "Can change bootstrap column plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 122
+},
+{
+  "fields": {
+    "codename": "delete_bootstrapcolumnpluginmodel",
+    "name": "Can delete bootstrap column plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 123
+},
+{
+  "fields": {
+    "codename": "add_simplewrapperpluginmodel",
+    "name": "Can add simple wrapper plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 124
+},
+{
+  "fields": {
+    "codename": "change_simplewrapperpluginmodel",
+    "name": "Can change simple wrapper plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 125
+},
+{
+  "fields": {
+    "codename": "delete_simplewrapperpluginmodel",
+    "name": "Can delete simple wrapper plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 126
+},
+{
+  "fields": {
+    "codename": "add_horizontalrulepluginmodel",
+    "name": "Can add horizontal rule plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 127
+},
+{
+  "fields": {
+    "codename": "change_horizontalrulepluginmodel",
+    "name": "Can change horizontal rule plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 128
+},
+{
+  "fields": {
+    "codename": "delete_horizontalrulepluginmodel",
+    "name": "Can delete horizontal rule plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 129
+},
+{
+  "fields": {
+    "codename": "add_textlinkpluginmodel",
+    "name": "Can add text link plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 130
+},
+{
+  "fields": {
+    "codename": "change_textlinkpluginmodel",
+    "name": "Can change text link plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 131
+},
+{
+  "fields": {
+    "codename": "delete_textlinkpluginmodel",
+    "name": "Can delete text link plugin model",
+    "content_type": 25
+  },
+  "model": "auth.permission",
+  "pk": 132
+},
+{
+  "fields": {
+    "codename": "use_structure",
+    "name": "Can use Structure mode",
+    "content_type": 13
+  },
+  "model": "auth.permission",
+  "pk": 133
+},
+{
+  "fields": {
+    "codename": "add_person",
+    "name": "Can add person",
+    "content_type": 44
+  },
+  "model": "auth.permission",
+  "pk": 134
+},
+{
+  "fields": {
+    "codename": "change_person",
+    "name": "Can change person",
+    "content_type": 44
+  },
+  "model": "auth.permission",
+  "pk": 135
+},
+{
+  "fields": {
+    "codename": "delete_person",
+    "name": "Can delete person",
+    "content_type": 44
+  },
+  "model": "auth.permission",
+  "pk": 136
+},
+{
+  "fields": {
+    "codename": "add_type",
+    "name": "Can add type",
+    "content_type": 45
+  },
+  "model": "auth.permission",
+  "pk": 137
+},
+{
+  "fields": {
+    "codename": "change_type",
+    "name": "Can change type",
+    "content_type": 45
+  },
+  "model": "auth.permission",
+  "pk": 138
+},
+{
+  "fields": {
+    "codename": "delete_type",
+    "name": "Can delete type",
+    "content_type": 45
+  },
+  "model": "auth.permission",
+  "pk": 139
+},
+{
+  "fields": {
+    "codename": "add_meeting",
+    "name": "Can add meeting",
+    "content_type": 46
+  },
+  "model": "auth.permission",
+  "pk": 140
+},
+{
+  "fields": {
+    "codename": "change_meeting",
+    "name": "Can change meeting",
+    "content_type": 46
+  },
+  "model": "auth.permission",
+  "pk": 141
+},
+{
+  "fields": {
+    "codename": "delete_meeting",
+    "name": "Can delete meeting",
+    "content_type": 46
+  },
+  "model": "auth.permission",
+  "pk": 142
+},
+{
+  "fields": {
+    "codename": "add_note",
+    "name": "Can add note",
+    "content_type": 47
+  },
+  "model": "auth.permission",
+  "pk": 143
+},
+{
+  "fields": {
+    "codename": "change_note",
+    "name": "Can change note",
+    "content_type": 47
+  },
+  "model": "auth.permission",
+  "pk": 144
+},
+{
+  "fields": {
+    "codename": "delete_note",
+    "name": "Can delete note",
+    "content_type": 47
+  },
+  "model": "auth.permission",
+  "pk": 145
+},
+{
+  "fields": {
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "is_active": true,
+    "is_superuser": true,
+    "is_staff": true,
+    "last_login": "2015-06-10T20:54:55.457Z",
+    "groups": [],
+    "user_permissions": [],
+    "password": "pbkdf2_sha256$15000$EtYvHwsZML53$dQ/MtKUNBaOfzWRVt2UGmHtaPxM2fo8FqhaJK4GrToU=",
+    "email": "a@a.com",
+    "date_joined": "2015-03-30T18:05:09.425Z"
+  },
+  "model": "auth.user",
+  "pk": 1
+},
+{
+  "fields": {
+    "clipboard": 1,
+    "user": 1,
+    "language": "en"
+  },
+  "model": "cms.usersettings",
+  "pk": 1
+},
+{
+  "fields": {
+    "action_flag": 1,
+    "action_time": "2015-03-30T18:08:00.389Z",
+    "object_repr": "Home",
+    "object_id": "1",
+    "change_message": "",
+    "user": 1,
+    "content_type": 15
+  },
+  "model": "admin.logentry",
+  "pk": 1
+},
+{
+  "fields": {
+    "action_flag": 1,
+    "action_time": "2015-04-02T00:34:22.801Z",
+    "object_repr": "About",
+    "object_id": "3",
+    "change_message": "",
+    "user": 1,
+    "content_type": 15
+  },
+  "model": "admin.logentry",
+  "pk": 2
+},
+{
+  "fields": {
+    "action_flag": 2,
+    "action_time": "2015-04-02T00:36:57.653Z",
+    "object_repr": "About",
+    "object_id": "3",
+    "change_message": "",
+    "user": 1,
+    "content_type": 15
+  },
+  "model": "admin.logentry",
+  "pk": 3
+},
+{
+  "fields": {
+    "action_flag": 2,
+    "action_time": "2015-06-10T20:57:08.663Z",
+    "object_repr": "Home",
+    "object_id": "1",
+    "change_message": "",
+    "user": 1,
+    "content_type": 15
+  },
+  "model": "admin.logentry",
+  "pk": 4
+}
+]
