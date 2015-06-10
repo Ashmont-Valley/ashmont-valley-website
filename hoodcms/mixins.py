@@ -24,7 +24,7 @@ class AccessMixin(object):
                 "cls": self.__class__.__name__})
         return self.redirect_field_name
 
-    def is_authorised(self, user):
+    def is_authorized(self, user):
         for p in self.permissions:
             if not user.has_perm(p):
                 return False
@@ -32,7 +32,7 @@ class AccessMixin(object):
 
     def dispatch(self, request, *args, **kwargs):
         user = request.user
-        if not user.is_authenticated() or not self.is_authorised(user):
+        if not user.is_authenticated() or not self.is_authorized(user):
             if self.raise_exception:
                 raise PermissionDenied # return a forbidden response
             else:
