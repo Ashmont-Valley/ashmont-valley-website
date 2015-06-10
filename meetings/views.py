@@ -16,16 +16,19 @@ class IndexView(AccessMixin, ListView):
     model = Meeting
     paginate_by = 10
 
+
     def get_queryset(self):
         return Meeting.objects.order_by('-meeting_date', 'name')
 
-class MeetingDetailView(DetailView):
+class MeetingDetailView(AccessMixin, DetailView):
     model = Meeting
 
-class MeetingAddNotesView(UpdateView):
+
+class MeetingAddNotesView(AccessMixin, UpdateView):
     template_name = 'meetings/add_meeting_notes.html'
     form_class = MeetingProceedingsForm
     model = Meeting
+    permissions = ['meetings.add_meeting']
 
     def form_valid(self, form):
         self.object.end_time = datetime.now()
@@ -34,10 +37,11 @@ class MeetingAddNotesView(UpdateView):
     def get_success_url(self):
         return reverse('meetings:index')
 
-class AddMeetingNote(CreateView):
+class AddMeetingNote(CreateView, AccessMixin):
     template_name = 'meetings/note.html'
     model = Note
     form_class = NoteUpdateForm
+    permissions = ['meetings.add_note']
 
     def form_valid(self, form):
         messages.warning(self.request, 'You have successfully created a new note')
@@ -56,8 +60,9 @@ class AddMeetingNote(CreateView):
     def get_success_url(self):
         return reverse('meetings:proceedings', args=[self.get_meeting().pk])
 
-class DeleteMeetingNote(DeleteView):
+class DeleteMeetingNote(DeleteView ,AccessMixin):
     model = Note
+    permissions = ['meetings.delete_note']
 
     def delete(self, *args, **kwargs):
         note_pk = self.get_object().pk
@@ -69,15 +74,18 @@ class DeleteMeetingNote(DeleteView):
     def get_success_url(self):
         return reverse('meetings:proceedings', args=[self.get_object().meeting.pk])
 
-class UpdateMeetingNote(UpdateView):
+# Permissions <app_name>.add|change|delete_<model_name>
+class UpdateMeetingNote(AccessMixin, UpdateView):
+    permissions = ['meetings.change_note']
     form_class = NoteUpdateForm
     template_name = 'meetings/note.html'
     model = Note
 
-class MeetingCreateView(CreateView):
+class MeetingCreateView(CreateView, AccessMixin):
     form_class = MeetingCreateForm
     template_name = 'meetings/meeting_create_form.html'
     model = Meeting
+    permissions = ['meetings.add_meeting']
 
     def get_success_url(self):
         obj = self.object
@@ -85,10 +93,11 @@ class MeetingCreateView(CreateView):
             return reverse('meetings:edit', args=[obj.pk])
         return reverse('meetings:detail', args=[obj.pk])
 
-class MeetingEditView(UpdateView):
+class MeetingEditView(UpdateView, AccessMixin):
     form_class = MeetingEditForm
     template_name = 'meetings/meeting_edit_form.html'
     model = Meeting
+    permissions = ['meetings.change_meeting']
 
     def form_valid(self, form):
         obj = self.object

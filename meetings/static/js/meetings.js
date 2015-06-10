@@ -30,11 +30,8 @@ function delete_note(event) {
 };
 
 $(document).ready(function() {
-
   // Provide ajax submission support
   $('#add_note').submit(add_note)
-
   $('#notes').on('submit', '.delete_note', delete_note)
-
 });
 
