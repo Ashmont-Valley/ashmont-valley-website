@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static bootstrap3 %}
-<!--{ load menu_tags  %}-->
+{% load menu_tags  %}
 
 {% block "body" %}
   <div class="header">
@@ -17,7 +17,7 @@
       </div>
     {% block "menu" %}
       <div class="nav">
-          <ul id="menu"><!--{ show_menu %}--></ul>      
+          <ul id="menu">{% show_menu %}</ul>      
       </div>
     {% endblock %}
     </div>
