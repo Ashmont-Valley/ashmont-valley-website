@@ -26,6 +26,8 @@ class MeetingEditForm(MeetingAjaxForm):
                 'people_absent', 'people_guests']
 
 class MeetingProceedingsForm(ModelForm):
+    people_late = make_ajax_field(Meeting, 'people_late', 'person_lookup')
+
     class Meta:
         model = Meeting
         fields = ['people_late']

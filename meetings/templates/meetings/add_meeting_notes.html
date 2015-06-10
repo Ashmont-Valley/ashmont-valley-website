@@ -47,7 +47,7 @@ Guests:
 
 <form action="" method='post'>
     {% csrf_token %}
-    <!--{ bootstrap_field form.people_late %}-->
+    {% bootstrap_form form %}
     <input type='submit' value='End Meeting'/>
 </form>
 <br/><br/>
