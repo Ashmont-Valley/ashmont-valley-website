@@ -6,8 +6,8 @@ from ajax_select import urls as ajax_select_urls
 from django.conf import settings
 
 urlpatterns = patterns('',
-    url(r'^admin/',   include(admin.site.urls)),
-    url(r'^admin/lookups/', include(ajax_select_urls)),
+    url(r'^admin/',    include(admin.site.urls)),
+    url(r'^ajax/',     include(ajax_select_urls)),
     url(r'^meetings/', include('meetings.urls', namespace='meetings')),
     #url(r'^calendar/', include('happenings.urls', namespace='calendar')),
     #url(r'^',         include('cms.urls')),

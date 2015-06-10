@@ -23,6 +23,7 @@ class MeetingAdmin(admin.ModelAdmin):
         ('People Attending', {'fields':['people_attending']}),
         ('People Absent', {'fields':['people_absent']}),
         ('Guests', {'fields':['people_guests']}),
+        ('People Late', {'fields':['people_late']}),
         ]
     list_display = ('name', 'meeting_date', 'chair','secretary')
     inlines= [NotesInline]
