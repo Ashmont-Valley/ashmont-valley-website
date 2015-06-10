@@ -15,6 +15,14 @@
     {% endif %}
 {% endif %}
 
+{% if object.chair %}
+    <p>Chair: {{ object.chair }}</p>
+{% endif %}
+
+{% if object.secretary %}
+    <p>Secretary: {{ object.secretary }}</p>
+{% endif %}
+
 {% if object.people_attending.all %}
     People in Attendence:
     {% for person in object.people_attending.all %}
@@ -43,14 +51,6 @@
     {% endfor %}
 {% endif %}
 <br/><br/>
-
-{% if object.chair %}
-    <p>Chair: {{ object.chair }}</p>
-{% endif %}
-
-{% if object.secretary %}
-    <p>Secretary: {{ object.secretary }}</p>
-{% endif %}
 
 {% if object.notes.all %}
     <p>Meeting Notes:</p>

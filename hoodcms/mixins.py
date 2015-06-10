@@ -5,7 +5,7 @@ from django.contrib.auth import REDIRECT_FIELD_NAME
 
 class AccessMixin(object):
     permissions = []
-    login_url = settings.LOGIN_URL 
+    login_url = settings.LOGIN_URL
     raise_exception = False # Default whether to raise an exception to none
     redirect_field_name = REDIRECT_FIELD_NAME
 
@@ -16,7 +16,7 @@ class AccessMixin(object):
                 "%(cls)s.get_login_url()." % {"cls": self.__class__.__name__})
         return self.login_url
 
-    def get_redirect_field_name(self):    
+    def get_redirect_field_name(self):
         if self.redirect_field_name is None:
             raise ImproperlyConfigured("%(cls)s is missing the "
                 "redirect_field_name. Define %(cls)s.redirect_field_name or "

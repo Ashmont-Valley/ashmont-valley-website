@@ -1,12 +1,18 @@
 from meetings.models import *
+from meetings.forms import MeetingAdminForm
 from django.contrib import admin
+from django.forms.widgets import TextInput
 
 
 class NotesInline(admin.TabularInline):
     model = Note 
     extra = 2
+    formfield_overrides = {
+        models.TextField: {'widget': TextInput(attrs={'size':'150'})},
+    }
 
 class MeetingAdmin(admin.ModelAdmin):
+    form = MeetingAdminForm
     fieldsets = [
         ('Meeting Name', {'fields':['name']}),
         ('Meeting Type', {'fields':['meeting_type']}),

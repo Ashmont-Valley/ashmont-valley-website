@@ -1,5 +1,5 @@
 <div class="note bg-success alert-dismissable" id="mnote-{{ note.pk }}">
-  <form action="{% url 'meetings:delete_note' note.pk %}" method='post' class='delete_note' id="note_form-{{ note.pk }}">
+  <form action="{% url 'meetings:delete_note' note.pk %}" method='post' class='delete_note'>
     {% csrf_token %}
     <button type="submit" class='close' aria-label="Close"><span aria-hidden="true">&times;</span></button>
   </form>

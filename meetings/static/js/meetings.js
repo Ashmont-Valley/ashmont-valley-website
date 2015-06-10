@@ -4,7 +4,7 @@ function add_note(event) {
     url:    this.action,
     data:   $(this).serialize(),
     success: function(response) {
-      $(response).insertBefore('#add_note'); 
+      $(response).insertBefore('#add_note');
       $('#note_text_box').val("");
     },
     error: function(response) {
