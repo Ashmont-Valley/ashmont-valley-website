@@ -1,10 +1,14 @@
 from meetings.models import *
 from django.contrib import admin
+from django.forms.widgets import TextInput
 
 
 class NotesInline(admin.TabularInline):
     model = Note 
     extra = 2
+    formfield_overrides = {
+        models.TextField: {'widget': TextInput(attrs={'size':'150'})},
+    }
 
 class MeetingAdmin(admin.ModelAdmin):
     fieldsets = [
