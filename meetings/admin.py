@@ -2,7 +2,8 @@ from meetings.models import *
 from meetings.forms import MeetingAdminForm
 from django.contrib import admin
 from django.forms.widgets import TextInput
-
+from ajax_select.admin import AjaxSelectAdmin
+from ajax_select.fields import autoselect_fields_check_can_add
 
 class NotesInline(admin.TabularInline):
     model = Note 
@@ -11,7 +12,7 @@ class NotesInline(admin.TabularInline):
         models.TextField: {'widget': TextInput(attrs={'size':'150'})},
     }
 
-class MeetingAdmin(admin.ModelAdmin):
+class MeetingAdmin(AjaxSelectAdmin, admin.ModelAdmin):
     form = MeetingAdminForm
     fieldsets = [
         ('Meeting Name', {'fields':['name']}),
