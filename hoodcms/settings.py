@@ -54,6 +54,7 @@ INSTALLED_APPS = (
     #'menus',
     'sekizai',
     'bootstrap3',
+    'ajax_select',
     #'happenings',
     #'djangocms_picture',
     #'djangocms_link',
@@ -132,5 +133,9 @@ MEDIA_URL = '/media/'
 
 BOOTSTRAP3 = {
     'include_jquery': True,
+}
+
+AJAX_LOOKUP_CHANNELS = {
+    'person_lookup'  : {'model': 'meetings.person', 'search_field': 'name'},
 }
 

@@ -59,7 +59,7 @@ class Meeting(models.Model):
                 time_cutoff+self.meeting_date)
 
     def get_absolute_url(self):
-        if self.is_editable():
+        if self.is_editable() and not self.end_time:
             if self.start_time:
                 return reverse('meetings:proceedings', args=[self.pk])
             return reverse('meetings:edit', args=[self.pk])
