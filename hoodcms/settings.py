@@ -20,10 +20,27 @@ WSGI_APPLICATION = 'hoodcms.wsgi.application'
 
 SITE_ID = 1
 LANGUAGE_CODE = 'en'
+USE_TZ = True
+
+LANGUAGES = (
+    ('en', 'English'),
+    ('es', 'Spanish'),
+    ('fr', 'French'),
+    ('vi', 'Vietnamese'),
+)
+
+CMS_LANGUAGES = {
+    'default': {
+        'fallbacks': ['en'],
+        'public': True,
+        'hide_untranslated': False,
+        'redirect_on_fallback': False,
+    }
+}
+
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
-USE_TZ = True
 
 #
 # --- Above this line, settings can be over-ridden for deployment
