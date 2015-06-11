@@ -1,0 +1,18 @@
+[run]
+branch = True
+omit =
+	*migrations*
+	*management*
+	*/tests.py
+	*/admin.py
+        */__init__.py
+source = 
+	meetings
+
+[report]
+show_missing = True
+exclude_lines =
+	pragma: no cover
+	settings.DEBUG
+	_IsWarning_
+
