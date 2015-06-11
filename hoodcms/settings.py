@@ -136,3 +136,6 @@ AJAX_LOOKUP_CHANNELS = {
     'person_lookup'  : {'model': 'meetings.person', 'search_field': 'name'},
 }
 
+FIXTURE_DIRS = (
+    'meetings/fixtures/' ,
+)
