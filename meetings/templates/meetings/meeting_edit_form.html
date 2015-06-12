@@ -1,18 +1,23 @@
 {% extends "frame.html" %}
-{% load bootstrap3 %}
+{% load bootstrap3 static sekizai_tags %}
 
 {% block "content" %}
 
+{% addtoblock "js" %}
+  <script src="{% static "js/add_person.js" %}" type="text/javascript"></script>
+{% endaddtoblock %}
+
+
 <h1>Edit a Meeting</h1>
 <p>
-<span>Name:</span> {{ object.name }}<br/>
-<span>Type:</span> {{ object.meeting_type }}<br/>
-<span>Date:</span> {{ object.meeting_date|date:"l j F" }}
+<strong>Name:</strong> {{ object.name }}<br/>
+<strong>Type:</strong> {{ object.meeting_type }}<br/>
+<strong>Date:</strong> {{ object.meeting_date|date:"l j F" }}
 </p>
 <form action="" method='post'>
-    {% csrf_token %}
-    {% bootstrap_form form %}
-    <input type='submit' value='Begin Meeting'/>
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  <input type='submit' value='Begin Meeting'/>
 </form>
 
 <a class='btn btn-default' href="{% url 'meetings:index' %}" role='button'>Exit Without Saving Changes</a>

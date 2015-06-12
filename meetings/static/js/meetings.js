@@ -29,6 +29,7 @@ function delete_note(event) {
   return false;
 };
 
+
 $(document).ready(function() {
   // Provide ajax submission support
   $('#add_note').submit(add_note)

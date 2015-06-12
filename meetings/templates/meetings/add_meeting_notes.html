@@ -7,30 +7,28 @@
         <script src="{% static "js/meetings.js" %}" type="text/javascript"></script>
     {% endaddtoblock %}
 <h1>Meeting Started {{ object.start_time }}</h1>
-<div id='uneditable' class=bg-info>
-<p>Name: {{ object.name }}</p>
-<p>Type: {{ object.meeting_type }}</p>
-<p>Date: {{ object.meeting_date|date:"l j F" }}</p>
-<p>Chair: {{ object.chair }}</p>
-<p>Secretary: {{ object.secretary }}</p>
-People in Attendence:
+<p><strong>Name: </strong>{{ object.name }}</p>
+<p><strong>Type: </strong>{{ object.meeting_type }}</p>
+<p><strong>Date: </strong>{{ object.meeting_date|date:"l j F" }}</p>
+<p><strong>Chair: </strong>{{ object.chair }}</p>
+<p><strong>Secretary: </strong>{{ object.secretary }}</p>
+<strong>People in Attendence:</strong>
     {% for person in object.people_attending.all %}
         {{ person }},
     {% endfor %}
 <br/><br/>
-People Apologizing For Their Absence:
+<strong>People Apologizing For Their Absence:</strong>
     {% for person in object.people_absent.all %}
         {{ person }},
     {% endfor %}
 <br/><br/>
-Guests:
+<strong>Guests:</strong>
     {% for person in object.people_guests.all %}
         {{ person }},
     {% endfor %}
 <br/><br/>
-</div>
 
-<p>Meeting Notes:</p>
+<strong><p>Meeting Notes:</p></strong>
 <div id="notes">
     {% for note in object.notes.all %}
         {% include "meetings/note.html" %}

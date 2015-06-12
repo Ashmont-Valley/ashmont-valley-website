@@ -1,0 +1,32 @@
+<span id="{{ html_id }}_wrapper">
+
+<input type="text" name="{{name}}_text" id="{{html_id}}_text" data-current-repr="{{current_repr|safe}}" value="{{current_repr|safe}}" autocomplete="off" {{ extra_attrs }} />
+
+<input type="hidden" name="{{name}}" id="{{html_id}}" value="{{current_id}}" data-ajax-select="autocompleteselect" data-plugin-options="{{ data_plugin_options }}" />
+
+{% csrf_token %}
+<input type="button" class="add_person_btn" value="Add Person" data-textid="{{html_id}}_text" data-target="{% url 'meetings:create_person' %}"/>
+<div id="{{html_id}}_on_deck" class="results_on_deck"><div>{{current_repr|safe}}</div></div>
+</span>
+
+<script>
+$(document).ready(function() {
+  $("#{{html_id}}_on_deck").empty();
+
+  $(document).mouseup(function(event) {
+    var textbox = $("#{{html_id}}_text");
+    if (!textbox.is(event.target)) {
+      textbox.val(textbox.data('current-repr'));
+    }
+  });
+
+  //this works with the admin but not with the front end for some reason
+  
+  $("#{{html_id}}_on_deck").on('added', function(event, pk, item) {
+    $(this).empty();
+    var textbox = $("#{{html_id}}_text");
+    textbox.val(item.repr);
+    textbox.data('current-repr', item.repr);
+  });
+});
+</script>

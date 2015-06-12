@@ -8,14 +8,13 @@ from django.contrib import messages
 from django.shortcuts import redirect
 from django.http import HttpResponse
 from hoodcms.mixins import AccessMixin
-
 from datetime import *
 from time import *
+import json
 
 class IndexView(AccessMixin, ListView):
     model = Meeting
     paginate_by = 10
-
 
     def get_queryset(self):
         return Meeting.objects.order_by('-meeting_date', 'name')
@@ -23,6 +22,14 @@ class IndexView(AccessMixin, ListView):
 class MeetingDetailView(AccessMixin, DetailView):
     model = Meeting
 
+class CreatePerson(CreateView):
+    model = Person
+    permissions = ['meetings.change_meeting']
+
+    def form_valid(self, form):
+        self.object = form.save()
+        data = {'pk': self.object.pk, 'name': self.object.name}
+        return HttpResponse(json.dumps(data))
 
 class MeetingAddNotesView(AccessMixin, UpdateView):
     template_name = 'meetings/add_meeting_notes.html'

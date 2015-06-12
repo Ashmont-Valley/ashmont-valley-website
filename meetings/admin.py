@@ -9,7 +9,7 @@ class NotesInline(admin.TabularInline):
     model = Note 
     extra = 2
     formfield_overrides = {
-        models.TextField: {'widget': TextInput(attrs={'size':'150'})},
+            models.TextField: {'widget': TextInput(attrs={'style':'width:100%'})},
     }
 
 class MeetingAdmin(AjaxSelectAdmin, admin.ModelAdmin):

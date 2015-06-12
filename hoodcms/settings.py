@@ -133,6 +133,6 @@ BOOTSTRAP3 = {
 }
 
 AJAX_LOOKUP_CHANNELS = {
-    'person_lookup'  : {'model': 'meetings.person', 'search_field': 'name'},
+    'person_lookup'  : ('meetings.lookups', 'PersonLookup'),
 }
 
