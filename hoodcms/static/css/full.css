@@ -52,4 +52,8 @@ li {
   background: #eee;
 }
 
+.pagination {
+  position: absolute;
+  top: 758px;
 
+}

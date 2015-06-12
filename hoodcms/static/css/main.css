@@ -6,8 +6,8 @@ body {
   height: 100%;
   margin: 0 auto !important;
   background-color: white;
-  background-image: -moz-linear-gradient(top, #cbe49e, #cbe49e 10px, white 75px);
-  background-image: -webkit-gradient(linear, left top, left 75, from(#cbe49e), color-stop(0.1, #cbe49e), color-stop(0.75, white), to(white));
+  background-image: -moz-linear-gradient(top, #edf3f9, #e3ecfb 10px, white 75px);
+  background-image: -webkit-gradient(linear, left top, left 75, from(#edf3f9), color-stop(0.1, #e3ecfb), color-stop(0.75, white), to(white));
   background-repeat: no-repeat;
   font-family: 'Ubuntu', 'Liberation Sans', sans-serif;
   color: #333333;
