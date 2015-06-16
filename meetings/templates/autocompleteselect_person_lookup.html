@@ -4,8 +4,7 @@
 
 <input type="hidden" name="{{name}}" id="{{html_id}}" value="{{current_id}}" data-ajax-select="autocompleteselect" data-plugin-options="{{ data_plugin_options }}" />
 
-{% csrf_token %}
-<input type="button" class="add_person_btn" value="Add Person" data-textid="{{html_id}}_text" data-target="{% url 'meetings:create_person' %}"/>
+<input type="button" id="{{html_id}}_add_person_btn" class="add_person_btn" value="Add Person" data-textid="{{html_id}}_text" data-target="{% url 'meetings:create_person' %}"/>
 <div id="{{html_id}}_on_deck" class="results_on_deck"><div>{{current_repr|safe}}</div></div>
 </span>
 
@@ -13,9 +12,10 @@
 $(document).ready(function() {
   $("#{{html_id}}_on_deck").empty();
 
-  $(document).mouseup(function(event) {
+  $(document).click(function(event) {
     var textbox = $("#{{html_id}}_text");
-    if (!textbox.is(event.target)) {
+    var add_person_btn = $("#{{html_id}}_add_person_btn");
+    if (!textbox.is(event.target) && !add_person_btn.is(event.target)) {
       textbox.val(textbox.data('current-repr'));
     }
   });

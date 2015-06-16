@@ -29,7 +29,7 @@ class CreatePerson(CreateView):
     def form_valid(self, form):
         self.object = form.save()
         data = {'pk': self.object.pk, 'name': self.object.name}
-        return HttpResponse(json.dumps(data))
+        return HttpResponse(json.dumps(data), content_type="application/json")
 
 class MeetingAddNotesView(AccessMixin, UpdateView):
     template_name = 'meetings/add_meeting_notes.html'

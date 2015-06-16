@@ -1,5 +1,4 @@
 <div id="{{html_id}}_on_deck" class="results_on_deck"></div>
 <input type="text" name="{{name}}_text" id="{{html_id}}_text" value="" autocomplete="off"  {{ extra_attrs }} />
 <input type="hidden" name="{{name}}" id="{{html_id}}" value="{{current_ids}}" data-ajax-select="autocompleteselectmultiple" data-plugin-options="{{ data_plugin_options }}" />
-{% csrf_token %}
 <input type="button" class="add_person_btn" value="Add Person" data-textid="{{html_id}}_text" data-target="{% url 'meetings:create_person' %}"/>
