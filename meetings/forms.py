@@ -25,6 +25,12 @@ class MeetingEditForm(MeetingAjaxForm):
         fields = ['chair', 'secretary', 'people_attending', 
                 'people_absent', 'people_guests']
 
+    class Media:
+        js = ('/static/admin/js/jquery.js',     
+              '/static/admin/js/jquery.init.js', 
+              'js/add_person.js',)
+
+
 class MeetingProceedingsForm(ModelForm):
     people_late = make_ajax_field(Meeting, 'people_late', 'person_lookup')
 
@@ -43,3 +49,8 @@ class MeetingAdminForm(MeetingAjaxForm):
     class Meta:
         model = Meeting
         exclude = ()
+
+    class Media:
+        js = ('/static/admin/js/jquery.js', 
+              '/static/admin/js/jquery.init.js', 
+              'js/add_person.js',)

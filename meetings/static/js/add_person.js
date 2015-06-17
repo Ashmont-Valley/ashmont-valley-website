@@ -1,3 +1,4 @@
+(function ($) {
 function add_person(event) {
   var textid = this.getAttribute('data-textid');
   var target = this.getAttribute('data-target');
@@ -53,3 +54,4 @@ $.ajaxSetup({
         }
     }
 });
+})(django.jQuery);
