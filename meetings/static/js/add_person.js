@@ -1,20 +1,22 @@
 (function ($) {
 function add_person(event) {
-  var textid = this.getAttribute('data-textid');
+  var htmlid = this.getAttribute('data-htmlid');
   var target = this.getAttribute('data-target');
-  if($("#" + textid).val()) {
+  if($("#" + htmlid + "_text").val()) {
     $.ajax({
       method: 'post',
       url:    target,
       data:   {
-        name: $("#" + textid).val(),
+        name: $("#" + htmlid + "_text").val(),
       },
       success: function(data) {
-        //this is a function in the ajax-selects js file. How can we access it? It isn't recognized right now.
-        receiveResult(null, {item: {pk: data['pk'], repr: data['name']}});
+        //the trigger doesn't seem to be working
+        $("#" + htmlid).trigger('didAddPopup', [data['pk'], data['name']]);
+        alert('nope');
       },
       error: function(response) {
-        alert('error');
+        //This is a stopgap measure at best for making sure that we don't get dozens of person objects with the same name.
+        alert('There was an error. It could be that you are trying to create a person that already exists');
         //document.write(response);
       },
     });

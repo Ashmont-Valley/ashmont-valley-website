@@ -4,7 +4,7 @@
 
 <input type="hidden" name="{{name}}" id="{{html_id}}" value="{{current_id}}" data-ajax-select="autocompleteselect" data-plugin-options="{{ data_plugin_options }}" />
 
-<input type="button" id="{{html_id}}_add_person_btn" class="add_person_btn" value="Add Person" data-textid="{{html_id}}_text" data-target="{% url 'meetings:create_person' %}"/>
+<input type="button" id="{{html_id}}_add_person_btn" class="add_person_btn" value="Create Person" data-target="{% url 'meetings:create_person' %}" data-htmlid ="{{html_id}}"/>
 <div id="{{html_id}}_on_deck" class="results_on_deck"><div>{{current_repr|safe}}</div></div>
 </span>
 
