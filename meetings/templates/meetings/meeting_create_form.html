@@ -3,16 +3,14 @@
 {% load bootstrap3 %}
 
 {% block "content" %}
+  <h1>Create a New Meeting</h1>
 
-<h1>Create a New Meeting</h1>
-<form action="" method='post' class='form'>
+  <form action="" method='post' class='form'>
     {% csrf_token %}
     {% bootstrap_form form layout='inline'%}
     <p class='text-muted'>Please enter date in M/D/Y format</p>
-    <input type='submit' value='Create Meeting'/>
-</form>
-
-<a class='btn btn-default' href="{% url 'meetings:index' %}" role='button'>Cancel</a>
-
+    <input class="btn btn-primary" type='submit' value='Create Meeting'/>
+    <a class='btn btn-default' href="{% url 'meetings:index' %}" role='button'>Cancel</a>
+  </form>
 
 {% endblock %}

@@ -2,6 +2,8 @@
 
 {% block "content" %}
 
+<a class='btn btn-primary pull-right' role='button' href="{% url 'meetings:create' %}">Create a New Meeting</a>
+
 <h1>Meetings</h1>
 <h5>Click on a meeting to get started</h5>
 {% if object_list %}
@@ -51,7 +53,5 @@
 {% else %}
     <p>No meetings yet.</p>
 {% endif %}
-
-<a class='btn btn-default pull-right' role='button' href="{% url 'meetings:create' %}">Create a New Meeting</a>
 
 {% endblock %}
