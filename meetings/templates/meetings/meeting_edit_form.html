@@ -12,9 +12,9 @@
 <form action="" method='post'>
   {% csrf_token %}
   {% bootstrap_form form %}
-  <input type='submit' value='Begin Meeting'/>
+  <input class="btn btn-primary" type='submit' value='Begin Meeting'/>
+  <a class='btn btn-default' href="{% url 'meetings:index' %}" role='button'>Exit Without Saving Changes</a>
 </form>
 
-<a class='btn btn-default' href="{% url 'meetings:index' %}" role='button'>Exit Without Saving Changes</a>
 
 {% endblock %}

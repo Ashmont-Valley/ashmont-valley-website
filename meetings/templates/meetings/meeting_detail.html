@@ -6,6 +6,11 @@
 <p>Name: {{ object.name }}</p>
 <p>Type: {{ object.meeting_type }}</p>
 <p>Date: {{ object.meeting_date|date:"l j F" }}</p>
+{% if object.meeting_date|timeuntil %}
+  <p>Meeting starts in: {{ object.meeting_date|timeuntil }}</p>
+{% else %}
+  <p>Meeting was: {{ object.meeting_date|timesince }}</p>
+{% endif %}
 
 {% if object.start_time %}
     {% if object.end_time %}

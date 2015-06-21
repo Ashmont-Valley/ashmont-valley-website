@@ -1,12 +1,13 @@
-<span id="{{ html_id }}_wrapper">
-
-<input type="text" name="{{name}}_text" id="{{html_id}}_text" data-current-repr="{{current_repr|safe}}" value="{{current_repr|safe}}" autocomplete="off" {{ extra_attrs }} />
-
-<input type="hidden" name="{{name}}" id="{{html_id}}" value="{{current_id}}" data-ajax-select="autocompleteselect" data-plugin-options="{{ data_plugin_options }}" />
-
-<input type="button" id="{{html_id}}_add_person_btn" class="add_person_btn" value="Create Person" data-target="{% url 'meetings:create_person' %}" data-htmlid ="{{html_id}}"/>
-<div id="{{html_id}}_on_deck" class="results_on_deck"><div>{{current_repr|safe}}</div></div>
-</span>
+<div id="{{ html_id }}_wrapper" class="input-group">
+  <input type="hidden" name="{{name}}" id="{{html_id}}" value="{{current_id}}" data-ajax-select="autocompleteselect" data-plugin-options="{{ data_plugin_options }}" />
+  <input class="form-control" type="text" name="{{name}}_text" id="{{html_id}}_text" data-current-repr="{{current_repr|safe}}" value="{{current_repr|safe}}" autocomplete="off" {{ extra_attrs }} />
+  <span class="input-group-btn">
+    <input class="btn btn-default" type="button" id="{{html_id}}_add_person_btn" class="add_person_btn" value="Create Person" data-target="{% url 'meetings:create_person' %}" data-htmlid ="{{html_id}}"/>
+  </span>
+</div>
+  <div id="{{html_id}}_on_deck" class="results_on_deck">
+    <div>{{current_repr|safe}}</div>
+  </div>
 
 <script>
 $(document).ready(function() {
