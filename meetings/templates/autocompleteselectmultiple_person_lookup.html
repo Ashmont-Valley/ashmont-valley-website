@@ -4,6 +4,8 @@
   <input type="hidden" name="{{name}}" id="{{html_id}}" value="{{current_ids}}" data-ajax-select="autocompleteselectmultiple" data-plugin-options="{{ data_plugin_options }}" />
   <input class="form-control" type="text" name="{{name}}_text" id="{{html_id}}_text" value="" autocomplete="off"  {{ extra_attrs }} />
   <span class="input-group-btn">
-    <button class='btn btn-default' type="submit"><span class='glyphicon glyphicon-plus'></span></button>
+    <a class='btn btn-default add_person_btn' data-htmlid="{{html_id}}" data-target="{% url 'meetings:create_person' %}">
+      <span class='glyphicon glyphicon-plus'></span>
+    </a>
   </span>
 </div>

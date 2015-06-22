@@ -27,7 +27,12 @@ class CreatePerson(CreateView):
     permissions = ['meetings.change_meeting']
 
     def form_valid(self, form):
-        self.object = form.save()
+        try: 
+            #we don't create a new person if the person already exists
+            self.object = Person.objects.get(name=form.fields['name'])
+        except ObjectDoesNotExist:
+            #the person we're adding doesn't exist so we have to create one
+            self.object = form.save()
         data = {'pk': self.object.pk, 'name': self.object.name}
         return HttpResponse(json.dumps(data), content_type="application/json")
 

@@ -30,7 +30,6 @@ class MeetingEditForm(MeetingAjaxForm):
               '/static/admin/js/jquery.init.js', 
               'js/add_person.js',)
 
-
 class MeetingProceedingsForm(ModelForm):
     people_late = make_ajax_field(Meeting, 'people_late', 'person_lookup')
 
