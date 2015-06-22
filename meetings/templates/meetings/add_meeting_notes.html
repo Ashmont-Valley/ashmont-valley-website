@@ -43,12 +43,11 @@
 </form>
 </div>
 
-<form action="" method='post'>
+  <form action="" method='post'>
     {% csrf_token %}
     {% bootstrap_form form %}
-    <input type='submit' value='End Meeting'/>
-</form>
-<br/><br/>
-<a class='btn btn-default' href="{% url 'meetings:index' %}" role='button'>Back to Meeting Index</a>
+    <input class="btn btn-danger" type='submit' value='End Meeting'/>
+    <a class='btn btn-default' href="{% url 'meetings:index' %}" role='button'>Back to Meeting Index</a>
+  </form>
 
 {% endblock %}
