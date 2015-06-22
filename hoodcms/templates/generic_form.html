@@ -1,0 +1,8 @@
+{% if debug %}
+<h1>look, I'm a form!</h1>
+<form method='post' action=''>
+    {% csrf_token %}
+    {{form}}
+    <input type='submit'/>
+</form>
+{% endif %}

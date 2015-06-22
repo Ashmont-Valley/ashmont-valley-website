@@ -8,7 +8,7 @@ def url_tree(regex, *urls):
 urlpatterns = patterns('',
     url(r'^$',                    IndexView.as_view(),            name='index'),
     url(r'^create/$',             MeetingCreateView.as_view(),    name='create'),
-    url(r'^create_person/$',      CreatePerson.as_view(),         name='create_person'),
+    url(r'^create/person/$',      CreatePerson.as_view(),         name='create_person'),
     url_tree(r'^(?P<pk>\d+)/',
         url(r'^detail/$',         MeetingDetailView.as_view(),    name='detail'),
         url(r'^add_note/$',       AddMeetingNote.as_view(),       name='add_note'),

@@ -25,14 +25,12 @@ class MeetingDetailView(AccessMixin, DetailView):
 class CreatePerson(CreateView):
     model = Person
     permissions = ['meetings.change_meeting']
+    fields = ['name']
+    template_name = 'generic_form.html'
 
-    def form_valid(self, form):
-        try: 
-            #we don't create a new person if the person already exists
-            self.object = Person.objects.get(name=form.fields['name'])
-        except ObjectDoesNotExist:
-            #the person we're adding doesn't exist so we have to create one
-            self.object = form.save()
+    def post(self, request):
+        (obj, isnew) = Person.objects.get_or_create(name=request.POST['name'])
+        self.object = obj
         data = {'pk': self.object.pk, 'name': self.object.name}
         return HttpResponse(json.dumps(data), content_type="application/json")
 
