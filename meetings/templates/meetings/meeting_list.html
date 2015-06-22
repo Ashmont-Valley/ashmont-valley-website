@@ -2,9 +2,10 @@
 
 {% block "content" %}
 
-<a class='btn btn-primary pull-right' role='button' href="{% url 'meetings:create' %}">Create a New Meeting</a>
 
-<h1>Meetings</h1>
+<h1>
+  Meetings<a class="btn btn-default " href="/meetings/create/" role="button"><span class='glyphicon glyphicon-plus'></a>
+</h1>
 <h5>Click on a meeting to get started</h5>
 {% if object_list %}
     <table class='table table-hover table-bordered'>
