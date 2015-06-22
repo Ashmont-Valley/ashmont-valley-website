@@ -28,20 +28,24 @@
     {% endfor %}
 <br/><br/>
 
-<strong><p>Meeting Notes:</p></strong>
-<div id="notes">
+  <strong><p>Meeting Notes:</p></strong>
+
+  <div id="notes">
     {% for note in object.notes.all %}
-        {% include "meetings/note.html" %}
+      {% include "meetings/note.html" %}
     {% endfor %}
-<form action="{% url 'meetings:add_note' object.pk %}" class='form-inline' method='post' id='add_note'>
-    {% csrf_token %}
-    <div class='form-group'>
-        <input type="text" class='form-control' name='text' placeholder="New Note" id='note_text_box'>
-        <input type="hidden" name='meeting' value="{{ object.pk }}">
-        <button class='btn btn-default pull-right' id="new_note_btn" type="submit"><span class='glyphicon glyphicon-plus'></span></button>
-    </div>
-</form>
-</div>
+
+    <form action="{% url 'meetings:add_note' object.pk %}" method='post' id='add_note'>
+      {% csrf_token %}
+      <input type="hidden" name='meeting' value="{{ object.pk }}">
+      <div class='input-group'>
+        <input class="form-control" type="text" name='text' placeholder="New Note" id='note_text_box'>
+        <span class="input-group-btn">
+          <button class='btn btn-default' id="new_note_btn" type="submit"><span class='glyphicon glyphicon-plus'></span></button>
+        </span>
+      </div>
+    </form>
+  </div>
 
   <form action="" method='post'>
     {% csrf_token %}
