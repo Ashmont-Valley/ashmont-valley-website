@@ -850,9 +850,20 @@ hr {
 .alert {
   margin-bottom: 0px !important;
 }
-.note {
+.note,
+.people li a {
     padding: 8px;
     margin-bottom: 4px;
-    border: 1px solid transparent;
     border-radius: 4px;
+    border: 1px solid #CEDFC7;
+    background-color: #DFF0D8;
+    color: black;
+}
+.people li a:hover {
+    text-decoration: none;
+    background-color: #CEDFC7;
+    border: 1px solid #C6D7C4;
+}
+.people {
+    padding: 16px 0px;
 }
