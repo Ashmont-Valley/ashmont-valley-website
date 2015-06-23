@@ -27,9 +27,7 @@
                  <th>Start Time</th>
                  <th>End Time</th>
                {% endif %}
-               {% if perms.meetings.can_change_meeting %}
-                 <th>Edit</th>
-               {% endif %}
+               <th>-</th>
            </tr>
         </thead>
         <tbody>
@@ -46,12 +44,12 @@
                  <td>
                  {% if meeting.is_today %}
                    {% if meeting.start_time %}
-                     <a href="{% url "meetings:proceedings" meeting.pk %}">Edit</a>
+                     <a class="btn btn-danger" href="{% url "meetings:proceedings" meeting.pk %}">Continue Meeting</a>
                    {% else %}
-                     <a href="{% url "meetings:edit" meeting.pk %}">Edit</a>
+                     <a class="btn btn-success" href="{% url "meetings:edit" meeting.pk %}">Edit</a>
                    {% endif %}
                  {% elif meeting.is_editable %}
-                   <a href="{% url "meetings:edit" meeting.pk %}">Edit</a>
+                   <a class="btn btn-default" href="{% url "meetings:edit" meeting.pk %}">Re-Edit</a>
                  {% else %}
                    -
                  {% endif %}
