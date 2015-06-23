@@ -29,12 +29,12 @@
 
   {% if object.chair %}
     <dt>Chair:</dt>
-    <dd>{{ object.chair }}</dd>
+    <dd class="person"><a href="{{ object.chair.get_absolute_url }}">{{ object.chair }}</a></dd>
   {% endif %}
 
   {% if object.secretary %}
     <dt>Secretary:</dt>
-    <dd>{{ object.secretary }}</dd>
+    <dd class="person"><a href="{{ object.secretary.get_absolute_url }}">{{ object.secretary }}</a></dd>
   {% endif %}
 
   <h2>People in Attendence</h2>
@@ -42,7 +42,7 @@
     <h3>Attending Neighbours</h3>
     <ul class="list-inline people">
       {% for person in object.people_attending.all %}
-        <li><a href="PROFILE LINK">{{ person }}</a></li>
+        <li><a href="{{ person.get_absolute_url }}">{{ person }}</a></li>
       {% endfor %}
     </ul>
   {% endif %}
@@ -53,7 +53,7 @@
     <h3>Apologies for Absence</h3>
     <ul class="list-inline people">
       {% for person in object.people_absent.all %}
-        <li><a href="PROFILE LINK">{{ person }}</a></li>
+        <li><a href="{{ person.get_absolute_url }}">{{ person }}</a></li>
       {% endfor %}
     </ul>
   {% endif %}
@@ -62,7 +62,7 @@
     <h3>Meeting Guests</h3>
     <ul class="list-inline people">
       {% for person in object.people_guests.all %}
-        <li><a href="PROFILE LINK">{{ person }}</a></li>
+        <li><a href="{{ person.get_absolute_url }}">{{ person }}</a></li>
       {% endfor %}
     </ul>
   {% endif %}
@@ -71,7 +71,7 @@
     <h3>Late Arrivals</h3>
     <ul class="list-inline people">
       {% for person in object.people_late.all %}
-        <li><a href="PROFILE LINK">{{ person }}</a></li>
+        <li><a href="{{ person.get_absolute_url }}">{{ person }}</a></li>
       {% endfor %}
     </ul>
   {% endif %}

@@ -851,7 +851,8 @@ hr {
   margin-bottom: 0px !important;
 }
 .note,
-.people li a {
+.people li a,
+.person a {
     padding: 8px;
     margin-bottom: 4px;
     border-radius: 4px;
@@ -859,7 +860,11 @@ hr {
     background-color: #DFF0D8;
     color: black;
 }
-.people li a:hover {
+dd.person {
+    line-height: 3;
+}
+.people li a:hover,
+.person a:hover {
     text-decoration: none;
     background-color: #CEDFC7;
     border: 1px solid #C6D7C4;
