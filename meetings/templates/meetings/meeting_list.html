@@ -27,6 +27,9 @@
                  <th>Start Time</th>
                  <th>End Time</th>
                {% endif %}
+               {% if perms.meetings.can_change_meeting %}
+                 <th>Edit</th>
+               {% endif %}
            </tr>
         </thead>
         <tbody>
@@ -39,6 +42,21 @@
                   <td>{{ meeting.start_time }}</td>
                   <td>{{ meeting.end_time }}</td>
                 {% endif %}
+               {% if perms.meetings.can_change_meeting %}
+                 <td>
+                 {% if meeting.is_today %}
+                   {% if meeting.start_time %}
+                     <a href="{% url "meetings:proceedings" meeting.pk %}">Edit</a>
+                   {% else %}
+                     <a href="{% url "meetings:edit" meeting.pk %}">Edit</a>
+                   {% endif %}
+                 {% elif meeting.is_editable %}
+                   <a href="{% url "meetings:edit" meeting.pk %}">Edit</a>
+                 {% else %}
+                   -
+                 {% endif %}
+                 </td>
+               {% endif %}
             </tr>
         {% endfor %}
     </table>
