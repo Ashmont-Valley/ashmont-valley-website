@@ -1,14 +1,14 @@
 {% extends 'frame.html' %}
 
 {% block "content" %}
+  <h1>
+    Meetings
+    <a class="btn btn-default" href="/meetings/create/" role="button"><span class='glyphicon glyphicon-plus'></a>
+  </h1>
 
-
-<h1>
-  Meetings<a class="btn btn-default " href="/meetings/create/" role="button"><span class='glyphicon glyphicon-plus'></a>
-</h1>
-<h5>Click on a meeting to get started</h5>
-{% if object_list %}
-    <table class='table table-hover table-bordered'>
+  {% if object_list %}
+    <table class='table table-hover'>
+      <caption>Click on a meeting to get started</caption>
         <thead>
            <tr>
                <th>Meeting Name</th>
