@@ -1,6 +1,6 @@
 <div id="{{ html_id }}_wrapper" class="input-group">
   <input type="hidden" class="autoselect" name="{{name}}" id="{{html_id}}" value="{{current_id}}" data-ajax-select="autocompleteselect" data-plugin-options="{{ data_plugin_options }}" />
-  <input class="form-control" type="text" name="{{name}}_text" id="{{html_id}}_text" data-current-repr="{{current_repr|safe}}" value="{{current_repr|safe}}" autocomplete="off" {{ extra_attrs }} />
+  <input class="form-control" type="text" name="{{name}}_text" id="{{html_id}}_text" value="{{current_repr|safe}}" autocomplete="off" {{ extra_attrs }} />
   <span class="input-group-btn">
     <a class='btn btn-default add_person_btn' data-htmlid="{{html_id}}" data-target="{% url 'meetings:create_person' %}">
       <span class='glyphicon glyphicon-plus'></span>

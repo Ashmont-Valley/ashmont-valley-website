@@ -2,11 +2,6 @@
 function add_person(event) {
   var htmlid = this.getAttribute('data-htmlid');
   var target = this.getAttribute('data-target');
-
-  var textBox = $("#" + htmlid + "_text");
-  $(textBox[0]).trigger('didAddPopup', '1', 'It Works');
-  return false;
-
   if($("#" + htmlid + "_text").val()) {
     $.ajax({
       method: 'post',
@@ -15,12 +10,7 @@ function add_person(event) {
         name: $("#" + htmlid + "_text").val(),
       },
       success: function(data) {
-        //the trigger doesn't seem to be working
-        //$("#" + htmlid).trigger('didAddPopup', [data['pk'], data['name']]);
-        //$(textBox[0]).trigger('didAddPopup', data['pk'], data['name']);
-        //$("#" + htmlid + "_wrapper").trigger('didAddPopup', [data['pk'], data['name']]);
-        //$("#" + htmlid + "_on_deck").trigger('didAddPopup', [data['pk'], data['name']]);
-        alert('post successful');
+        $("#" + htmlid).trigger('didAddPopup', [data['pk'], data['name']]);
       },
       error: function(response) {
         alert('There was an error' + response.status);
@@ -36,35 +26,40 @@ $(document).ready(function() {
   $('.autoselect').each(function() {
     var html_id = this.getAttribute('id');
 
-  //$("#" + html_id + "_on_deck").empty();
+    
+    if($("#" + html_id).data('ajax-select')==='autocompleteselect') {
 
-  $(document).click(function(event) {
-    var textbox = $("#" + html_id + "_text");
-    var add_person_btn = $("#" + html_id + "_add_person_btn");
-    if (!textbox.is(event.target) && !add_person_btn.is(event.target)) {
-      $("#" + html_id + "_on_deck span").remove();
-      textbox.val($("#" + html_id + "_on_deck").text());
+      $(document).click(function(event) {
+        var add_person_btn = $("#" + html_id + "_add_person_btn");
+        var textbox = $("#" + html_id + "_text");
+        if(!textbox.is(event.target) && !add_person_btn.is(event.target)) {
+          if(textbox.val()) {
+            $("#" + html_id + "_on_deck span").remove();
+            textbox.val($("#" + html_id + "_on_deck").text());
+          } else{
+            //remove current person from position if blank
+            $("#" + html_id + "_on_deck span").click();
+          }
+        }
+      });
+
+      $("#" + html_id + "_on_deck").on('added', function(event, pk, item) {
+        $("#" + html_id + "_text").val(item.repr);
+      });
+
     }
+
+    $("#" + html_id + "_text").keypress(function(event) {
+      if(event.keyCode == 13) {
+        //event.preventDefault();
+        //if the enter key is pressed when inside a textbox
+        var btn = $("#" + html_id + "_wrapper .add_person_btn");
+        add_person.call(btn[0]);
+        return false;
+      }
+    }); //.bind('keyup keydown', function(event) {return event.keyCode != 13});
+
   });
-
-  $("#" + html_id + "_text").keypress(function(event) {
-    if(event.keyCode == 13) {
-      //event.preventDefault();
-      //if the enter key is pressed when inside a textbox
-      var btn = $("#" + html_id + "_wrapper .add_person_btn");
-      add_person.call(btn[0]);
-      return false;
-    }
-  }); //.bind('keyup keydown', function(event) {return event.keyCode != 13});
-
-  //the following works with the admin but not with the front end for some reason
-  /*$("#" + html_id + "_on_deck").on('added', function(event, pk, item) {
-    $(this).empty();
-    var textbox = $("#" + html_id + "_text");
-    textbox.val(item.repr);
-    textbox.data('current-repr', item.repr);
-  });*/
-});
 });
 
 //the following functions make csrf tokens work with ajax requests
@@ -96,4 +91,4 @@ $.ajaxSetup({
         }
     }
 });
-})(django.jQuery);
+})(window.jQuery);

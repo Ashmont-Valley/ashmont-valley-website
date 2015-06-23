@@ -146,7 +146,7 @@ MEDIA_URL = '/media/'
 
 
 BOOTSTRAP3 = {
-    'include_jquery': True,
+    'include_jquery': False,
 }
 
 AJAX_LOOKUP_CHANNELS = {
