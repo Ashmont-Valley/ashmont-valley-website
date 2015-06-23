@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 
 class Person(models.Model):
     name = models.CharField(help_text=_('the name of the person'), 
-        max_length=100, unique=True)#take out unique later
+        max_length=100, unique=True)
     ordering = ['-name']
     
     def __str__(self):
