@@ -2,33 +2,11 @@
 {% load bootstrap3 static sekizai_tags %}
 
 {% block "content" %}
+  <h1>Meeting Started {{ object.start_time }}</h1>
 
-    {% addtoblock "js" %}
-        <script src="{% static "js/meetings.js" %}" type="text/javascript"></script>
-    {% endaddtoblock %}
-<h1>Meeting Started {{ object.start_time }}</h1>
-<p><strong>Name: </strong>{{ object.name }}</p>
-<p><strong>Type: </strong>{{ object.meeting_type }}</p>
-<p><strong>Date: </strong>{{ object.meeting_date|date:"l j F" }}</p>
-<p><strong>Chair: </strong>{{ object.chair }}</p>
-<p><strong>Secretary: </strong>{{ object.secretary }}</p>
-<strong>People in Attendence:</strong>
-    {% for person in object.people_attending.all %}
-        {{ person }},
-    {% endfor %}
-<br/><br/>
-<strong>People Apologizing For Their Absence:</strong>
-    {% for person in object.people_absent.all %}
-        {{ person }},
-    {% endfor %}
-<br/><br/>
-<strong>Guests:</strong>
-    {% for person in object.people_guests.all %}
-        {{ person }},
-    {% endfor %}
-<br/><br/>
+  {% include "meetings/meeting_subdetail.html" %}
 
-  <strong><p>Meeting Notes:</p></strong>
+  <h2>Meeting Notes</h2>
 
   <div id="notes">
     {% for note in object.notes.all %}
@@ -46,6 +24,8 @@
       </div>
     </form>
   </div>
+
+  <h2>Final Details</h2>
 
   <form action="" method='post'>
     {% csrf_token %}

@@ -1,0 +1,64 @@
+
+<dl class="dl-horizontal">
+  <dt>Type:</dt>
+  <dd>{{ object.meeting_type }}</dd>
+  <dt>Date:</dt>
+  <dd>{{ object.meeting_date|date:"l j F" }}</dd>
+
+
+  {% if object.is_old %}
+    <dt>Meeting was:</dt>
+    <dd>{{ object.meeting_date|timesince }} ago</dd>
+  {% else %}
+    <dt>Meeting starts in:</dt>
+    <dd>{{ object.meeting_date|timeuntil }}</dd>
+  {% endif %}
+
+  {% if object.start_time %}
+    <dt>Start Time:</dt>
+    <dd>{{ object.start_time }}</dd>
+  {% endif %}
+  {% if object.end_time %}
+    <dt>End Time:</dt>
+    <dd>{{ object.end_time }}</dd>
+  {% endif %}
+
+  {% if object.chair %}
+    <dt>Chair:</dt>
+    <dd class="person"><a href="{{ object.chair.get_absolute_url }}">{{ object.chair }}</a></dd>
+  {% endif %}
+
+  {% if object.secretary %}
+    <dt>Secretary:</dt>
+    <dd class="person"><a href="{{ object.secretary.get_absolute_url }}">{{ object.secretary }}</a></dd>
+  {% endif %}
+</dl>
+
+  <h2>People in Attendence</h2>
+  {% if object.people_attending.all %}
+    <h3>Attending Neighbours</h3>
+    <ul class="list-inline people">
+      {% for person in object.people_attending.all %}
+        <li><a href="{{ person.get_absolute_url }}">{{ person }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% if object.people_absent.all %}
+    <h3>Apologies for Absence</h3>
+    <ul class="list-inline people">
+      {% for person in object.people_absent.all %}
+        <li><a href="{{ person.get_absolute_url }}">{{ person }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% if object.people_guests.all %}
+    <h3>Meeting Guests</h3>
+    <ul class="list-inline people">
+      {% for person in object.people_guests.all %}
+        <li><a href="{{ person.get_absolute_url }}">{{ person }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+

@@ -3,12 +3,8 @@
 
 {% block "content" %}
 
-<h1>Edit a Meeting</h1>
-<p>
-<strong>Name:</strong> {{ object.name }}<br/>
-<strong>Type:</strong> {{ object.meeting_type }}<br/>
-<strong>Date:</strong> {{ object.meeting_date|date:"l j F" }}
-</p>
+<h1>Edit Meeting "{{ object.name }}"</h1>
+
 <form action="" method='post'>
   {% csrf_token %}
   {% bootstrap_form form %}
