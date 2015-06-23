@@ -52,11 +52,13 @@ class Meeting(models.Model):
         help_text=_("secretary of the meeting"), blank=True, null=True)
     ordering = ['-meeting_date', 'name']
 
+    def is_old(self):
+        return self.meeting_date < date.today()
+
     def is_editable(self):
         """meetings are editable if they have occurred in the past week"""
-        time_cutoff = timedelta(days=14)
-        return (self.meeting_date <= date.today() <= 
-                time_cutoff+self.meeting_date)
+        time_cutoff = timedelta(days=14) + self.meeting_date
+        return (self.meeting_date <= date.today() <= time_cutoff)
 
     def get_absolute_url(self):
         if self.is_editable() and not self.end_time:

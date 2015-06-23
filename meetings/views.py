@@ -8,16 +8,24 @@ from django.contrib import messages
 from django.shortcuts import redirect
 from django.http import HttpResponse
 from hoodcms.mixins import AccessMixin
+from hoodcms.views import MultiListView
 from datetime import *
 from time import *
 import json
 
-class IndexView(AccessMixin, ListView):
+class MeetingList(AccessMixin, MultiListView):
     model = Meeting
     paginate_by = 10
 
-    def get_queryset(self):
-        return Meeting.objects.order_by('-meeting_date', 'name')
+    def get_querysets(self):
+        qs = Meeting.objects.order_by('-meeting_date', 'name')
+        next_month = date.today() + timedelta(days=45)
+        return [
+          ('Up and Coming', qs.filter(meeting_date__gte=date.today(),
+                                      meeting_date__lt=next_month)),
+          ('Old Meetings', qs.filter(meeting_date__lt=date.today())),
+          ('Far Future', qs.filter(meeting_date__gte=next_month)),
+        ]
 
 class MeetingDetailView(AccessMixin, DetailView):
     model = Meeting

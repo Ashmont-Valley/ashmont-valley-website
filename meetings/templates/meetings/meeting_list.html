@@ -1,12 +1,21 @@
 {% extends 'frame.html' %}
 
 {% block "content" %}
-  <h1>
-    Meetings
-    <a class="btn btn-default" href="/meetings/create/" role="button"><span class='glyphicon glyphicon-plus'></a>
-  </h1>
+  <h1>Meetings</h1>
 
-  {% if object_list %}
+  <ul class="nav nav-tabs">
+    {% if perms.meetings.can_add_meeting %}
+      <li class="nav active"><a class="btn" href="/meetings/create/" roll="button"><span class='glyphicon glyphicon-plus'></a></li>
+    {% endif %}
+    {% for list_id, name in names %}
+      <li class="nav{% if forloop.first %} active{% endif %}"><a href="#{{ list_id }}" data-toggle="tab">{{ name }}</a></li>
+    {% endfor %}
+  </ul>
+
+  <div class="tab-content">
+    {% for list_id, object_list, paginator, page_obj, is_paginated in lists %}
+      <div class="tab-pane fade {% if forloop.first %} in active{% endif %}" id="{{ list_id }}">
+      
     <table class='table table-hover'>
       <caption>Click on a meeting to get started</caption>
         <thead>
@@ -30,29 +39,9 @@
             </tr>
         {% endfor %}
     </table>
-
-    {% if is_paginated %}
-        <div class="pagination">
-            <span class="step-links">
-                {% if page_obj.has_previous %}
-                <a class='btn btn-default' role='button' href="?page={{ page_obj.previous_page_number }}">
-                    <span class='glyphicon glyphicon-chevron-left'></span></a>
-                {% endif %}
-
-                <span class="current">
-                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                </span>
-
-                {% if page_obj.has_next %}
-                <a class='btn btn-default' role='button' href="?page={{ page_obj.next_page_number }}">
-                    <span class='glyphicon glyphicon-chevron-right'></span></a>
-                {% endif %}
-            </span>
-        </div>
-    {% endif %}
-
-{% else %}
-    <p>No meetings yet.</p>
-{% endif %}
+    {% include "pagination.html" %}
+      </div>
+    {% endfor %}
+  </div>
 
 {% endblock %}

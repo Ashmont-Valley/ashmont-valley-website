@@ -10,12 +10,13 @@
   <dt>Date:</dt>
   <dd>{{ object.meeting_date|date:"l j F" }}</dd>
 
-  {% if object.meeting_date|timeuntil %}
+
+  {% if object.is_old %}
+    <dt>Meeting was:</dt>
+    <dd>{{ object.meeting_date|timesince }} ago</dd>
+  {% else %}
     <dt>Meeting starts in:</dt>
     <dd>{{ object.meeting_date|timeuntil }}</dd>
-  {% else %}
-    <dt>Meeting was:</dt>
-    <dd>{{ object.meeting_date|timesince }}</dd>
   {% endif %}
 
   {% if object.start_time %}

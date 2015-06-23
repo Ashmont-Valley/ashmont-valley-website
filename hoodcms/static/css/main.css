@@ -16,10 +16,13 @@ body {
 
 :link, :visited {
   text-decoration: none;
-  color: #816647;
 }
 :link:hover, :link:active, :visited:hover, :visited:active {
   text-decoration: underline;
+}
+
+a, a:hover, a:active, a:focus {
+  outline: 0 !important;
 }
 
 p {
@@ -47,53 +50,12 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Quattrocento', "Times New Roman", FreeSerif, serif;
 }
 
-h1 {
-  font-size: 240%;
-  line-height: 35px;
-  font-weight: normal;
-  margin: 0.5ex 0 0.5ex;
-}
-h2 {
-  color: #000000;
-  font-size: 140%;
-  font-weight: normal;
-  margin: 1.5ex 0 0.5ex;
-  border-bottom: 1px solid #ddd;
-}
-h3 {
-  color: #000000;
-  font-size: 115%;
-  font-weight: normal;
-  margin: 1.5ex 0 0.5ex;
-}
-
 video {
   margin-bottom: 30px;
 }
 
 th[scope="row"] { text-align: right; }
 th[scope="col"] { text-align: center; }
-
-/* for Tables of Contents on long pages */
-div.toc {
-  float: right;
-  margin: 1em 0 1em 1em;
-  padding: 1ex;
-  background-color: white;
-  border: 1px solid #ddd;
-  width: 25%;
-}
-div.toc h2 {
-  font-size: 120%;
-  text-align: center;
-  margin: 0 0 0.5ex 0;
-  border: 0;
-  padding: 0;
-}
-div.toc ul {
-  margin: 0;
-  padding: 0 0 0 2em;
-}
 
 /* specific styles for layout */
 

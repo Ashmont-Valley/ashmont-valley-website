@@ -6,7 +6,7 @@ def url_tree(regex, *urls):
     return url(regex, include(patterns('', *urls)))
 
 urlpatterns = patterns('',
-    url(r'^$',                    IndexView.as_view(),            name='index'),
+    url(r'^$',                    MeetingList.as_view(),            name='index'),
     url(r'^create/$',             MeetingCreateView.as_view(),    name='create'),
     url(r'^create/person/$',      CreatePerson.as_view(),         name='create_person'),
     url_tree(r'^(?P<pk>\d+)/',
