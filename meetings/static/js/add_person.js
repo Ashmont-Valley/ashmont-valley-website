@@ -2,6 +2,9 @@
 function add_person(event) {
   var htmlid = this.getAttribute('data-htmlid');
   var target = this.getAttribute('data-target');
+  
+  $('.ui-autocomplete').empty();
+
   if($("#" + htmlid + "_text").val()) {
     $.ajax({
       method: 'post',
