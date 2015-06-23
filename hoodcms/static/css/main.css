@@ -872,3 +872,17 @@ dd.person {
 .people {
     padding: 16px 0px;
 }
+
+.green-ok {
+    padding-right: 65px;
+    color: green;
+}
+
+.red-remove {
+    padding-right: 65px;
+    color: red;
+}
+
+.hidden {
+    visibility: none;
+}

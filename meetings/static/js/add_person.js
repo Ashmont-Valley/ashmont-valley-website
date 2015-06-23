@@ -25,40 +25,73 @@ $(document).ready(function() {
 
   $('.autoselect').each(function() {
     var html_id = this.getAttribute('id');
+    var textbox = $("#" + html_id + "_text");
+    var wrapper = $("#" + html_id + "_wrapper");
+    var deck = $("#" + html_id + "_on_deck");
 
+
+    textbox.keypress(function(event) {
+      if(event.keyCode == 13) {
+        //if the enter key is pressed when inside a textbox
+        var btn = $("#" + html_id + "_wrapper .add_person_btn");
+        add_person.call(btn[0]);
+        return false;
+      } 
+    }); //.bind('keyup keydown', function(event) {return event.keyCode != 13});
     
+    function addSuccess() {
+      wrapper.addClass('has-success');
+      wrapper.removeClass('has-error');
+      $("#" + html_id + "_wrapper .red-remove").addClass('hidden');
+      $("#" + html_id + "_wrapper .green-ok").removeClass('hidden');
+    }
+
+    function rmSuccess() {
+      wrapper.addClass('has-error');
+      wrapper.removeClass('has-success');
+      $("#" + html_id + "_wrapper .green-ok").addClass('hidden');
+      $("#" + html_id + "_wrapper .red-remove").removeClass('hidden');
+    }
+
     if($("#" + html_id).data('ajax-select')==='autocompleteselect') {
+
+      if(!(deck.is(':empty'))) {
+        addSuccess();
+      } else {
+        rmSuccess();
+      }
 
       $(document).click(function(event) {
         var add_person_btn = $("#" + html_id + "_add_person_btn");
-        var textbox = $("#" + html_id + "_text");
         if(!textbox.is(event.target) && !add_person_btn.is(event.target)) {
           if(textbox.val()) {
-            $("#" + html_id + "_on_deck span").remove();
-            textbox.val($("#" + html_id + "_on_deck").text());
-          } else{
-            //remove current person from position if blank
+            textbox.val($.trim(deck.text().substring(1)));
+          } else {
+            //remove current person from position if textbox is blank
             $("#" + html_id + "_on_deck span").click();
           }
         }
       });
 
-      $("#" + html_id + "_on_deck").on('added', function(event, pk, item) {
-        $("#" + html_id + "_text").val(item.repr);
+      deck.on('added', function(event, pk, item) {
+        textbox.val(item.repr);
+        addSuccess();
       });
 
+
+      textbox.keyup(function(event) {
+        if(!(deck.is(':empty'))) {
+          var current_name = $.trim(deck.text().substring(1));
+          var new_name = textbox.val();
+          if(!(new_name === current_name)) {
+            //remove current person from position
+            $("#" + html_id + "_on_deck span").click();
+            rmSuccess();
+            textbox.val(new_name);
+          }
+        }
+      });
     }
-
-    $("#" + html_id + "_text").keypress(function(event) {
-      if(event.keyCode == 13) {
-        //event.preventDefault();
-        //if the enter key is pressed when inside a textbox
-        var btn = $("#" + html_id + "_wrapper .add_person_btn");
-        add_person.call(btn[0]);
-        return false;
-      }
-    }); //.bind('keyup keydown', function(event) {return event.keyCode != 13});
-
   });
 });
 
