@@ -814,6 +814,7 @@ hr {
 }
 .note,
 .people li a,
+.deletable-people li,
 .person a {
     padding: 8px;
     margin-bottom: 4px;
@@ -822,29 +823,32 @@ hr {
     background-color: #DFF0D8;
     color: black;
 }
+.deletable-people li a {
+    color: black;
+    padding-right: 8px;
+}
 dd.person {
     line-height: 3;
 }
 .people li a:hover,
+.deletable-people li:hover,
 .person a:hover {
     text-decoration: none;
     background-color: #CEDFC7;
     border: 1px solid #C6D7C4;
 }
-.people {
+.people,
+.deletable-people {
     padding: 16px 0px;
 }
-
 .green-ok {
     padding-right: 65px;
     color: green;
 }
-
 .red-remove {
     padding-right: 65px;
     color: red;
 }
-
 .hidden {
     visibility: none;
 }

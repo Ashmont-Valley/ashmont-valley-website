@@ -1,4 +1,11 @@
 (function ($) {
+
+$.fn.add_kill_btn = function() {
+  var killer_id = 'kill_' + this.id;
+  killButton = '<button type="submit" id="' + killer_id + '" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+  $(this).append(killButton);
+}
+
 function add_person(event) {
   var htmlid = this.getAttribute('data-htmlid');
   var target = this.getAttribute('data-target');
@@ -23,6 +30,7 @@ function add_person(event) {
   }
 }
 
+
 $(document).ready(function() {
   $(".add_person_btn").click(add_person);
 
@@ -32,7 +40,6 @@ $(document).ready(function() {
     var wrapper = $("#" + html_id + "_wrapper");
     var deck = $("#" + html_id + "_on_deck");
 
-
     textbox.keypress(function(event) {
       if(event.keyCode == 13) {
         //if the enter key is pressed when inside a textbox
@@ -41,22 +48,23 @@ $(document).ready(function() {
         return false;
       } 
     }); //.bind('keyup keydown', function(event) {return event.keyCode != 13});
-    
-    function addSuccess() {
-      wrapper.addClass('has-success');
-      wrapper.removeClass('has-error');
-      $("#" + html_id + "_wrapper .red-remove").addClass('hidden');
-      $("#" + html_id + "_wrapper .green-ok").removeClass('hidden');
-    }
 
-    function rmSuccess() {
-      wrapper.addClass('has-error');
-      wrapper.removeClass('has-success');
-      $("#" + html_id + "_wrapper .green-ok").addClass('hidden');
-      $("#" + html_id + "_wrapper .red-remove").removeClass('hidden');
-    }
 
-    if($("#" + html_id).data('ajax-select')==='autocompleteselect') {
+    if($(this).data('ajax-select')==='autocompleteselect') {
+
+      function addSuccess() {
+        wrapper.addClass('has-success');
+        wrapper.removeClass('has-error');
+        $("#" + html_id + "_wrapper .red-remove").addClass('hidden');
+        $("#" + html_id + "_wrapper .green-ok").removeClass('hidden');
+      }
+
+      function rmSuccess() {
+        wrapper.addClass('has-error');
+        wrapper.removeClass('has-success');
+        $("#" + html_id + "_wrapper .green-ok").addClass('hidden');
+        $("#" + html_id + "_wrapper .red-remove").removeClass('hidden');
+      }
 
       if(!(deck.is(':empty'))) {
         addSuccess();

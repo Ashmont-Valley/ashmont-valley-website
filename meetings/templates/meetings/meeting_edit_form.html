@@ -4,11 +4,15 @@
 {% block "content" %}
 
 <h1>Edit a Meeting</h1>
-<p>
-<strong>Name:</strong> {{ object.name }}<br/>
-<strong>Type:</strong> {{ object.meeting_type }}<br/>
-<strong>Date:</strong> {{ object.meeting_date|date:"l j F" }}
-</p>
+<dl class="dl-horizontal">
+  <dt>Name:</dt>
+  <dd>{{ object.name }}</dd>
+  <dt>Type:</dt> 
+  <dd>{{ object.meeting_type }}</dd>
+  <dt>Date:</dt> 
+  <dd>{{ object.meeting_date|date:"l j F" }}</dd>
+</dl>
+
 <form action="" method='post'>
   {% csrf_token %}
   {% bootstrap_form form %}
@@ -16,5 +20,25 @@
   <a class='btn btn-default' href="{% url 'meetings:index' %}" role='button'>Exit Without Saving Changes</a>
 </form>
 
+<script>
+//sadly, I don't see any better way to do this
+$(document).ready(function() {
+  $("#id_people_attending_person_list").append("<ul class='list-inline '></ul>");
+  {% for person in object.people_attending.all %}
+    $("#id_people_attending_person_list ul").append("<li id='attending-{{ person.pk }}'><a href='{{ person.get_absolute_url }}'>{{ person }}</a></li>");
+    $("#id_people_attending_person_list ul #attending-{{ person.pk }}").add_kill_btn();
+  {% endfor %}
+  $("#id_people_absent_person_list").append("<ul class='list-inline '></ul>");
+  {% for person in object.people_absent.all %}
+    $("#id_people_absent_person_list ul").append("<li id='absent-{{ person.pk }}'><a href='{{ person.get_absolute_url }}'>{{ person }}</a></li>");
+    $("#id_people_absent_person_list ul #absent-{{ person.pk }}").add_kill_btn();
+  {% endfor %}
+  $("#id_people_guests_person_list").append("<ul class='list-inline '></ul>");
+  {% for person in object.people_guests.all %}
+    $("#id_people_guests_person_list ul").append("<li id='guests-{{ person.pk }}'><a href='{{ person.get_absolute_url }}'>{{ person }}</a></li>");
+    $("#id_people_guests_person_list ul #guests-{{ person.pk }}").add_kill_btn();
+  {% endfor %}
+});
+</script>
 
 {% endblock %}
