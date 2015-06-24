@@ -30,6 +30,33 @@ class MeetingList(AccessMixin, MultiListView):
 class MeetingDetailView(AccessMixin, DetailView):
     model = Meeting
 
+class MeetingEditView(AccessMixin, UpdateView):
+    model = Meeting
+    permissions = ['meetings.change_meeting']
+    form_class = MeetingCreateForm
+    template_name = 'meetings/edit_meeting_form.html'
+
+    def get_success_url(self):
+        return reverse('meetings:detail', args=[self.object.pk])
+
+class MeetingDeleteView(DeleteView):
+    model = Meeting
+    permissions = ['meetings.delete_meeting']
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        if not self.object.start_time:
+            #you can only delete meetings that haven't started yet
+            self.object.delete()
+            messages.success(request, "Meeting deleted.")
+        else:
+            messages.error(request, "You can only delete meetings that haven't started yet.")
+        return HttpResponseRedirect(success_url)
+
+    def get_success_url(self):
+        return reverse('meetings:index')
+
 class CreatePerson(CreateView):
     model = Person
     permissions = ['meetings.change_meeting']
@@ -53,7 +80,7 @@ class MeetingAddNotesView(AccessMixin, UpdateView):
         return super(MeetingAddNotesView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse('meetings:index')
+        return reverse('meetings:detail', args=[self.object.pk])
 
 class AddMeetingNote(CreateView, AccessMixin):
     template_name = 'meetings/note.html'
@@ -62,7 +89,7 @@ class AddMeetingNote(CreateView, AccessMixin):
     permissions = ['meetings.add_note']
 
     def form_valid(self, form):
-        messages.warning(self.request, 'You have successfully created a new note')
+        #messages.warning(self.request, 'You have successfully created a new note')
         if self.request.is_ajax():
             obj = form.save()
             return self.render_to_response({ 'note': obj })
@@ -107,28 +134,26 @@ class MeetingCreateView(CreateView, AccessMixin):
 
     def get_success_url(self):
         obj = self.object
-        if obj.is_editable(): 
-            return reverse('meetings:edit', args=[obj.pk])
+        #if obj.is_editable(): 
+        #    return reverse('meetings:edit', args=[obj.pk])
         return reverse('meetings:detail', args=[obj.pk])
 
-class MeetingEditView(UpdateView, AccessMixin):
+class MeetingPrepareView(UpdateView, AccessMixin):
     form_class = MeetingEditForm
-    template_name = 'meetings/meeting_edit_form.html'
+    template_name = 'meetings/meeting_prepare_form.html'
     model = Meeting
     permissions = ['meetings.change_meeting']
 
     def form_valid(self, form):
         obj = self.object
         obj.start_time = datetime.now()
-        return super(MeetingEditView, self).form_valid(form)
+        return super(MeetingPrepareView, self).form_valid(form)
 
     def get_success_url(self):
         return reverse('meetings:proceedings', args=[self.object.pk])
 
     def get_object(self):
-        """edit view can only be accessed for meetings that have 
-        happened in the past week"""
-        obj = super(MeetingEditView, self).get_object()
+        obj = super(MeetingPrepareView, self).get_object()
         if obj.is_editable():
             return obj
         raise obj.DoesNotExist('Is not editable')

@@ -35,6 +35,9 @@ class MeetingProceedingsForm(ModelForm):
         model = Meeting
         fields = ['people_late']
 
+    class Media:
+        js = ('js/add_person.js', 'js/meetings.js')
+
 class NoteUpdateForm(ModelForm):
     class Meta:
         model = Note
