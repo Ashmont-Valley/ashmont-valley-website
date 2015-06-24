@@ -56,7 +56,14 @@ $(document).ready(function() {
       $("#" + html_id + "_wrapper .red-remove").removeClass('hidden');
     }
 
-    if($("#" + html_id).data('ajax-select')==='autocompleteselect') {
+    var select = $("#" + html_id).data('ajax-select');
+    $('.ui-icon-trash').addClass('close').removeClass('ui-icon ui-icon-trash');
+
+    if(select === 'autocompleteselectmultiple') {
+      deck.on('added', function(event, pk, item) {
+        $('.ui-icon-trash').addClass('close').removeClass('ui-icon ui-icon-trash');
+      });
+    } else if(select === 'autocompleteselect') {
 
       if(!(deck.is(':empty'))) {
         addSuccess();
