@@ -1,11 +1,5 @@
 (function ($) {
 
-$.fn.add_kill_btn = function() {
-  var killer_id = 'kill_' + this.id;
-  killButton = '<button type="submit" id="' + killer_id + '" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
-  $(this).append(killButton);
-}
-
 function add_person(event) {
   var htmlid = this.getAttribute('data-htmlid');
   var target = this.getAttribute('data-target');
@@ -49,9 +43,14 @@ $(document).ready(function() {
       } 
     }); //.bind('keyup keydown', function(event) {return event.keyCode != 13});
 
+    var select = $("#" + html_id).data('ajax-select');
+    $('.ui-icon-trash').addClass('close').removeClass('ui-icon ui-icon-trash');
 
-    if($(this).data('ajax-select')==='autocompleteselect') {
-
+    if(select === 'autocompleteselectmultiple') {
+      deck.on('added', function(event, pk, item) {
+        $('.ui-icon-trash').addClass('close').removeClass('ui-icon ui-icon-trash');
+      });
+    } else if(select === 'autocompleteselect') {
       function addSuccess() {
         wrapper.addClass('has-success');
         wrapper.removeClass('has-error');

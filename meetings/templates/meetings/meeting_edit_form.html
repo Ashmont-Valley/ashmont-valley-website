@@ -3,7 +3,7 @@
 
 {% block "content" %}
 
-<h1>Edit a Meeting</h1>
+<h1>Edit Meeting "{{ object.name }}"</h1>
 <dl class="dl-horizontal">
   <dt>Name:</dt>
   <dd>{{ object.name }}</dd>
@@ -19,26 +19,5 @@
   <input class="btn btn-primary" type='submit' value='Begin Meeting'/>
   <a class='btn btn-default' href="{% url 'meetings:index' %}" role='button'>Exit Without Saving Changes</a>
 </form>
-
-<script>
-//sadly, I don't see any better way to do this
-$(document).ready(function() {
-  $("#id_people_attending_person_list").append("<ul class='list-inline '></ul>");
-  {% for person in object.people_attending.all %}
-    $("#id_people_attending_person_list ul").append("<li id='attending-{{ person.pk }}'><a href='{{ person.get_absolute_url }}'>{{ person }}</a></li>");
-    $("#id_people_attending_person_list ul #attending-{{ person.pk }}").add_kill_btn();
-  {% endfor %}
-  $("#id_people_absent_person_list").append("<ul class='list-inline '></ul>");
-  {% for person in object.people_absent.all %}
-    $("#id_people_absent_person_list ul").append("<li id='absent-{{ person.pk }}'><a href='{{ person.get_absolute_url }}'>{{ person }}</a></li>");
-    $("#id_people_absent_person_list ul #absent-{{ person.pk }}").add_kill_btn();
-  {% endfor %}
-  $("#id_people_guests_person_list").append("<ul class='list-inline '></ul>");
-  {% for person in object.people_guests.all %}
-    $("#id_people_guests_person_list ul").append("<li id='guests-{{ person.pk }}'><a href='{{ person.get_absolute_url }}'>{{ person }}</a></li>");
-    $("#id_people_guests_person_list ul #guests-{{ person.pk }}").add_kill_btn();
-  {% endfor %}
-});
-</script>
 
 {% endblock %}

@@ -814,8 +814,8 @@ hr {
 }
 .note,
 .people li a,
-.deletable-people li,
-.person a {
+.person a,
+.results_on_deck > div {
     padding: 8px;
     margin-bottom: 4px;
     border-radius: 4px;
@@ -823,22 +823,24 @@ hr {
     background-color: #DFF0D8;
     color: black;
 }
-.deletable-people li a {
-    color: black;
-    padding-right: 8px;
+.results_on_deck > div {
+    display: inline-block;
+    margin: 12px 6px;
+}
+.results_on_deck span.close {
+    margin: 4px 0px 2px 6px;
+    font-size: 13px;
 }
 dd.person {
     line-height: 3;
 }
 .people li a:hover,
-.deletable-people li:hover,
 .person a:hover {
     text-decoration: none;
     background-color: #CEDFC7;
     border: 1px solid #C6D7C4;
 }
-.people,
-.deletable-people {
+.people {
     padding: 16px 0px;
 }
 .green-ok {

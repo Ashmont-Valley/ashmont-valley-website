@@ -5,7 +5,7 @@
 
   <ul class="nav nav-tabs">
     {% if perms.meetings.can_add_meeting %}
-      <li class="nav active"><a class="btn" href="/meetings/create/" roll="button"><span class='glyphicon glyphicon-plus'></a></li>
+      <a class="btn btn-primary pull-right" href="/meetings/create/" roll="button"><span class='glyphicon glyphicon-plus'></a>
     {% endif %}
     {% for list_id, name in names %}
       <li class="nav{% if forloop.first %} active{% endif %}"><a href="#{{ list_id }}" data-toggle="tab">{{ name }}</a></li>
@@ -23,19 +23,38 @@
                <th>Meeting Name</th>
                <th>Meeting Type</th>
                <th>Meeting Date</th>
-               <th>Start Time</th>
-               <th>End Time</th>
+               {% if object_list.0.start_time %}
+                 <th>Start Time</th>
+                 <th>End Time</th>
+               {% endif %}
+               <th>-</th>
            </tr>
         </thead>
         <tbody>
         {% for meeting in object_list %}
             <tr>
-                <td><a href={{ meeting.get_absolute_url }}>
-                {{ meeting.name }}</a></td>
+                <td><a href={{ meeting.get_absolute_url }}>{{ meeting.name }}</a></td>
                 <td>{{ meeting.meeting_type }}</td>
                 <td>{{ meeting.meeting_date }}</td>
-                <td>{{ meeting.start_time }}</td>
-                <td>{{ meeting.end_time }}</td>
+                {% if meeting.start_time %}
+                  <td>{{ meeting.start_time }}</td>
+                  <td>{{ meeting.end_time }}</td>
+                {% endif %}
+               {% if perms.meetings.can_change_meeting %}
+                 <td>
+                 {% if meeting.is_today %}
+                   {% if meeting.start_time %}
+                     <a class="btn btn-danger" href="{% url "meetings:proceedings" meeting.pk %}">Continue Meeting</a>
+                   {% else %}
+                     <a class="btn btn-success" href="{% url "meetings:edit" meeting.pk %}">Edit</a>
+                   {% endif %}
+                 {% elif meeting.is_editable %}
+                   <a class="btn btn-default" href="{% url "meetings:edit" meeting.pk %}">Re-Edit</a>
+                 {% else %}
+                   -
+                 {% endif %}
+                 </td>
+               {% endif %}
             </tr>
         {% endfor %}
     </table>
