@@ -269,11 +269,6 @@ table tr.error td {
   list-style-type: none;
 }
 
-#toplogin .topdrop {
-  min-width: 110px;
-  right: 40px;
-}
-
 #toplogin-head {
   margin-top: 0;
   font-size: 14px;
@@ -356,6 +351,7 @@ table tr.error td {
   background-image: -moz-linear-gradient(top, #9ccc44, #76aa2e);
   background-image: -webkit-gradient(linear, left top, left bottom, from(#9ccc44), to(#76aa2e));
   border-top: 3px solid #816647;
+  border-bottom: 2px solid #816647;
   border-radius: 15px 15px 2px 2px;
   height: 32px;
   clear: both;
@@ -446,7 +442,8 @@ table tr.error td {
 }
 
 .footer {
-  border-bottom: 3px solid #816647;
+  border: solid #816647;
+  border-width: 3px 0px;
   border-radius: 2px 2px 15px 15px;
   background-color: #76aa2e;
   background-image: -moz-radial-gradient(center 20px, circle, #9ccc44 0, #76aa2e 300px);
@@ -505,10 +502,6 @@ table tr.error td {
 
 .float-right {
   float: right;
-}
-
-.small {
-  font-size: 10px;
 }
 
 .clearer {

@@ -16,10 +16,6 @@ span.first-letter {
   display: inline-block;
   color: #413424;
 }
-.small {
-  font-size: 30%;
-  color: #ded;
-}
 span.valley span.first-letter {
   margin-right: -10px;
 }
