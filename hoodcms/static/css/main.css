@@ -82,8 +82,8 @@ th[scope="col"] { text-align: center; }
 #framed {
   padding: 20px 20px 50px;
   background-color: white;
-  background-image: -moz-linear-gradient(top, #cbe49e, white 100px);
-  background-image: -webkit-gradient(linear, left top, left 100, from(#cbe49e), to(white));
+  background-image: -moz-linear-gradient(top, #cbe49e, white 20px);
+  background-image: -webkit-gradient(linear, left top, left 20, from(#cbe49e), to(white));
   line-height: 20px;
   min-height: 100%;
 }
