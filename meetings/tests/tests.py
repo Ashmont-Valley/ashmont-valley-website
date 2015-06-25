@@ -1,11 +1,12 @@
 from django.core.urlresolvers import reverse
-import datetime
-
 from django.test import TestCase, Client
 
-from meetings.models import *
+import datetime
 
-class MeetingIndexTests(TestCase):
+from meetings.models import *
+from .basetest import UserTestCase
+
+class MeetingIndexTests(UserTestCase):
 
     def test_index_view_template(self):
         """the index view should render using the proper template"""
@@ -32,7 +33,7 @@ class MeetingEditTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'meeting_edit_form.html')
 
-class MeetingDetailTests(TestCase):
+class MeetingDetailTests(UserTestCase):
 
     def test_detail_view_template(self):
         """the detail view should render using the proper template"""
@@ -42,9 +43,10 @@ class MeetingDetailTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'meeting_detail.html')
 
-class MeetingCreateTests:
+class MeetingCreateTests(UserTestCase):
     def test_create_view_template(self):
         """the create view should render using the proper template"""
         response = self.client.get(reverse('meetings:meeting_create'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'meeting_create_form.html')
+
