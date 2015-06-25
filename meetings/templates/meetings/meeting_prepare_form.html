@@ -4,6 +4,7 @@
 {% block "content" %}
 
 <h1>Prepare Meeting "{{ object.name }}"</h1>
+<h2>Meeting Details</h2>
 <dl class="dl-horizontal">
   <dt>Name:</dt>
   <dd>{{ object.name }}</dd>
@@ -14,8 +15,12 @@
 </dl>
 
 <form action="" method='post'>
-  {% csrf_token %}
-  {% bootstrap_form form %}
+  {% bootstrap_field form.chair %}
+  {% bootstrap_field form.secretary %}
+  <h2>People in Attendance</h2>
+  {% bootstrap_field form.people_attending %}
+  {% bootstrap_field form.people_absent %}
+  {% bootstrap_field form.people_guests %}
   <input class="btn btn-primary" type='submit' value='Begin Meeting'/>
   <a class='btn btn-default' href="{% url 'meetings:index' %}" role='button'>Cancel</a>
 </form>

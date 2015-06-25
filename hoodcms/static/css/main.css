@@ -854,3 +854,8 @@ dd.person {
 .hidden {
     visibility: none;
 }
+.dl-horizontal dt,
+.dl-horizontal dd {
+    font-size: 18px;
+    margin-bottom: 4px;
+}

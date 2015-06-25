@@ -16,7 +16,7 @@
   {% endif %}
 
   {% if object.notes.all %}
-    <h2>Meeting Notes:</h2>
+    <h2>Meeting Notes</h2>
     {% for note in object.notes.all %}
       <div class="note bg-success" id="mnote-{{ note.pk }}">{{ note.text }}</div>
     {% endfor %}
