@@ -55,6 +55,9 @@ class Meeting(models.Model):
     def is_old(self):
         return self.meeting_date < date.today()
 
+    def is_future(self):
+        return self.meeting_date > date.today()
+
     def is_today(self):
         return self.meeting_date == date.today()
 

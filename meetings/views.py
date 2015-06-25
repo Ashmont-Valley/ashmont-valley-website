@@ -134,12 +134,10 @@ class MeetingCreateView(CreateView, AccessMixin):
 
     def get_success_url(self):
         obj = self.object
-        #if obj.is_editable(): 
-        #    return reverse('meetings:edit', args=[obj.pk])
         return reverse('meetings:detail', args=[obj.pk])
 
 class MeetingPrepareView(UpdateView, AccessMixin):
-    form_class = MeetingEditForm
+    form_class = MeetingPrepareForm
     template_name = 'meetings/meeting_prepare_form.html'
     model = Meeting
     permissions = ['meetings.change_meeting']
@@ -154,7 +152,22 @@ class MeetingPrepareView(UpdateView, AccessMixin):
 
     def get_object(self):
         obj = super(MeetingPrepareView, self).get_object()
+        if not obj.start_time:
+            #you can only prepare meetings that haven't begun yet
+            return obj
+        raise obj.DoesNotExist("you can only prepare meetings that haven't begun yet")
+
+class MeetingReeditView(UpdateView, AccessMixin):
+    form_class = MeetingReeditForm
+    template_name = 'meetings/meeting_reedit_form.html'
+    model = Meeting
+    permissions = ['meetings.change_meeting']
+
+    def get_success_url(self):
+        return reverse('meetings:detail', args=[self.object.pk])
+
+    def get_object(self):
+        obj = super(MeetingReeditView, self).get_object()
         if obj.is_editable():
             return obj
         raise obj.DoesNotExist('Is not editable')
-

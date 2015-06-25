@@ -1,0 +1,43 @@
+{% extends 'frame.html' %}
+
+{% load bootstrap3 static sekizai_tags %}
+
+{% block "content" %}
+<h1>Re-Edit Meeting "{{ object.name }}"</h1>
+
+  <form action="" method='post' class='form'>
+    {% csrf_token %}
+    <h2>Meeting Details</h2>
+    {% bootstrap_field form.name %}
+    {% bootstrap_field form.meeting_type %}
+    <h2>People in Attendance</h2>
+    {% bootstrap_field form.chair %}
+    {% bootstrap_field form.secretary %}
+    {% bootstrap_field form.people_attending %}
+    {% bootstrap_field form.people_absent %}
+    {% bootstrap_field form.people_guests %}
+    {% bootstrap_field form.people_late %}
+    <input class="btn btn-primary" type='submit' value='Save Edits'/>
+    <a class='btn btn-default' href="{% url 'meetings:index' %}" role='button'>Cancel</a>
+  </form>
+
+  <h2>Meeting Notes</h2>
+
+    <div id="notes">
+      {% for note in object.notes.all %}
+        {% include "meetings/note.html" %}
+      {% endfor %}
+
+      <form action="{% url 'meetings:add_note' object.pk %}" method='post' id='add_note'>
+        {% csrf_token %}
+        <input type="hidden" name='meeting' value="{{ object.pk }}">
+        <div class='input-group'>
+          <input class="form-control" type="text" name='text' placeholder="New Note" id='note_text_box'>
+          <span class="input-group-btn">
+            <button class='btn btn-default' id="new_note_btn" type="submit"><span class='glyphicon glyphicon-plus'></span></button>
+          </span>
+        </div>
+      </form>
+    </div>
+
+{% endblock %}

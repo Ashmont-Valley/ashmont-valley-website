@@ -14,6 +14,7 @@ urlpatterns = patterns('',
         url(r'^add_note/$',       AddMeetingNote.as_view(),       name='add_note'),
         url(r'^prepare/$',        MeetingPrepareView.as_view(),   name='prepare'),
         url(r'^edit/$',           MeetingEditView.as_view(),      name='edit'),
+        url(r'^reedit/$',         MeetingReeditView.as_view(),    name='re-edit'),
         url(r'^delete/$',         MeetingDeleteView.as_view(),    name='delete_meeting'),
         url(r'^proceedings/$',    MeetingAddNotesView.as_view(),  name='proceedings'),
         #the following urls use the note pk, not the meeting pk
