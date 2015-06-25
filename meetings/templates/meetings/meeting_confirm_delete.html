@@ -1,0 +1,10 @@
+{% extends "frame.html" %}
+
+{% block content %}
+<h1>Are you sure you want to delete meeting "{{ object.name }}?"</h1>
+<hr/>
+<form action="" method="post">
+  <input type="submit" class="btn btn-danger" value='Yes, delete meeting "{{ object.name }}"'/>
+  <a class="btn btn-default" href="{% url 'meetings:index' %}" role='button'>Cancel</a>
+</form>
+{% endblock %}

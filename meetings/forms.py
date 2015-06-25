@@ -19,7 +19,7 @@ class MeetingAjaxForm(ModelForm):
     people_absent = make_ajax_field(Meeting, 'people_absent', 'person_lookup')
     people_guests = make_ajax_field(Meeting, 'people_guests', 'person_lookup')
     
-class MeetingEditForm(MeetingAjaxForm):
+class MeetingPrepareForm(MeetingAjaxForm):
     class Meta:
         model = Meeting
         fields = ['chair', 'secretary', 'people_attending', 
@@ -28,12 +28,26 @@ class MeetingEditForm(MeetingAjaxForm):
     class Media:
         js = ('js/add_person.js',)
 
+class MeetingReeditForm(MeetingAjaxForm):
+    people_late = make_ajax_field(Meeting, 'people_late', 'person_lookup')
+
+    class Meta:
+        model = Meeting
+        fields = ['name', 'meeting_type', 'chair', 'secretary', 'people_attending', 
+                'people_absent', 'people_guests', 'people_late']
+
+    class Media:
+        js = ('js/add_person.js', 'js/meetings.js')
+
 class MeetingProceedingsForm(ModelForm):
     people_late = make_ajax_field(Meeting, 'people_late', 'person_lookup')
 
     class Meta:
         model = Meeting
         fields = ['people_late']
+
+    class Media:
+        js = ('js/add_person.js', 'js/meetings.js')
 
 class NoteUpdateForm(ModelForm):
     class Meta:

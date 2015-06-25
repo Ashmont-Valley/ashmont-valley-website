@@ -1,0 +1,17 @@
+{% extends 'frame.html' %}
+
+{% load bootstrap3 %}
+
+{% block "content" %}
+  <h1>Edit Meeting "{{ object.name }}"</h1>
+
+  <form action="" method='post' class='form'>
+    {% csrf_token %}
+    {% bootstrap_form form layout='inline'%}
+    <p class='text-muted'>Please enter date in M/D/Y format</p>
+    <input class="btn btn-primary" type='submit' value='Save Edits'/>
+    <a class='btn btn-default' href="{% url 'meetings:index' %}" role='button'>Cancel</a>
+  </form>
+
+{% endblock %}
+

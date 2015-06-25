@@ -843,17 +843,19 @@ dd.person {
 .people {
     padding: 16px 0px;
 }
-
 .green-ok {
     padding-right: 65px;
     color: green;
 }
-
 .red-remove {
     padding-right: 65px;
     color: red;
 }
-
 .hidden {
     visibility: none;
+}
+.dl-horizontal dt,
+.dl-horizontal dd {
+    font-size: 18px;
+    margin-bottom: 4px;
 }
