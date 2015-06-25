@@ -41,5 +41,5 @@ class AccessMixin(object):
         return super(AccessMixin, self).dispatch(request, *args,
             **kwargs)
 
-
+LoginRequiredMixin = AccessMixin
 

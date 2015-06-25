@@ -1,0 +1,32 @@
+{% extends 'frame.html' %}
+{% load i18n future sekizai_tags %}
+
+{% block title %}{% trans "User Profile" %} | {{ object.name }}{% endblock %} 
+
+{% block "content" %}
+  <div id="profile" style="background-color: #1c1c1c; color: white;">
+    <img id="photo" src="{% if object.details.photo %}{{ object.details.photo.url }}{% else %}{{ STATIC_URL }}images/photo.png{% endif %}"/>
+
+    <h1 id="name">
+      {% if object.first_name %}
+        {{ object.first_name }} {{ object.last_name }}
+        <span id="username">{{ object.username }}</span>
+      {% else %}
+        {{ object.username }}
+        <span id="username">{% trans "Anonymous" %}</span>
+      {% endif %}
+      {% if object == request.user %}
+        <span id="edit"><a href="{% url "edit_profile" %}">{% trans "Edit" %}</a></span>
+      {% endif %}
+    </h1> 
+    <p id="bio">
+      {% block headerdesc %}
+        {% if object.details.bio %}{{ object.details.bio }}{% else %}{{ object }} {% trans "hasn't written anything about themselves yet" %}{% endif %}
+      {% endblock %}
+    </p>
+  </div>
+
+  <div id="right-sidebar">
+  </div>
+
+{% endblock %}

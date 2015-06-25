@@ -1,0 +1,47 @@
+{% extends "frame.html" %}
+{% load i18n %}
+
+{% block "content" %}
+
+<div style="text-align: center;">
+
+<h1>{% block title %}{% trans "User Login" %}{% endblock %}</h1>
+
+{% if form.errors %}
+<p>{% trans "Your username and password didn't match. Please try again." %}</p>
+{% endif %}
+
+<form method="post" action="{% url "auth_login" %}" style="display: inline-block;">
+{% csrf_token %}
+<table>
+  <tr>
+    <th scope="row"><label for="id_username">{{ form.username.label_tag }}</th>
+    <td>{{ form.username }}</td>
+  </tr>
+  <tr>
+    <th scope="row"><label for="id_password">{{ form.password.label_tag }}</th>
+    <td>{{ form.password }}</td>
+  </tr>
+  <tr>
+    <td colspan="2" style="text-align: right;">
+      <a href="{% url "password_reset" %}" style="margin-right: 20px; vertical-align: middle;">{% trans "Reset Password" %}</a>
+      <input type="submit" value="{% trans "Login" %}" style="float: right;"/>
+    </td>
+  </tr>
+</table>
+
+<input type="hidden" name="next" value="{{ next }}" />
+</form>
+
+<h1>{% trans "Social Network Login" %}</h1>
+
+<div id="toplogin-alternate" style="text-align: center; display: inline-block;">
+  <a href="{% url "socialauth_begin" 'google-oauth2' %}" id="toplogin-google"></a>
+  <a href="{% url "socialauth_begin" 'facebook' %}" id="toplogin-facebook"></a>
+  <a href="{% url "socialauth_begin" 'twitter' %}" id="toplogin-twitter"></a>
+  <a href="{% url "socialauth_begin" 'yahoo' %}" id="toplogin-yahoo"></a>
+</div>
+
+</div>
+
+{% endblock %}

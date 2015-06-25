@@ -42,6 +42,11 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 
+# Localhost keys, override on live.
+RECAPTCHA_USE_SSL = True
+RECAPTCHA_PUBLIC_KEY = '6Ldd6OsSAAAAAOOu3QVFc2_pBazt7H8Fuks7hBC3'
+RECAPTCHA_PRIVATE_KEY = '6Ldd6OsSAAAAANDyM9FbuAne2b2NKHkkpMWP3wIY'
+
 #
 # --- Above this line, settings can be over-ridden for deployment
 # 
@@ -56,6 +61,8 @@ AUTHENTICATION_BACKENDS = (
 )
 
 INSTALLED_APPS = (
+    'person',
+
     'django.contrib.admin',
     'django.contrib.sites',
     'django.contrib.auth',
@@ -67,6 +74,8 @@ INSTALLED_APPS = (
     'meetings',
     'hoodcms',
 
+    'registration',
+    'social_auth',
     'treebeard',
     'menus',
     'cms',
@@ -156,3 +165,17 @@ AJAX_LOOKUP_CHANNELS = {
 FIXTURE_DIRS = (
     'meetings/fixtures/' ,
 )
+
+LOGIN_URL          = '/person/user/login/'
+LOGIN_ERROR_URL    = '/person/user/login/'
+LOGIN_REDIRECT_URL = '/person/user/'
+
+AUTHENTICATION_BACKENDS = (
+    'social_auth.backends.twitter.TwitterBackend',
+    'social_auth.backends.facebook.FacebookBackend',
+    'social_auth.backends.google.GoogleOAuth2Backend',
+    'social_auth.backends.yahoo.YahooBackend',
+    'social_auth.backends.OpenIDBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+

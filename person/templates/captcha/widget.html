@@ -1,0 +1,22 @@
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+<script type="text/javascript">
+    var DjangoRecaptchaOptions = {"lang": "{{LANGUAGE_CODE}}",
+                                  "theme" : 'white'};
+    if (typeof RecaptchaOptions !== 'object') {
+        RecaptchaOptions = DjangoRecaptchaOptions;
+    } else {
+        for (key in DjangoRecaptchaOptions) {
+            RecaptchaOptions[key] = DjangoRecaptchaOptions[key];
+        }
+    }
+</script>
+
+{# English as fallback, the language code given in the link is ignored by google, it takes the language from the 'options' object if javascript is activated in browser #}
+<script type="text/javascript" src="{{api_server}}/challenge?k={{public_key}}&hl=en{{error_param}}"></script>
+<noscript>
+  <iframe src="{{api_server}}/noscript?k={{public_key}}&hl={{LANGUAGE_CODE}}{{error_param}}" height="300" width="500" frameborder="0"></iframe><br />
+  <textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
+  <input type='hidden' name='recaptcha_response_field' value='manual_challenge' />
+</noscript>
