@@ -51,7 +51,7 @@ class MeetingDeleteView(DeleteView):
             self.object.delete()
             messages.success(request, "Meeting deleted.")
         else:
-            messages.error(request, "You can only delete meetings that haven't started yet.")
+            messages.error(request, "Error: You can only delete meetings that haven't started yet.")
         return HttpResponseRedirect(success_url)
 
     def get_success_url(self):
@@ -150,13 +150,6 @@ class MeetingPrepareView(UpdateView, AccessMixin):
     def get_success_url(self):
         return reverse('meetings:proceedings', args=[self.object.pk])
 
-    def get_object(self):
-        obj = super(MeetingPrepareView, self).get_object()
-        if not obj.start_time:
-            #you can only prepare meetings that haven't begun yet
-            return obj
-        raise obj.DoesNotExist("you can only prepare meetings that haven't begun yet")
-
 class MeetingReeditView(UpdateView, AccessMixin):
     form_class = MeetingReeditForm
     template_name = 'meetings/meeting_reedit_form.html'
@@ -165,9 +158,3 @@ class MeetingReeditView(UpdateView, AccessMixin):
 
     def get_success_url(self):
         return reverse('meetings:detail', args=[self.object.pk])
-
-    def get_object(self):
-        obj = super(MeetingReeditView, self).get_object()
-        if obj.is_editable():
-            return obj
-        raise obj.DoesNotExist('Is not editable')

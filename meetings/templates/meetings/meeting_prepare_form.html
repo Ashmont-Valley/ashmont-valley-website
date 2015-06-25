@@ -15,6 +15,7 @@
 </dl>
 
 <form action="" method='post'>
+  {% csrf_token %}
   {% bootstrap_field form.chair %}
   {% bootstrap_field form.secretary %}
   <h2>People in Attendance</h2>
