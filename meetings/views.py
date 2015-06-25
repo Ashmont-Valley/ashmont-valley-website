@@ -34,7 +34,7 @@ class MeetingEditView(AccessMixin, UpdateView):
     model = Meeting
     permissions = ['meetings.change_meeting']
     form_class = MeetingCreateForm
-    template_name = 'meetings/edit_meeting_form.html'
+    template_name = 'meetings/meeting_edit_form.html'
 
     def get_success_url(self):
         return reverse('meetings:detail', args=[self.object.pk])
