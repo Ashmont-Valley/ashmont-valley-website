@@ -704,7 +704,7 @@ hr {
     margin-bottom: 4px;
 }
 .note .txt {
-    display: inline-block;
+    display: block;
     padding: 2px 4px;
 }
 .note .close {

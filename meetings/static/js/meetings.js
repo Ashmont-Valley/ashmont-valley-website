@@ -73,7 +73,7 @@ function delete_note(event) {
 $(document).ready(function() {
   // Provide ajax submission support
   $('#add_note').submit(add_note);
-  $('.note').on('click', function(event) { showNoteEdit(this.id); });
+  $('.note .txt').on('click', function(event) { showNoteEdit(this.parentNode.id); });
   $('.update_note').on('focusout', function() { $(this).submit(); }); 
   $('#notes').on('submit', '.update_note', update_note);
   $('#notes').on('submit', '.delete_note', delete_note);
