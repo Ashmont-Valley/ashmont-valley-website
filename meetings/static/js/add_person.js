@@ -105,7 +105,7 @@ $(document).ready(function() {
   });
 });
 
-//the following functions make csrf tokens work with ajax requests
+//the following functions make csrf tokens work with ajax requests that are not inside forms
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie != '') {

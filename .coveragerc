@@ -3,9 +3,10 @@ branch = True
 omit =
 	*migrations*
 	*management*
-	*/tests.py
+	*/tests/*.py
+    */tests.py
 	*/admin.py
-        */__init__.py
+    */__init__.py
 source = 
 	meetings
 

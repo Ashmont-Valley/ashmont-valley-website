@@ -852,3 +852,6 @@ dd.person {
     font-size: 18px;
     margin-bottom: 4px;
 }
+.update_note input {
+    width: 90%
+}

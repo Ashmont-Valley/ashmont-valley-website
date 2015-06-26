@@ -52,5 +52,5 @@ class MeetingProceedingsForm(ModelForm):
 class NoteUpdateForm(ModelForm):
     class Meta:
         model = Note
-        fields = ['text', 'meeting']
+        fields = ['text']
 
