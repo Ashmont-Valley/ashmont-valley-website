@@ -1,0 +1,24 @@
+{% extends "frame.html" %}
+{% load bootstrap3 %}
+
+{% block "content" %}
+<form method="post">
+  {% csrf_token %}
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">{% block title %}{% block "dialog-title" %}-{% endblock %}{% endblock %}</h4>
+      </div>
+      <div class="modal-body">
+        {% block "dialog-body" %}{% endblock %}
+        {% if form %}{% bootstrap_form form %}{% endif %}
+      </div>
+      <div class="modal-footer">
+        {% block "dialog-footer" %}{% endblock %}
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</form>
+{% endblock %}
+

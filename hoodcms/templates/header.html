@@ -6,27 +6,16 @@
 
   {% if not request.user.is_authenticated %}
     <li id="toplogin">
-      <p>{% trans "Log in / Register" %}</p>
-      <form class="topdrop" action="{% url "auth_login" %}" method="POST">
-        {% csrf_token %}
-        <p id="toplogin-head">{% trans "Already a member? Log in below." %}</p>
-        <label for="toplogin-username">{% trans "Username" %}</label>
-        <input name="username" id="toplogin-username" type="text">
-        <label for="toplogin-password">{% trans "Password" %}</label>
-        <input name="password" id="toplogin-password" type="password">
-        <input id="toplogin-submit" type="submit" value="Log in">
-        <p id="toplogin-register">{% trans "Not a member?" %}<br><a href="{% url "registration_register" %}">{% trans "Register now." %}</a></p>
-        <p id="toplogin-alternate"><span>{% trans "Or log in with" %}</span>
-        <a href="{% url "socialauth_begin" 'google' %}" id="toplogin-google"></a>
-        <a href="{% url "socialauth_begin" 'facebook' %}" id="toplogin-facebook"></a>
-        <a href="{% url "socialauth_begin" 'twitter' %}" id="toplogin-twitter"></a>
-        <a href="{% url "socialauth_begin" 'yahoo' %}" id="toplogin-yahoo"></a>
-      </form>
+      <p>
+        <a href="{% url "auth_login" %}">{% trans "Log in" %}</a>
+        /
+        <a href="{% url "auth_register" %}">{% trans "Register" %}</a>
+      </p>
     </li>
 
   {% else %}
     <li id="toplogin" class="loggoff">
-      <p>{% if request.user.first_name %}{{ request.user.first_name }} {{ request.user.last_name }}{% else %}{{ request.user.username }}{% endif %}</p>
+      <p>{{ request.user }}</p>
       <form  class="topdrop">
         <p><a href="{% url "auth_logout" %}">{% trans "Logout" %}</a></p>
         {% if request.user.is_superuser %}
@@ -34,7 +23,7 @@
         {% endif %}
       </form>
     </li>
-    {% endif %}
+  {% endif %}
 
   </ul>
 </div>

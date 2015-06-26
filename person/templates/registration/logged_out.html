@@ -1,10 +1,13 @@
-{% extends "frame.html" %}
+{% extends "dialog.html" %}
 {% load i18n %}
 
-{% block "content" %}
+{% block "dialog-title" %}{% trans "Logout Complete" %}{% endblock %}
 
-<h2>{% block title %}{% trans "Logout" %}{% endblock %}</h2>
-
-<p>{% trans "Thanks for using this website. Hope to see you again soon!" %}</p>
-
+{% block "dialog-body" %}
+  <p>{% trans "Thank you for using this website. Hope to see you again soon!" %}</p>
 {% endblock %}
+
+{% block "dialog-footer" %}
+  <a href="{% url "auth_login" %}" class="btn btn-default">{% trans "Login Again" %}</a>
+{% endblock %}
+

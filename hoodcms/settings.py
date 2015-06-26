@@ -170,6 +170,7 @@ LOGIN_URL          = '/person/user/login/'
 LOGIN_ERROR_URL    = '/person/user/login/'
 LOGIN_REDIRECT_URL = '/person/user/'
 
+ACCOUNT_ACTIVATION_DAYS = 30
 AUTHENTICATION_BACKENDS = (
     'social_auth.backends.twitter.TwitterBackend',
     'social_auth.backends.facebook.FacebookBackend',
