@@ -54,3 +54,7 @@ class NoteUpdateForm(ModelForm):
         model = Note
         fields = ['text']
 
+class NoteCreateForm(ModelForm):
+    class Meta:
+        model = Note
+        fields = ['text', 'meeting']

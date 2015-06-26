@@ -85,7 +85,7 @@ class MeetingAddNotesView(AccessMixin, UpdateView):
 class AddMeetingNote(CreateView, AccessMixin):
     template_name = 'meetings/note.html'
     model = Note
-    form_class = NoteUpdateForm
+    form_class = NoteCreateForm
     permissions = ['meetings.add_note']
 
     def form_valid(self, form):

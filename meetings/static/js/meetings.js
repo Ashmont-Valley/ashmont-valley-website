@@ -8,8 +8,7 @@ function add_note(event) {
       $('#note_text_box').val("");
     },
     error: function(response) {
-      alert('error creating note');
-      //document.write(response);
+      document.write(response);
     }
   });
   return false;
@@ -70,10 +69,7 @@ $(document).ready(function() {
   // Provide ajax submission support
   $('#add_note').submit(add_note);
   $('.note').on('click', function(event) {
-    var delete_btn = $(this).children('.delete_note button');
-    if(!delete_btn.is(event.target)) {
-      $(this).showNoteEdit()
-    }
+    $(this).showNoteEdit()
   });
   $('.note .update_note').on('focusout', function() { 
     if(!$(this).hasClass('hidden')) {
