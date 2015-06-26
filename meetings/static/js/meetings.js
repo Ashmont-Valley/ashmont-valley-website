@@ -8,25 +8,43 @@ function add_note(event) {
       $('#note_text_box').val("");
     },
     error: function(response) {
-      document.write(response);
+      alert('error creating note');
+      //document.write(response);
     }
   });
   return false;
 };
 
+$.fn.showNoteEdit = function() {
+  var update_note_form = $(this).children(".update_note");
+  if(update_note_form.hasClass('hidden')) {
+    update_note_form.removeClass("hidden");
+    $(this).children('.txt').addClass('hidden');
+    var el = update_note_form.children('input')[1];
+    var elemLen = el.value.length;
+    el.selectionStart = elemLen;
+    el.selectionEnd = elemLen;
+    el.focus();
+  }
+};
+$.fn.hideNoteEdit = function(id) {
+  $("#" + id).addClass("hidden");
+  $("#" + id + "-text").removeClass('hidden');
+};
+
 function update_note(event) {
+  var id = this.getAttribute('id');
   $.ajax({
     method: this.method,
     url:    this.action,
     data:   $(this).serialize(),
     success: function(response) {
-      alert("successfully updated note");
-      var new_text = $(this).children("input").val();
-      $("#" + this.id + "-text").text(new_text);
+      var new_text = $("#" + id + "-input").val();
+      $("#" + id + "-text").text(new_text);
+      $(this).hideNoteEdit(id);
     },
     error: function(response) {
-      alert($(this).serialize());
-      //document.write(response);
+      document.write(response);
     }
   });
   return false;
@@ -51,6 +69,21 @@ function delete_note(event) {
 $(document).ready(function() {
   // Provide ajax submission support
   $('#add_note').submit(add_note);
+  $('.note').on('click', function(event) {
+    var delete_btn = $(this).children('.delete_note button');
+    if(!delete_btn.is(event.target)) {
+      $(this).showNoteEdit()
+    }
+  });
+  $('.note .update_note').on('focusout', function() { 
+    if(!$(this).hasClass('hidden')) {
+      var id = this.id;
+      var new_text = $("#" + id + "-input").val();
+      $("#" + id + "-text").text(new_text);
+      $(this).hideNoteEdit(id);
+      $(this).submit()
+    }
+  });
   $('#notes').on('submit', '.update_note', update_note);
   $('#notes').on('submit', '.delete_note', delete_note);
 });

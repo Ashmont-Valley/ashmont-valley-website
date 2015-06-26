@@ -126,6 +126,9 @@ class UpdateMeetingNote(AccessMixin, UpdateView):
     template_name = 'meetings/note.html'
     model = Note
 
+    def get_success_url(self):
+        return reverse('meetings:proceedings', args=[self.get_object().meeting.pk])
+
 class MeetingCreateView(CreateView, AccessMixin):
     form_class = MeetingCreateForm
     template_name = 'meetings/meeting_create_form.html'

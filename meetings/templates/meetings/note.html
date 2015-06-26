@@ -3,10 +3,10 @@
     {% csrf_token %}
     <button type="submit" class='close' aria-label="Close"><span aria-hidden="true">&times;</span></button>
   </form>
-  <span id="update-note-{{ note.pk }}-text">{{ note.text }}</span>
-  <form action="{% url 'meetings:update_note' note.pk %}" method='post' id="update-note-{{ note.pk }}" class="update_note ">
+  <span id="update-note-{{ note.pk }}-text" class="txt">{{ note.text }}</span>
+  <form action="{% url 'meetings:update_note' note.pk %}" method='post' id="update-note-{{ note.pk }}" class="update_note hidden">
     {% csrf_token %}
-    <input type="text" value="{{ note.text }}" name="text"/>
+    <input type="text" value="{{ note.text }}" name="text" id="update-note-{{ note.pk }}-input"/>
     <button type="submit" class="pull-right"><span class="glyphicon glyphicon-save"></span></button>
   </form>
 </div>
