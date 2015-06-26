@@ -25,59 +25,14 @@ a, a:hover, a:active, a:focus {
   outline: 0 !important;
 }
 
-p {
-  margin: 0.5ex 0;
-}
-
-ul, ol {
-  padding: 0 0 0 30px;
-  margin: 0.5ex 0;
-}
-ul.ticks li, ul li.tick {
-  list-style: none;
-  background: left center url(../images/bullet-tick.png) no-repeat;
-  margin-left: -22px;
-  padding: 2px 0 2px 22px;
-}
-
-pre {
-  background-color: #f5f5f5;
-  padding: 0.5ex 0.5em;
-  margin: 0.5ex 0;
-}
-
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Quattrocento', "Times New Roman", FreeSerif, serif;
-}
-
-video {
-  margin-bottom: 30px;
 }
 
 th[scope="row"] { text-align: right; }
 th[scope="col"] { text-align: center; }
 
 /* specific styles for layout */
-
-#content {
-  margin: 30px auto 0px auto;
-  border: 1px solid #999;
-  padding: 12px;
-  max-width: 450px;
-  background-color: white;
-  -moz-box-shadow: 0 2px 5px #eee;
-  box-shadow: 0 2px 5px #ddd;
-}
-
-#content h1 {
-  text-align: center;
-}
-
-#content table {
-  margin-top: 8px;
-}
-
-
 
 #framed {
   padding: 20px 20px 50px;
@@ -87,84 +42,11 @@ th[scope="col"] { text-align: center; }
   line-height: 20px;
   min-height: 100%;
 }
-#framed .summary {
-  font-size: 14px;
-  line-height: 24px;
-  margin-bottom: 40px;
-}
+
 #framed > div.wrapper {
   margin: -20px;
   padding: 20px;
   min-height: 500px;
-}
-
-.readmore {
-  margin-top: -10px;
-  text-align: right;
-  font-size: 11px;
-  line-height: 11px;
-}
-
-#breadcrumb {
-  font-size: 11px;
-  margin: 0 -4px 10px -4px;
-}
-#breadcrumb a {
-  margin: 0 4px;
-}
-
-.messages {
-  list-style-type: none;
-  margin: 0;
-  padding: 3px;
-}
-.messages p {
-  padding: 2px 2px 2px 5px;
-}
-.messages .success {
-  border: 1px solid #77dd77;
-  -moz-box-shadow: 0 0 5px #77dd77;
-  box-shadow: 0 0 5px #77dd77;
-  background-color: #ccffcc;
-  color: #002200;
-}
-.messages .info, .messages .debug {
-  border: 1px solid #dddd77;
-  -moz-box-shadow: 0 0 5px #dddd77;
-  box-shadow: 0 0 5px #dddd77;
-  background-color: #ffffcc;
-  color: #220000;
-}
-.messages .warning {
-  border: 1px solid #ddaa77;
-  -moz-box-shadow: 0 0 5px #ddaa77;
-  box-shadow: 0 0 5px #ddaa77;
-  background-color: #ffe5cc;
-  color: #221100;
-}
-.messages .error {
-  border: 1px solid #dd7777;
-  -moz-box-shadow: 0 0 5px #dd7777;
-  box-shadow: 0 0 5px #dd7777;
-  background-color: #ffcccc;
-  color: #220000;
-}
-table tr.error td {
-  border: 1px solid #dd7777;
-  color: #220000;
-  padding: 5px;
-  background-color: #ffcccc;
-}
-.messages li {
-  padding: 6px;
-  margin: 8px 0;
-  border-radius: 5px;
-}
-
-.postdate {
-  margin-top: 0;
-  font-size: 80%;
-  color: #666666;
 }
 
 #topsearch {
@@ -256,11 +138,11 @@ table tr.error td {
 }
 .header #topdrops > li > p {
   display: block;
-  background: #76aa2e url("../images/down-arrow.png") 112px 10px no-repeat;
+  background: #76aa2e;
   margin: 0;
-  width: 100px;
   padding: 5px 20px 7px 10px;
   border-radius: 0px 0px 6px 6px;
+  border-bottom: 1px solid #816647;
 }
 .header #topdrops p {
   cursor: default;
@@ -303,13 +185,7 @@ table tr.error td {
   margin-top: 12px;
 }
 
-#toplogin-alternate span {
-  display: block;
-  float: left;
-  margin: 10px 0;
-  font-size: 12px;
-}
-#toplogin-alternate a {
+.social-icons a {
   display: block;
   float: left;
   width: 24px;
@@ -317,23 +193,23 @@ table tr.error td {
   margin-left: 15px;
   background-image: url(../images/login-sprite.png);
 }
-#toplogin-alternate #toplogin-google {
+.social-icons #login-google {
   clear: left;
   margin-left: 0;
 }
-#toplogin-alternate #toplogin-facebook {
+.social-icons #login-facebook {
   background-position: -24px;
 }
-#toplogin-alternate #toplogin-twitter {
+.social-icons #login-twitter {
   background-position: -48px;
 }
-#toplogin-alternate #toplogin-yahoo {
+.social-icons #login-yahoo {
   background-position: -72px;
 }
-#toplogin-alternate #toplogin-live {
+.social-icons #login-live {
   background-position: -96px;
 }
-#toplogin-alternate #toplogin-wordpress {
+.social-icons #login-wordpress {
   background-position: -120px;
 }
 
@@ -350,8 +226,8 @@ table tr.error td {
   background-color: #9ccc44;
   background-image: -moz-linear-gradient(top, #9ccc44, #76aa2e);
   background-image: -webkit-gradient(linear, left top, left bottom, from(#9ccc44), to(#76aa2e));
-  border-top: 3px solid #816647;
-  border-bottom: 2px solid #816647;
+  border-top: 1px solid #816647;
+  border-bottom: 1px solid #816647;
   border-radius: 15px 15px 2px 2px;
   height: 32px;
   clear: both;
@@ -443,7 +319,7 @@ table tr.error td {
 
 .footer {
   border: solid #816647;
-  border-width: 3px 0px;
+  border-width: 1px 0px;
   border-radius: 2px 2px 15px 15px;
   background-color: #76aa2e;
   background-image: -moz-radial-gradient(center 20px, circle, #9ccc44 0, #76aa2e 300px);
