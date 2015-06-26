@@ -14,33 +14,38 @@ function add_note(event) {
   return false;
 };
 
-$.fn.showNoteEdit = function() {
-  var update_note_form = $(this).children(".update_note");
-  if(update_note_form.hasClass('hidden')) {
-    update_note_form.removeClass("hidden");
-    $(this).children('.txt').addClass('hidden');
-    var el = update_note_form.children('input')[1];
-    var elemLen = el.value.length;
-    el.selectionStart = elemLen;
-    el.selectionEnd = elemLen;
+function showNoteEdit(id) {
+  var form = $('#'+id+'-update');
+  if(form.hasClass('hidden')) {
+    $('#'+id).addClass('hidden');
+    form.removeClass("hidden");
+    var el = $('#'+id+'-input')[0];
+    el.selectionStart = 0;
+    el.selectionEnd = el.value.length;
     el.focus();
   }
 };
-$.fn.hideNoteEdit = function(id) {
-  $("#" + id).addClass("hidden");
-  $("#" + id + "-text").removeClass('hidden');
-};
+function hideNoteEdit(id) {
+  $("#" + id + "-update").addClass("hidden");
+  $("#" + id).removeClass('hidden');
+}
 
 function update_note(event) {
-  var id = this.getAttribute('id');
+  var obj = $(this).prev();
+  if(!$(this).hasClass('hidden')) {
+    var id = obj[0].id;
+    var new_text = $("#" + id + "-input").val();
+    $("#" + id + "-text").text(new_text);
+    obj.removeClass("bg-success").addClass("bg-danger");
+    hideNoteEdit(id);
+    $(this).submit()
+  }
   $.ajax({
     method: this.method,
     url:    this.action,
     data:   $(this).serialize(),
     success: function(response) {
-      var new_text = $("#" + id + "-input").val();
-      $("#" + id + "-text").text(new_text);
-      $(this).hideNoteEdit(id);
+      obj.removeClass("bg-danger").addClass("bg-success");
     },
     error: function(response) {
       document.write(response);
@@ -68,18 +73,8 @@ function delete_note(event) {
 $(document).ready(function() {
   // Provide ajax submission support
   $('#add_note').submit(add_note);
-  $('.note').on('click', function(event) {
-    $(this).showNoteEdit()
-  });
-  $('.note .update_note').on('focusout', function() { 
-    if(!$(this).hasClass('hidden')) {
-      var id = this.id;
-      var new_text = $("#" + id + "-input").val();
-      $("#" + id + "-text").text(new_text);
-      $(this).hideNoteEdit(id);
-      $(this).submit()
-    }
-  });
+  $('.note').on('click', function(event) { showNoteEdit(this.id); });
+  $('.update_note').on('focusout', function() { $(this).submit(); }); 
   $('#notes').on('submit', '.update_note', update_note);
   $('#notes').on('submit', '.delete_note', delete_note);
 });

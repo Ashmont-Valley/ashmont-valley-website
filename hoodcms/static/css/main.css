@@ -685,7 +685,7 @@ hr {
 .people li a,
 .person a,
 .results_on_deck > div {
-    padding: 8px;
+    padding: 4px 8px;
     margin-bottom: 4px;
     border-radius: 4px;
     border: 1px solid #CEDFC7;
@@ -699,6 +699,16 @@ hr {
 .results_on_deck span.close {
     margin: 4px 0px 2px 6px;
     font-size: 13px;
+}
+.update_note .input-group {
+    margin-bottom: 4px;
+}
+.note .txt {
+    display: inline-block;
+    padding: 2px 4px;
+}
+.note .close {
+    top: 2px !important;
 }
 dd.person {
     line-height: 3;
