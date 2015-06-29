@@ -1,14 +1,22 @@
 [run]
 branch = True
 omit =
+	hoodcms/*settings.py
+	hoodcms/wsgi.py
+	hoodcms/manage.py
 	*migrations*
 	*management*
 	*/tests/*.py
-    */tests.py
+	*/tests.py
 	*/admin.py
-    */__init__.py
-source = 
-	meetings
+	*/__init__.py
+;source = 
+;	hoodcms
+;	person
+;	meetings
+
+plugins =
+	django_coverage_plugin
 
 [report]
 show_missing = True
