@@ -68,10 +68,12 @@ function delete_note(event) {
 $(document).ready(function() {
   // Provide ajax submission support
   $('#add_note').submit(add_note);
-  $('.note').on('click', function(event) {
-    $(this).showNoteEdit()
+  $('#notes').on('click', '.note', function(event) {
+    if(!$(event.target).hasClass('close')) {
+      $(this).showNoteEdit()
+    }
   });
-  $('.note .update_note').on('focusout', function() { 
+  $('#notes').on('focusout', '.note .update_note', function() { 
     if(!$(this).hasClass('hidden')) {
       var id = this.id;
       var new_text = $("#" + id + "-input").val();
