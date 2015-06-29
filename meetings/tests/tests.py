@@ -71,10 +71,23 @@ class MeetingDetailTests(UserTestCase):
         self.assertTemplateUsed(response, 'meetings/meeting_detail.html')
         self.assertEqual(response.status_code, 200)
 
-class MeetingCreateTests(UserTestCase):
+class MeetingCreateTests(AdminTestCase):
     def test_create_view_template(self):
         """the create view should render using the proper template"""
         response = self.client.get(reverse('meetings:create'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'meetings/meeting_create_form.html')
 
+class MeetingProceedingsTests(AdminTestCase):
+    def test_proceedings_view_template(self):
+        """the proceedings view should render using the proper template"""
+        response = self.client.get(reverse('meetings:proceedings'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'meetings/add_meeting_notes.html')
+
+class MeetingReeditTests(UserTestCase):
+    def test_reedit_view_template(self):
+        """the reedit view should render using the proper template"""
+        response = self.client.get(reverse('meetings:reedit'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'meetings/meeting_reedit_form.html')
