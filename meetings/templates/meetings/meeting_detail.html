@@ -25,6 +25,9 @@
 <hr/>
 
 <a class='btn btn-default' href="{% url 'meetings:index' %}" role='button'>Back to Meeting Index</a>
+{% with object as meeting %}
+  {% include "meetings/edit_buttons.html" %}
+{% endwith %}
 
 
 {% endblock %}

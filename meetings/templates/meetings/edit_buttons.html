@@ -1,0 +1,13 @@
+
+  {% if meeting.is_future %}
+    <a class="btn btn-default" href="{% url "meetings:edit" meeting.pk %}">Edit Meeting</a>
+  {% elif meeting.is_today and not meeting.end_time %}
+    {% if meeting.start_time %}
+      <a class="btn btn-danger" href="{% url "meetings:proceedings" meeting.pk %}">Continue Meeting</a>
+    {% else %}
+      <a class="btn btn-success" href="{% url "meetings:prepare" meeting.pk %}">Prepare Meeting</a>
+    {% endif %}
+  {% elif meeting.is_editable %}
+    <a class="btn btn-default" href="{% url "meetings:re-edit" meeting.pk %}">Re-Edit Meeting</a>
+  {% endif %}
+
