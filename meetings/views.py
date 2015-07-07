@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 from django.views.generic.edit import SingleObjectMixin
 from django.utils.translation import ugettext_lazy as _
 from meetings.models import *
+from person.models import *
 from meetings.forms import *
 from django.contrib import messages
 from django.shortcuts import redirect
@@ -60,11 +61,11 @@ class MeetingDeleteView(DeleteView):
 class CreatePerson(CreateView):
     model = Person
     permissions = ['meetings.change_meeting']
-    fields = ['name']
+    fields = ['auser.name']
     template_name = 'generic_form.html'
 
     def post(self, request):
-        (obj, isnew) = Person.objects.get_or_create(name=request.POST['name'])
+        (obj, isnew) = Person.objects.get_or_create(auser.name=request.POST['name'])
         self.object = obj
         data = {'pk': self.object.pk, 'name': self.object.name}
         return HttpResponse(json.dumps(data), content_type="application/json")

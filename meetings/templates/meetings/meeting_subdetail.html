@@ -39,7 +39,7 @@
     <h3>Attending Neighbours</h3>
     <ul class="list-inline people">
       {% for person in object.people_attending.all %}
-        <li><a href="{{ person.get_absolute_url }}">{{ person }}</a></li>
+        <li><a href="{{ person.get_absolute_url }}">{{ person.auser.name }}</a></li>
       {% endfor %}
     </ul>
   {% endif %}
@@ -48,7 +48,7 @@
     <h3>Apologies for Absence</h3>
     <ul class="list-inline people">
       {% for person in object.people_absent.all %}
-        <li><a href="{{ person.get_absolute_url }}">{{ person }}</a></li>
+        <li><a href="{{ person.get_absolute_url }}">{{ person.auser.name }}</a></li>
       {% endfor %}
     </ul>
   {% endif %}
@@ -57,7 +57,7 @@
     <h3>Meeting Guests</h3>
     <ul class="list-inline people">
       {% for person in object.people_guests.all %}
-        <li><a href="{{ person.get_absolute_url }}">{{ person }}</a></li>
+        <li><a href="{{ person.get_absolute_url }}">{{ person.auser.name }}</a></li>
       {% endfor %}
     </ul>
   {% endif %}

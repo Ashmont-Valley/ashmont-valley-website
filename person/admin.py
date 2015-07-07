@@ -8,7 +8,7 @@ from .models import *
 class PersonAdmin(ModelAdmin):
     form = PersonAdminForm
     fieldsets = [
-        ('Personal Information', {'fields': ['first_name', 'last_name', 'phone', 'ophone', 'email',]}),
+        ('Personal Information', {'fields': ['auser__first_name', 'auser__last_name', 'phone', 'ophone', 'auser__email',]}),
         ('Biography', {'fields': ['photo', 'desc', 'notes']}),
         (None, {'fields': ['ctype', 'org']}),
     ]

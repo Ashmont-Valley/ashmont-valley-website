@@ -10,7 +10,7 @@
     <h3>Late Arrivals</h3>
     <ul class="list-inline people">
       {% for person in object.people_late.all %}
-        <li><a href="{{ person.get_absolute_url }}">{{ person }}</a></li>
+        <li><a href="{{ person.get_absolute_url }}">{{ person.auser.name }}</a></li>
       {% endfor %}
     </ul>
   {% endif %}

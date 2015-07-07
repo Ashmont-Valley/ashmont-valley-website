@@ -3,6 +3,7 @@ from ajax_select import make_ajax_field
 from django.utils.translation import ugettext_lazy as _
 
 from meetings.models import *
+from person.models import *
 
 class MeetingCreateForm(ModelForm):
     class Meta:

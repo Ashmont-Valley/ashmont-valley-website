@@ -53,6 +53,9 @@ class Person(Model):
         except:
             return self.user.username
 
+    def get_absolute_url(self):
+        return self.auser.get_absolute_url()
+
     @property
     def user(self):
         try:

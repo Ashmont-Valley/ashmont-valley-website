@@ -1,4 +1,5 @@
 from meetings.models import *
+from person.models import *
 from django.contrib import admin
 from django.forms.widgets import TextInput
 from ajax_select.admin import AjaxSelectAdmin
@@ -34,11 +35,6 @@ class TypeAdmin(admin.ModelAdmin):
         ('Name of Type', {'fields':['name']}),
         ]
 
-class PersonAdmin(admin.ModelAdmin):
-    fieldsets = [
-        (None, {'fields':['name']}),
-        ]
 
 admin.site.register(Type, TypeAdmin)
-admin.site.register(Person, PersonAdmin)
 admin.site.register(Meeting, MeetingAdmin)
