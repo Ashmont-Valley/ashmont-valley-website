@@ -7,7 +7,7 @@ class PersonLookup(LookupChannel):
     model = Person
 
     def get_query(self, q, request):
-        return Person.objects.filter(Q(auser.name__icontains=q)).order_by('auser.name()')
+        return Person.objects.filter(Q(auser__name__icontains=q)).order_by('auser__name')
 
     def get_result(self, obj):
         return obj.auser.name()

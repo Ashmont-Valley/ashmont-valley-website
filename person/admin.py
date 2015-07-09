@@ -8,9 +8,10 @@ from .models import *
 class PersonAdmin(ModelAdmin):
     form = PersonAdminForm
     fieldsets = [
-        ('Personal Information', {'fields': ['auser__first_name', 'auser__last_name', 'phone', 'ophone', 'auser__email',]}),
-        ('Biography', {'fields': ['photo', 'desc', 'notes']}),
+        ('Personal Information', {'fields': ['first_name', 'last_name', 'phone', 'ophone']}),#, 'auser__first_name', 'auser__last_name', 'auser__email']}),
+        ('Biography', {'fields': ['photo', 'desc']}),
         (None, {'fields': ['ctype', 'org']}),
+        (None, {'fields': ['notes', 'auser']}),#these two are here because they are excluded in the form
     ]
 
 site.register(Person, PersonAdmin)

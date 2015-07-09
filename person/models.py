@@ -47,11 +47,11 @@ class Person(Model):
     def __unicode__(self):
         try:
             if self.mrs:
-                return "%s. %s %s" % (self.mrs, self.user.first_name, self.user.last_name)
+                return "%s. %s %s" % (self.mrs, self.auser.first_name, self.auser.last_name)
             else:
-                return "%s %s" % (self.user.first_name, self.user.last_name)
+                return "%s %s" % (self.auser.first_name, self.auser.last_name)
         except:
-            return self.user.username
+            return self.auser.username
 
     def get_absolute_url(self):
         return self.auser.get_absolute_url()

@@ -65,9 +65,15 @@ class CreatePerson(CreateView):
     template_name = 'generic_form.html'
 
     def post(self, request):
-        (obj, isnew) = Person.objects.get_or_create(auser.name=request.POST['name'])
+        name = (request.POST['name']).split(None, 1)
+        first_name = name[0]
+        if len(name) == 2:
+            last_name = name[1]
+        else:
+            last_name = None
+        (obj, isnew) = Person.objects.get_or_create(auser__first_name=first_name, auser__last_name=last_name)
         self.object = obj
-        data = {'pk': self.object.pk, 'name': self.object.name}
+        data = {'pk': self.object.pk, 'name': self.obj.auser.name()}
         return HttpResponse(json.dumps(data), content_type="application/json")
 
 class MeetingAddNotesView(AccessMixin, UpdateView):
