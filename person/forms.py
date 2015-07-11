@@ -56,7 +56,7 @@ class PersonAdminForm(ModelForm):
     last_name = CharField()
     class Meta:
         model = Person
-        exclude = ('auser','last_seen','visits','notes')
+        #exclude = ('auser','last_seen','visits','notes')
 
 from .multiform import MultiModelForm
 

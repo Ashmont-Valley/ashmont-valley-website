@@ -11,13 +11,14 @@ function add_person(event) {
       method: 'post',
       url:    target,
       data:   {
-        name: $("#" + htmlid + "_text").val(),
+        first_name: $("#" + htmlid + "_text").val(),
       },
       success: function(data) {
+        alert("person successfully created");
         $("#" + htmlid).trigger('didAddPopup', [data['pk'], data['name']]);
       },
       error: function(response) {
-        alert('There was an error' + response.status);
+        alert('There was an error ' + response.status);
         //document.write(response);
       },
     });

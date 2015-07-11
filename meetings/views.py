@@ -59,21 +59,47 @@ class MeetingDeleteView(DeleteView):
         return reverse('meetings:index')
 
 class CreatePerson(CreateView):
-    model = Person
+    model = User
     permissions = ['meetings.change_meeting']
-    fields = ['auser.name']
     template_name = 'generic_form.html'
+    fields = ['first_name', 'last_name']
 
     def post(self, request):
-        name = (request.POST['name']).split(None, 1)
-        first_name = name[0]
-        if len(name) == 2:
-            last_name = name[1]
+        if self.request.is_ajax():
+            name = (request.POST['first_name']).split(None, 1)
+            first_name = name[0]
+            if len(name) == 2:
+                last_name = name[1]
+            else:
+                last_name = None
         else:
-            last_name = None
-        (obj, isnew) = Person.objects.get_or_create(auser__first_name=first_name, auser__last_name=last_name)
+            first_name = request.POST['first_name']
+            last_name = request.POST['last_name']
+        try:
+            obj = Person.objects.get(auser__first_name=first_name, auser__last_name=last_name)
+        except Person.DoesNotExist:
+            if last_name:
+                username = first_name + last_name
+            else:
+                username = first_name
+            auser = User(first_name=first_name, last_name=last_name, username=username)
+            try: 
+                #usernames need to be unique so this fails if the username is already in use
+                auser.save()
+            except:
+                #a really dirty way to attach a unique number suffix to the username
+                suffix = 1
+                while True:
+                    try: 
+                        auser.username = username + "%d" % suffix
+                        auser.save()
+                        break
+                    except:
+                        suffix += 1
+            obj = Person(auser=auser)
+            obj.save()
         self.object = obj
-        data = {'pk': self.object.pk, 'name': self.obj.auser.name()}
+        data = {'pk': self.object.pk, 'name': self.object.auser.name()}
         return HttpResponse(json.dumps(data), content_type="application/json")
 
 class MeetingAddNotesView(AccessMixin, UpdateView):
