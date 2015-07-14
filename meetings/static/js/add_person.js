@@ -12,9 +12,10 @@ function add_person(event) {
       url:    target,
       data:   {
         first_name: $("#" + htmlid + "_text").val(),
+        last_name: "",
       },
       success: function(data) {
-        alert("person successfully created");
+        alert("person successfully added");
         $("#" + htmlid).trigger('didAddPopup', [data['pk'], data['name']]);
       },
       error: function(response) {

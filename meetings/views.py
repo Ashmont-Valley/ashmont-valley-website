@@ -66,28 +66,27 @@ class CreatePerson(CreateView):
 
     def post(self, request):
         if self.request.is_ajax():
+            #the entire name is in the first_name variable
             name = (request.POST['first_name']).split(None, 1)
             first_name = name[0]
             if len(name) == 2:
                 last_name = name[1]
             else:
-                last_name = None
+                last_name = ""
         else:
             first_name = request.POST['first_name']
             last_name = request.POST['last_name']
         try:
             obj = Person.objects.get(auser__first_name=first_name, auser__last_name=last_name)
         except Person.DoesNotExist:
-            if last_name:
-                username = first_name + last_name
-            else:
-                username = first_name
+            username = self.create_username(first_name, last_name)
             auser = User(first_name=first_name, last_name=last_name, username=username)
             try: 
                 #usernames need to be unique so this fails if the username is already in use
                 auser.save()
             except:
                 #a really dirty way to attach a unique number suffix to the username
+                #with the current implementation I don't think this should ever happen
                 suffix = 1
                 while True:
                     try: 
@@ -101,6 +100,17 @@ class CreatePerson(CreateView):
         self.object = obj
         data = {'pk': self.object.pk, 'name': self.object.auser.name()}
         return HttpResponse(json.dumps(data), content_type="application/json")
+
+    def create_username(self, first_name, last_name):
+        first_name_exists = (first_name != None and first_name.strip != "")
+        last_name_exists = (last_name != None and last_name.strip != "")
+        if first_name_exists and last_name_exists:
+            return first_name + " " + last_name
+        if first_name_exists and not last_name_exists:
+            return first_name
+        if not first_name_exists and last_name_exists:
+            return last_name
+        return"Unspecified"
 
 class MeetingAddNotesView(AccessMixin, UpdateView):
     template_name = 'meetings/add_meeting_notes.html'
