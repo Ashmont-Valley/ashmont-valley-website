@@ -5,6 +5,60 @@ import datetime
 from meetings.models import *
 from .basetest import UserTestCase, StaffTestCase, AdminTestCase
 
+class PermissionsTests(UserTestCase):
+    
+    def test_create_view_permissions(self):
+        """the create view should only be accessible to users with the proper permissions"""
+        response = self.client.get(reverse('meetings:create'))
+        self.assertNotEqual(response.status_code, 200)
+
+    def test_create_person_view_permissions(self):
+        """the create person view should only be accessible to users with the proper permissions"""
+        response = self.client.get(reverse('meetings:create_person'))
+        self.assertNotEqual(response.status_code, 200)
+
+    def test_edit_view_permissions(self):
+        """the edit view should only be accessible to users with the proper permissions"""
+        date = datetime.now()
+        meeting = Meeting.objects.create(meeting_date=date, name='Meeting', meeting_type=Type.objects.create(name='Type'))
+        response = self.client.get(reverse('meetings:edit', args=[meeting.pk]))
+        self.assertNotEqual(response.status_code, 200)
+
+    def test_prepare_view_permissions(self):
+        """the prepare view should only be accessible to users with the proper permissions"""
+        date = datetime.now()
+        meeting = Meeting.objects.create(meeting_date=date, name='Meeting', meeting_type=Type.objects.create(name='Type'))
+        response = self.client.get(reverse('meetings:prepare', args=[meeting.pk]))
+        self.assertNotEqual(response.status_code, 200)
+
+    def test_proceedings_view_permissions(self):
+        """the proceedings view should only be accessible to users with the proper permissions"""
+        date = datetime.now()
+        meeting = Meeting.objects.create(meeting_date=date, name='Meeting', start_time=date.time(), meeting_type=Type.objects.create(name='Type'))
+        response = self.client.get(reverse('meetings:proceedings', args=[meeting.pk]))
+        self.assertNotEqual(response.status_code, 200)
+        
+    def test_reedit_view_permissions(self):
+        """the reedit view should only be accessible to users with the proper permissions"""
+        date = datetime.now()
+        meeting = Meeting.objects.create(meeting_date=date, name='Meeting', start_time=date.time(), end_time=date.time(), meeting_type=Type.objects.create(name='Type'))
+        response = self.client.get(reverse('meetings:re-edit', args=[meeting.pk]))
+        self.assertNotEqual(response.status_code, 200)
+
+    def test_add_note_view_permissions(self):
+        """the add note view should only be accessible to users with the proper permissions"""
+        date = datetime.now()
+        meeting = Meeting.objects.create(meeting_date=date, name='Meeting', start_time=date.time(), end_time=date.time(), meeting_type=Type.objects.create(name='Type'))
+        response = self.client.get(reverse('meetings:add_note', args=[meeting.pk]))
+        self.assertNotEqual(response.status_code, 200)
+
+    def test_delete_meeting_view_permissions(self):
+        """the reedit view should only be accessible to users with the proper permissions"""
+        date = datetime.now()
+        meeting = Meeting.objects.create(meeting_date=date, name='Meeting', start_time=date.time(), end_time=date.time(), meeting_type=Type.objects.create(name='Type'))
+        response = self.client.get(reverse('meetings:delete_meeting', args=[meeting.pk]))
+        self.assertNotEqual(response.status_code, 200)
+
 class MeetingIndexTests(AdminTestCase):
 
     def test_index_view_template(self):
@@ -61,6 +115,21 @@ class MeetingEditTests(AdminTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'meetings/meeting_edit_form.html')
 
+    def test_edit_view_post(self):
+        """the edit view should save any changes upon a correctly formatted POST request"""
+        date = datetime.now()
+        meeting = Meeting.objects.create(meeting_date=date, name='meeting', meeting_type=Type.objects.create(name='Type'))
+        pk = meeting.pk
+        meeting_type = Type.objects.create(name="Newtype")
+        self.client.post(reverse('meetings:edit', args=[pk]), {'name': 'new_name', 'meeting_date': '5/6/07', 'meeting_type': meeting_type})
+        changed_meeting = Meeting.objects.get(pk=pk)
+        self.assertEqual(changed_meeting.name, 'new_name')
+        self.assertEqual(changed_meeting.meeting_date, datetime.datetime(year=2007, month=5, day=6))
+        self.assertEqual(changed_meeting.meeting_type, meeting_type)
+
+
+
+
 class MeetingDetailTests(UserTestCase):
 
     def test_detail_view_template(self):
@@ -81,13 +150,17 @@ class MeetingCreateTests(AdminTestCase):
 class MeetingProceedingsTests(AdminTestCase):
     def test_proceedings_view_template(self):
         """the proceedings view should render using the proper template"""
-        response = self.client.get(reverse('meetings:proceedings'))
+        date = datetime.now()
+        meeting = Meeting.objects.create(meeting_date=date, name='meeting', meeting_type=Type.objects.create(name='Type'))
+        response = self.client.get(reverse('meetings:proceedings', args=[meeting.pk]))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'meetings/add_meeting_notes.html')
 
-class MeetingReeditTests(UserTestCase):
+class MeetingReeditTests(AdminTestCase):
     def test_reedit_view_template(self):
         """the reedit view should render using the proper template"""
-        response = self.client.get(reverse('meetings:reedit'))
+        date = datetime.now()
+        meeting = Meeting.objects.create(meeting_date=date, name='Meeting', start_time=date.time(), end_time=date.time(), meeting_type=Type.objects.create(name='Type'))
+        response = self.client.get(reverse('meetings:re-edit', args=[meeting.pk]))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'meetings/meeting_reedit_form.html')

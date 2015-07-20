@@ -11,7 +11,7 @@ class PersonAdmin(ModelAdmin):
         ('Personal Information', {'fields': ['phone', 'ophone']}),#, 'auser__first_name', 'auser__last_name', 'auser__email']}),
         ('Biography', {'fields': ['photo', 'desc']}),
         (None, {'fields': ['ctype', 'org']}),
-        (None, {'fields': ['notes', 'auser']}),#these two are here because they are excluded in the form
+        (None, {'fields': ['notes', 'auser']}),
     ]
 
 site.register(Person, PersonAdmin)
