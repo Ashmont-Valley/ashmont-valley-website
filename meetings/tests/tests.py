@@ -45,13 +45,6 @@ class PermissionsTests(UserTestCase):
         response = self.client.get(reverse('meetings:re-edit', args=[meeting.pk]))
         self.assertNotEqual(response.status_code, 200)
 
-    def test_add_note_view_permissions(self):
-        """the add note view should only be accessible to users with the proper permissions"""
-        date = datetime.now()
-        meeting = Meeting.objects.create(meeting_date=date, name='Meeting', start_time=date.time(), end_time=date.time(), meeting_type=Type.objects.create(name='Type'))
-        response = self.client.get(reverse('meetings:add_note', args=[meeting.pk]))
-        self.assertNotEqual(response.status_code, 200)
-
     def test_delete_meeting_view_permissions(self):
         """the reedit view should only be accessible to users with the proper permissions"""
         date = datetime.now()
@@ -119,16 +112,12 @@ class MeetingEditTests(AdminTestCase):
         """the edit view should save any changes upon a correctly formatted POST request"""
         date = datetime.now()
         meeting = Meeting.objects.create(meeting_date=date, name='meeting', meeting_type=Type.objects.create(name='Type'))
-        pk = meeting.pk
         meeting_type = Type.objects.create(name="Newtype")
-        self.client.post(reverse('meetings:edit', args=[pk]), {'name': 'new_name', 'meeting_date': '5/6/07', 'meeting_type': meeting_type})
-        changed_meeting = Meeting.objects.get(pk=pk)
-        self.assertEqual(changed_meeting.name, 'new_name')
-        self.assertEqual(changed_meeting.meeting_date, datetime.datetime(year=2007, month=5, day=6))
-        self.assertEqual(changed_meeting.meeting_type, meeting_type)
-
-
-
+        #I don't know why this isn't working =(
+        self.client.post(reverse('meetings:edit', args=[meeting.pk]), data={'name': 'new_name'})#, 'meeting_date': '5/6/07', 'meeting_type': {'name': "Newtype"}})
+        self.assertEqual(meeting.name, 'new_name')
+        self.assertEqual(meeting.meeting_date, datetime.datetime(year=2007, month=5, day=6))
+        self.assertEqual(meeting.meeting_type, meeting_type)
 
 class MeetingDetailTests(UserTestCase):
 
@@ -147,6 +136,16 @@ class MeetingCreateTests(AdminTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'meetings/meeting_create_form.html')
 
+    def test_create_view_post(self):
+        """the create view should save any changes upon a correctly formatted POST request"""
+        hype = Type.objects.create(name="Type")
+        #much sadness, for this doesn't actually work
+        self.client.post(reverse('meetings:create'), data={'name': 'meeting', 'meeting_date': '5/6/07', 'meeting_type': {'name': "Type"}})
+        meeting = Meeting.objects.get(name='meeting')
+        self.assertEqual(meeting.name, 'meeting')
+        self.assertEqual(meeting.meeting_date, datetime.datetime(year=2007, month=5, day=6))
+        self.assertEqual(meeting.meeting_type, meeting_type)
+
 class MeetingProceedingsTests(AdminTestCase):
     def test_proceedings_view_template(self):
         """the proceedings view should render using the proper template"""
@@ -155,6 +154,17 @@ class MeetingProceedingsTests(AdminTestCase):
         response = self.client.get(reverse('meetings:proceedings', args=[meeting.pk]))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'meetings/add_meeting_notes.html')
+
+    def test_proceedings_view_post(self):
+        """the proceedings view should save any changes upon a correctly formatted POST request"""
+        date = datetime.now()
+        meeting = Meeting.objects.create(meeting_date=date, name='meeting', meeting_type=Type.objects.create(name='Type'))
+        bill = Person.objects.create(auser=User.objects.create(username="bill", password="123"))
+        bipp = Person.objects.create(auser=User.objects.create(username="bipp", password="123"))
+        biff = Person.objects.create(auser=User.objects.create(username="biff", password="123"))
+        #I don't know why this isn't working =(
+        self.client.post(reverse('meetings:proceedings', args=[meeting.pk]), data={'people_late': {'auser__username': 'bill'}, {'auser__username': 'bipp'}, {'auser__username': 'biff'} })
+        self.assertEqual(meeting.people_late,  {bill, bipp, biff})
 
 class MeetingReeditTests(AdminTestCase):
     def test_reedit_view_template(self):
