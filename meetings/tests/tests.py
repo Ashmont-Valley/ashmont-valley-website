@@ -3,6 +3,8 @@ from django.core.urlresolvers import reverse
 import datetime
 
 from meetings.models import *
+from meetings.forms import *
+from person.userextra import User
 from .basetest import UserTestCase, StaffTestCase, AdminTestCase
 
 class PermissionsTests(UserTestCase):
@@ -110,14 +112,15 @@ class MeetingEditTests(AdminTestCase):
 
     def test_edit_view_post(self):
         """the edit view should save any changes upon a correctly formatted POST request"""
-        date = datetime.now()
-        meeting = Meeting.objects.create(meeting_date=date, name='meeting', meeting_type=Type.objects.create(name='Type'))
-        meeting_type = Type.objects.create(name="Newtype")
-        #I don't know why this isn't working =(
-        self.client.post(reverse('meetings:edit', args=[meeting.pk]), data={'name': 'new_name'})#, 'meeting_date': '5/6/07', 'meeting_type': {'name': "Newtype"}})
+        meetingDate = datetime.now()
+        meeting = Meeting.objects.create(meeting_date=meetingDate, name='meeting', meeting_type=Type.objects.create(name='Type'))
+        newType = Type.objects.create(name="Newtype")
+        request = self.client.post(reverse('meetings:edit', args=[meeting.pk]), data={'name': 'new_name', 'meeting_date': '5/6/07', 'meeting_type': '2'})
+        self.assertEqual(request.status_code, 302)
+        meeting = Meeting.objects.get(name='new_name')
         self.assertEqual(meeting.name, 'new_name')
-        self.assertEqual(meeting.meeting_date, datetime.datetime(year=2007, month=5, day=6))
-        self.assertEqual(meeting.meeting_type, meeting_type)
+        self.assertEqual(meeting.meeting_date, date(year=2007, month=5, day=6))
+        self.assertEqual(meeting.meeting_type, newType)
 
 class MeetingDetailTests(UserTestCase):
 
@@ -138,13 +141,12 @@ class MeetingCreateTests(AdminTestCase):
 
     def test_create_view_post(self):
         """the create view should save any changes upon a correctly formatted POST request"""
-        hype = Type.objects.create(name="Type")
-        #much sadness, for this doesn't actually work
-        self.client.post(reverse('meetings:create'), data={'name': 'meeting', 'meeting_date': '5/6/07', 'meeting_type': {'name': "Type"}})
+        meetingType = Type.objects.create(name='Type')
+        self.client.post(reverse('meetings:create'), data={'name': 'meeting', 'meeting_date': '5/6/07', 'meeting_type': '1'})
         meeting = Meeting.objects.get(name='meeting')
         self.assertEqual(meeting.name, 'meeting')
-        self.assertEqual(meeting.meeting_date, datetime.datetime(year=2007, month=5, day=6))
-        self.assertEqual(meeting.meeting_type, meeting_type)
+        self.assertEqual(meeting.meeting_date, date(year=2007, month=5, day=6))
+        self.assertEqual(meeting.meeting_type, meetingType)
 
 class MeetingProceedingsTests(AdminTestCase):
     def test_proceedings_view_template(self):
@@ -163,8 +165,8 @@ class MeetingProceedingsTests(AdminTestCase):
         bipp = Person.objects.create(auser=User.objects.create(username="bipp", password="123"))
         biff = Person.objects.create(auser=User.objects.create(username="biff", password="123"))
         #I don't know why this isn't working =(
-        self.client.post(reverse('meetings:proceedings', args=[meeting.pk]), data={'people_late': {'auser__username': 'bill'}, {'auser__username': 'bipp'}, {'auser__username': 'biff'} })
-        self.assertEqual(meeting.people_late,  {bill, bipp, biff})
+        self.client.post(reverse('meetings:proceedings', args=[meeting.pk]), data={'people_late': (1,2,3) })
+        self.assertEqual(meeting.people_late.all(),  {bill, bipp, biff})
 
 class MeetingReeditTests(AdminTestCase):
     def test_reedit_view_template(self):
