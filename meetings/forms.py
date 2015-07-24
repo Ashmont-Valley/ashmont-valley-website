@@ -65,7 +65,7 @@ class CreatePersonForm(ModelForm):
         if len(name_list) == 2:
             last = name_list[1]
         else:
-            last = ""
+            last = None
         self.data['last_name'] = last
         self.data['username'] = slugify(name)
         return first

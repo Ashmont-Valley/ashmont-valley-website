@@ -5,10 +5,10 @@ import datetime
 from meetings.models import *
 from meetings.forms import *
 from person.userextra import User
+from django.utils.text import slugify
 from .basetest import UserTestCase, StaffTestCase, AdminTestCase
 
 class PermissionsTests(UserTestCase):
-    
     def test_create_view_permissions(self):
         """the create view should only be accessible to users with the proper permissions"""
         response = self.client.get(reverse('meetings:create'))
@@ -85,7 +85,6 @@ class PermissionsTests(UserTestCase):
         self.assertEqual(response.status_code, 302)
 
 class MeetingIndexTests(AdminTestCase):
-
     def test_index_view_template(self):
         """the index view should render using the proper template"""
         response = self.client.get(reverse('meetings:index'))
@@ -131,7 +130,6 @@ class MeetingIndexTests(AdminTestCase):
         self.assertContains(response, 'href="%s"' % reverse('meetings:create'))
 
 class MeetingEditTests(AdminTestCase):
-
     def test_edit_view_template(self):
         """the edit view should render using the proper template"""
         date = datetime.now()
@@ -153,7 +151,6 @@ class MeetingEditTests(AdminTestCase):
         self.assertEqual(meeting.meeting_type, newType)
 
 class MeetingDetailTests(UserTestCase):
-
     def test_detail_view_template(self):
         """the detail view should render using the proper template"""
         date = datetime.now()
@@ -195,7 +192,7 @@ class MeetingProceedingsTests(AdminTestCase):
         bipp = Person.objects.create(user=User.objects.create(username="bipp", password="123"))
         biff = Person.objects.create(user=User.objects.create(username="biff", password="123"))
         self.client.post(reverse('meetings:proceedings', args=[meeting.pk]), data={'people_late__in': (bill.pk, bipp.pk, biff.pk) })
-        self.assertEqual(meeting.people_late.all(),  {bill, bipp, biff})
+        self.assertEqual(list(meeting.people_late.all()),  {bill, bipp, biff})
 
 class MeetingReeditTests(AdminTestCase):
     def test_reedit_view_template(self):
@@ -207,4 +204,61 @@ class MeetingReeditTests(AdminTestCase):
         self.assertTemplateUsed(response, 'meetings/meeting_reedit_form.html')
 
 class MeetingCreatePersonTests(AdminTestCase):
-    pass
+    def test_create_person_view_post_first_name_only(self):
+        """the create person view should create a person and attached user upon a correctly formatted POST request"""
+        name = 'Jon'
+        response = self.client.post(reverse('meetings:create_person'), data={'first_name': name})
+        self.assertEqual(response.data['name'], name)
+        person = Person.objects.get(pk=response.data['pk'])
+        user = person.user
+        self.assertEqual(user.first_name, name)
+        self.assertEqual(user.username, name)
+        self.assertEqual(user.last_name, None)
+
+    def test_create_person_view_post_first_and_last_name(self):
+        """the create person view should create a person and attached user upon a correctly formatted POST request"""
+        name = 'Jon Smith'
+        response = self.client.post(reverse('meetings:create_person'), data={'first_name': name})
+        self.assertEqual(response.data['name'], name)
+        person = Person.objects.get(pk=response.data['pk'])
+        user = person.user
+        self.assertEqual(user.first_name, 'Jon')
+        self.assertEqual(user.username, slugify(name))
+        self.assertEqual(user.last_name, 'Smith')
+
+    def test_create_person_view_post_with_more_than_two_names(self):
+        """the create person view should create a person and attached user upon a correctly formatted POST request"""
+        name = 'Jon Leeroy Jenkins Smith'
+        response = self.client.post(reverse('meetings:create_person'), data={'first_name': name})
+        self.assertEqual(response.data['name'], name)
+        person = Person.objects.get(pk=response.data['pk'])
+        user = person.user
+        self.assertEqual(user.first_name, 'Jon Leeroy Jenkins')
+        self.assertEqual(user.username, slugify(name))
+        self.assertEqual(user.last_name, 'Smith')
+
+    def test_create_person_view_post_duplicate_people(self):
+        """the create person view should create a person and a user if they do not already exist"""
+        name = 'Jon Smith'
+        self.assertEqual(Person.objects.count(first_name='Jon', last_name='Smith'), 0)
+        self.client.post(reverse('meetings:create_person'), data={'first_name': name})
+        self.assertEqual(Person.objects.count(first_name='Jon', last_name='Smith'), 1)
+        self.client.post(reverse('meetings:create_person'), data={'first_name': name})
+        self.assertEqual(Person.objects.count(first_name='Jon', last_name='Smith'), 1)
+
+class MeetingDeleteViewTests(AdminTestCase):
+    def test_meeting_delete_view(self):
+        """the meeting delete view should delete meetings upon a POST request"""
+        date = datetime.now()
+        meeting = Meeting.objects.create(meeting_date=date, name='Meeting', meeting_type=Type.objects.create(name='Type'))
+        #need to check if in database
+        self.client.post(reverse('meetings:delete', args=[meeting.pk]))
+        #need to check if not in database
+
+    def test_meeting_delete_view(self):
+        """the meeting delete view should only delete meetings that haven't begun yet"""
+        date = datetime.now()
+        meeting = Meeting.objects.create(meeting_date=date, name='Meeting', start_time=date.time(), meeting_type=Type.objects.create(name='Type'))
+        #need to check if in database
+        self.client.post(reverse('meetings:delete', args=[meeting.pk]))
+        #need to check if still in database
