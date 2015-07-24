@@ -12,47 +12,77 @@ class PermissionsTests(UserTestCase):
     def test_create_view_permissions(self):
         """the create view should only be accessible to users with the proper permissions"""
         response = self.client.get(reverse('meetings:create'))
-        self.assertNotEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
 
     def test_create_person_view_permissions(self):
         """the create person view should only be accessible to users with the proper permissions"""
         response = self.client.get(reverse('meetings:create_person'))
-        self.assertNotEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
 
     def test_edit_view_permissions(self):
         """the edit view should only be accessible to users with the proper permissions"""
         date = datetime.now()
         meeting = Meeting.objects.create(meeting_date=date, name='Meeting', meeting_type=Type.objects.create(name='Type'))
         response = self.client.get(reverse('meetings:edit', args=[meeting.pk]))
-        self.assertNotEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
 
     def test_prepare_view_permissions(self):
         """the prepare view should only be accessible to users with the proper permissions"""
         date = datetime.now()
         meeting = Meeting.objects.create(meeting_date=date, name='Meeting', meeting_type=Type.objects.create(name='Type'))
         response = self.client.get(reverse('meetings:prepare', args=[meeting.pk]))
-        self.assertNotEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
 
     def test_proceedings_view_permissions(self):
         """the proceedings view should only be accessible to users with the proper permissions"""
         date = datetime.now()
         meeting = Meeting.objects.create(meeting_date=date, name='Meeting', start_time=date.time(), meeting_type=Type.objects.create(name='Type'))
         response = self.client.get(reverse('meetings:proceedings', args=[meeting.pk]))
-        self.assertNotEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
         
     def test_reedit_view_permissions(self):
         """the reedit view should only be accessible to users with the proper permissions"""
         date = datetime.now()
         meeting = Meeting.objects.create(meeting_date=date, name='Meeting', start_time=date.time(), end_time=date.time(), meeting_type=Type.objects.create(name='Type'))
         response = self.client.get(reverse('meetings:re-edit', args=[meeting.pk]))
-        self.assertNotEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
 
     def test_delete_meeting_view_permissions(self):
-        """the reedit view should only be accessible to users with the proper permissions"""
+        """the delete view should only be accessible to users with the proper permissions"""
         date = datetime.now()
         meeting = Meeting.objects.create(meeting_date=date, name='Meeting', start_time=date.time(), end_time=date.time(), meeting_type=Type.objects.create(name='Type'))
         response = self.client.get(reverse('meetings:delete_meeting', args=[meeting.pk]))
-        self.assertNotEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
+
+    def test_create_person_view_permissions(self):
+        """the create person view should only be accessible to users with the proper permissions"""
+        date = datetime.now()
+        meeting = Meeting.objects.create(meeting_date=date, name='Meeting', start_time=date.time(), end_time=date.time(), meeting_type=Type.objects.create(name='Type'))
+        response = self.client.get(reverse('meetings:create_person'))
+        self.assertEqual(response.status_code, 302)
+
+    def test_add_note_view_permissions(self):
+        """the add note view should only be accessible to users with the proper permissions"""
+        date = datetime.now()
+        meeting = Meeting.objects.create(meeting_date=date, name='Meeting', start_time=date.time(), end_time=date.time(), meeting_type=Type.objects.create(name='Type'))
+        response = self.client.get(reverse('meetings:add_note', args=[meeting.pk]))
+        self.assertEqual(response.status_code, 302)
+
+    def test_delete_note_view_permissions(self):
+        """the delete note view should only be accessible to users with the proper permissions"""
+        date = datetime.now()
+        meeting = Meeting.objects.create(meeting_date=date, name='Meeting', start_time=date.time(), end_time=date.time(), meeting_type=Type.objects.create(name='Type'))
+        note = Note.objects.create(meeting=meeting, text="note")
+        response = self.client.get(reverse('meetings:delete_note', args=[note.pk]))
+        self.assertEqual(response.status_code, 302)
+
+    def test_update_note_view_permissions(self):
+        """the update note view should only be accessible to users with the proper permissions"""
+        date = datetime.now()
+        meeting = Meeting.objects.create(meeting_date=date, name='Meeting', start_time=date.time(), end_time=date.time(), meeting_type=Type.objects.create(name='Type'))
+        note = Note.objects.create(meeting=meeting, text="note")
+        response = self.client.get(reverse('meetings:update_note', args=[note.pk]))
+        self.assertEqual(response.status_code, 302)
 
 class MeetingIndexTests(AdminTestCase):
 
@@ -161,11 +191,10 @@ class MeetingProceedingsTests(AdminTestCase):
         """the proceedings view should save any changes upon a correctly formatted POST request"""
         date = datetime.now()
         meeting = Meeting.objects.create(meeting_date=date, name='meeting', meeting_type=Type.objects.create(name='Type'))
-        bill = Person.objects.create(auser=User.objects.create(username="bill", password="123"))
-        bipp = Person.objects.create(auser=User.objects.create(username="bipp", password="123"))
-        biff = Person.objects.create(auser=User.objects.create(username="biff", password="123"))
-        #I don't know why this isn't working =(
-        self.client.post(reverse('meetings:proceedings', args=[meeting.pk]), data={'people_late': (1,2,3) })
+        bill = Person.objects.create(user=User.objects.create(username="bill", password="123"))
+        bipp = Person.objects.create(user=User.objects.create(username="bipp", password="123"))
+        biff = Person.objects.create(user=User.objects.create(username="biff", password="123"))
+        self.client.post(reverse('meetings:proceedings', args=[meeting.pk]), data={'people_late__in': (bill.pk, bipp.pk, biff.pk) })
         self.assertEqual(meeting.people_late.all(),  {bill, bipp, biff})
 
 class MeetingReeditTests(AdminTestCase):
@@ -176,3 +205,6 @@ class MeetingReeditTests(AdminTestCase):
         response = self.client.get(reverse('meetings:re-edit', args=[meeting.pk]))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'meetings/meeting_reedit_form.html')
+
+class MeetingCreatePersonTests(AdminTestCase):
+    pass

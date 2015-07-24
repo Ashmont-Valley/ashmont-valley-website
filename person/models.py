@@ -27,7 +27,7 @@ class ContactType(Model):
 
 
 class Person(Model):
-    auser  = AutoOneToOneField(User, related_name='details', **null)
+    user  = AutoOneToOneField(User, related_name='details', unique=True)
 
     photo = ResizedImageField(_('Photograph (square)'), null=True, blank=True,
               upload_to='photos', max_width=190, max_height=190)
@@ -45,28 +45,33 @@ class Person(Model):
     visits    = IntegerField(default=0)
 
     def __unicode__(self):
-        try:
-            if self.mrs:
-                return "%s. %s %s" % (self.mrs, self.auser.first_name, self.auser.last_name)
-            else:
-                return "%s %s" % (self.auser.first_name, self.auser.last_name)
-        except:
-            return self.auser.username
+        return self.name()
+
+    def __str__(self):
+        return unicode(self)
 
     def get_absolute_url(self):
-        return self.auser.get_absolute_url()
+        return self.user.get_absolute_url()
 
     @property
-    def user(self):
-        try:
-            return self.auser
-        except User.DoesNotExist:
-            return None
+    def first_name(self):
+        if self.user.first_name:
+            return self.user.first_name
+        return None
+
+    @property
+    def last_name(self):
+        if self.user.last_name:
+            return self.user.last_name
+        return None
 
     def photo_url(self):
         if self.photo:
             return self.photo.url
         return None
+
+    def name(self):
+        return self.user.name()
 
 
 class Twilight(Manager):

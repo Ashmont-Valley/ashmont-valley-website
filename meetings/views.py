@@ -40,7 +40,7 @@ class MeetingEditView(AccessMixin, UpdateView):
     def get_success_url(self):
         return reverse('meetings:detail', args=[self.object.pk])
 
-class MeetingDeleteView(DeleteView):
+class MeetingDeleteView(AccessMixin, DeleteView):
     model = Meeting
     permissions = ['meetings.delete_meeting']
 
@@ -58,59 +58,21 @@ class MeetingDeleteView(DeleteView):
     def get_success_url(self):
         return reverse('meetings:index')
 
-class CreatePerson(CreateView):
-    model = User
+class CreatePerson(AccessMixin, CreateView):
     permissions = ['meetings.change_meeting']
+    form_class = CreatePersonForm
     template_name = 'generic_form.html'
-    fields = ['first_name', 'last_name']
+    model = User
 
     def post(self, request):
-        if self.request.is_ajax():
-            #the entire name is in the first_name variable
-            name = (request.POST['first_name']).split(None, 1)
-            first_name = name[0]
-            if len(name) == 2:
-                last_name = name[1]
-            else:
-                last_name = ""
+        super(CreatePerson, self).post(request)
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        if form.errors:
+            data = {'errors': form.errors}
         else:
-            first_name = request.POST['first_name']
-            last_name = request.POST['last_name']
-        try:
-            obj = Person.objects.get(auser__first_name=first_name, auser__last_name=last_name)
-        except Person.DoesNotExist:
-            username = self.create_username(first_name, last_name)
-            auser = User(first_name=first_name, last_name=last_name, username=username)
-            try: 
-                #usernames need to be unique so this fails if the username is already in use
-                auser.save()
-            except:
-                #a really dirty way to attach a unique number suffix to the username
-                #with the current implementation I don't think this should ever happen
-                suffix = 1
-                while True:
-                    try: 
-                        auser.username = username + "%d" % suffix
-                        auser.save()
-                        break
-                    except:
-                        suffix += 1
-            obj = Person(auser=auser)
-            obj.save()
-        self.object = obj
-        data = {'pk': self.object.pk, 'name': self.object.auser.name()}
+            data = {'pk': self.object.details.pk, 'name': self.object.details.name(), 'errors': False}
         return HttpResponse(json.dumps(data), content_type="application/json")
-
-    def create_username(self, first_name, last_name):
-        first_name_exists = (first_name != None and first_name.strip != "")
-        last_name_exists = (last_name != None and last_name.strip != "")
-        if first_name_exists and last_name_exists:
-            return first_name + " " + last_name
-        if first_name_exists and not last_name_exists:
-            return first_name
-        if not first_name_exists and last_name_exists:
-            return last_name
-        return"Unspecified"
 
 class MeetingAddNotesView(AccessMixin, UpdateView):
     template_name = 'meetings/add_meeting_notes.html'
@@ -125,7 +87,7 @@ class MeetingAddNotesView(AccessMixin, UpdateView):
     def get_success_url(self):
         return reverse('meetings:detail', args=[self.object.pk])
 
-class AddMeetingNote(CreateView, AccessMixin):
+class AddMeetingNote(AccessMixin, CreateView):
     template_name = 'meetings/note.html'
     model = Note
     form_class = NoteCreateForm
@@ -148,7 +110,7 @@ class AddMeetingNote(CreateView, AccessMixin):
     def get_success_url(self):
         return reverse('meetings:proceedings', args=[self.get_meeting().pk])
 
-class DeleteMeetingNote(DeleteView ,AccessMixin):
+class DeleteMeetingNote(AccessMixin, DeleteView):
     model = Note
     permissions = ['meetings.delete_note']
 
@@ -172,7 +134,7 @@ class UpdateMeetingNote(AccessMixin, UpdateView):
     def get_success_url(self):
         return reverse('meetings:proceedings', args=[self.get_object().meeting.pk])
 
-class MeetingCreateView(CreateView, AccessMixin):
+class MeetingCreateView(AccessMixin, CreateView):
     form_class = MeetingCreateForm
     template_name = 'meetings/meeting_create_form.html'
     model = Meeting
@@ -182,7 +144,7 @@ class MeetingCreateView(CreateView, AccessMixin):
         obj = self.object
         return reverse('meetings:detail', args=[obj.pk])
 
-class MeetingPrepareView(UpdateView, AccessMixin):
+class MeetingPrepareView(AccessMixin, UpdateView):
     form_class = MeetingPrepareForm
     template_name = 'meetings/meeting_prepare_form.html'
     model = Meeting
@@ -196,7 +158,7 @@ class MeetingPrepareView(UpdateView, AccessMixin):
     def get_success_url(self):
         return reverse('meetings:proceedings', args=[self.object.pk])
 
-class MeetingReeditView(UpdateView, AccessMixin):
+class MeetingReeditView(AccessMixin, UpdateView):
     form_class = MeetingReeditForm
     template_name = 'meetings/meeting_reedit_form.html'
     model = Meeting

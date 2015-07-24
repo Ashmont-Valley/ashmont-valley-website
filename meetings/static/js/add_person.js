@@ -15,11 +15,18 @@ function add_person(event) {
         last_name: "",
       },
       success: function(data) {
-        alert("person successfully added");
-        $("#" + htmlid).trigger('didAddPopup', [data['pk'], data['name']]);
+        var errors = data['errors'];
+        if(errors) {
+          for(var error in errors) {
+            alert(error + ": " + errors[error]);
+          }
+        } else {
+          alert("person successfully added");
+          $("#" + htmlid).trigger('didAddPopup', [data['pk'], data['name']]);
+        }
       },
       error: function(response) {
-        alert('There was an error ' + response.status);
+        alert("There was an error: http code " + response.status)
         //document.write(response);
       },
     });

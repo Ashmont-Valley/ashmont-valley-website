@@ -8,10 +8,10 @@ from .models import *
 class PersonAdmin(ModelAdmin):
     form = PersonAdminForm
     fieldsets = [
-        ('Personal Information', {'fields': ['phone', 'ophone']}),#, 'auser__first_name', 'auser__last_name', 'auser__email']}),
+        ('Personal Information', {'fields': ['phone', 'ophone']}),#, 'user__first_name', 'user__last_name', 'user__email']}),
         ('Biography', {'fields': ['photo', 'desc']}),
         (None, {'fields': ['ctype', 'org']}),
-        (None, {'fields': ['notes', 'auser']}),
+        (None, {'fields': ['notes', 'user']}),
     ]
 
 site.register(Person, PersonAdmin)

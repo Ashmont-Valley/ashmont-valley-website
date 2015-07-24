@@ -51,9 +51,6 @@ class UserForm(ModelForm):
         ModelForm.save(self, **kwargs)
 
 class PersonAdminForm(ModelForm):
-    #there must be a better way to do this
-    first_name = CharField()
-    last_name = CharField()
     class Meta:
         model = Person
         exclude = ('auser','last_seen','visits','notes')

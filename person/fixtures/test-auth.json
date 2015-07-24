@@ -21,9 +21,9 @@
 {"pk": 2, "model": "auth.group", "fields": {"name": "Group Two", "permissions": []}},
 
 {"pk": 1, "model": "person.person", "fields":
-  {"notes": "BIO_ADMIN", "auser": 1, "photo": "photos/admin.svg"}},
+  {"notes": "BIO_ADMIN", "user": 1, "photo": "photos/admin.svg"}},
 {"pk": 2, "model": "person.person", "fields":
-  {"notes": "BIO_STAFF", "auser": 2, "photo": "test/staff.svg"}},
+  {"notes": "BIO_STAFF", "user": 2, "photo": "test/staff.svg"}},
 {"pk": 3, "model": "person.person", "fields":
-  {"notes": "BIO_USER", "auser": 3, "photo": "test/user.svg"}}
+  {"notes": "BIO_USER", "user": 3, "photo": "test/user.svg"}}
 ]
