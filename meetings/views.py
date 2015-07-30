@@ -7,7 +7,7 @@ from person.models import *
 from meetings.forms import *
 from django.contrib import messages
 from django.shortcuts import redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from hoodcms.mixins import AccessMixin
 from hoodcms.views import MultiListView
 from datetime import *

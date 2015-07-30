@@ -184,16 +184,6 @@ class MeetingProceedingsTests(AdminTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'meetings/add_meeting_notes.html')
 
-    def test_proceedings_view_post(self):
-        """the proceedings view should save any changes upon a correctly formatted POST request"""
-        date = datetime.now()
-        meeting = Meeting.objects.create(meeting_date=date, name='meeting', meeting_type=Type.objects.create(name='Type'))
-        bill = Person.objects.create(user=User.objects.create(username="bill", password="123"))
-        bipp = Person.objects.create(user=User.objects.create(username="bipp", password="123"))
-        biff = Person.objects.create(user=User.objects.create(username="biff", password="123"))
-        self.client.post(reverse('meetings:proceedings', args=[meeting.pk]), data={'people_late__in': (bill.pk, bipp.pk, biff.pk) })
-        self.assertEqual(list(meeting.people_late.all()),  {bill, bipp, biff})
-
 class MeetingReeditTests(AdminTestCase):
     def test_reedit_view_template(self):
         """the reedit view should render using the proper template"""
@@ -207,58 +197,69 @@ class MeetingCreatePersonTests(AdminTestCase):
     def test_create_person_view_post_first_name_only(self):
         """the create person view should create a person and attached user upon a correctly formatted POST request"""
         name = 'Jon'
+        #there should be 3 people already existing: test user, test staff, and test admin
+        self.assertEqual(User.objects.count(), 3)
+        self.assertEqual(Person.objects.count(), 3)
         response = self.client.post(reverse('meetings:create_person'), data={'first_name': name})
-        self.assertEqual(response.data['name'], name)
-        person = Person.objects.get(pk=response.data['pk'])
-        user = person.user
+        self.assertEqual(User.objects.count(), 4)
+        self.assertEqual(Person.objects.count(), 4)
+        user = User.objects.get(first_name = 'Jon')
         self.assertEqual(user.first_name, name)
-        self.assertEqual(user.username, name)
-        self.assertEqual(user.last_name, None)
+        self.assertEqual(user.username, slugify(unicode(name)))
+        self.assertEqual(user.last_name, '')
 
     def test_create_person_view_post_first_and_last_name(self):
         """the create person view should create a person and attached user upon a correctly formatted POST request"""
         name = 'Jon Smith'
+        #there should be 3 people already existing: test user, test staff, and test admin
+        self.assertEqual(Person.objects.count(), 3)
+        self.assertEqual(User.objects.count(), 3)
         response = self.client.post(reverse('meetings:create_person'), data={'first_name': name})
-        self.assertEqual(response.data['name'], name)
-        person = Person.objects.get(pk=response.data['pk'])
-        user = person.user
+        self.assertEqual(Person.objects.count(), 4)
+        self.assertEqual(User.objects.count(), 4)
+        user = User.objects.get(first_name = 'Jon')
         self.assertEqual(user.first_name, 'Jon')
-        self.assertEqual(user.username, slugify(name))
+        self.assertEqual(user.username, slugify(unicode(name)))
         self.assertEqual(user.last_name, 'Smith')
 
     def test_create_person_view_post_with_more_than_two_names(self):
         """the create person view should create a person and attached user upon a correctly formatted POST request"""
         name = 'Jon Leeroy Jenkins Smith'
+        #there should be 3 people already existing: test user, test staff, and test admin
+        self.assertEqual(User.objects.count(), 3)
+        self.assertEqual(Person.objects.count(), 3)
         response = self.client.post(reverse('meetings:create_person'), data={'first_name': name})
-        self.assertEqual(response.data['name'], name)
-        person = Person.objects.get(pk=response.data['pk'])
-        user = person.user
+        self.assertEqual(Person.objects.count(), 4)
+        self.assertEqual(User.objects.count(), 4)
+        user = User.objects.get(last_name = 'Smith')
         self.assertEqual(user.first_name, 'Jon Leeroy Jenkins')
-        self.assertEqual(user.username, slugify(name))
+        self.assertEqual(user.username, slugify(unicode(name)))
         self.assertEqual(user.last_name, 'Smith')
 
     def test_create_person_view_post_duplicate_people(self):
         """the create person view should create a person and a user if they do not already exist"""
         name = 'Jon Smith'
-        self.assertEqual(Person.objects.count(first_name='Jon', last_name='Smith'), 0)
+        self.assertEqual(User.objects.filter(first_name='Jon', last_name='Smith').count(), 0)
         self.client.post(reverse('meetings:create_person'), data={'first_name': name})
-        self.assertEqual(Person.objects.count(first_name='Jon', last_name='Smith'), 1)
+        self.assertEqual(User.objects.filter(first_name='Jon', last_name='Smith').count(), 1)
         self.client.post(reverse('meetings:create_person'), data={'first_name': name})
-        self.assertEqual(Person.objects.count(first_name='Jon', last_name='Smith'), 1)
+        self.assertEqual(User.objects.filter(first_name='Jon', last_name='Smith').count(), 1)
 
 class MeetingDeleteViewTests(AdminTestCase):
     def test_meeting_delete_view(self):
         """the meeting delete view should delete meetings upon a POST request"""
         date = datetime.now()
+        self.assertEqual(Meeting.objects.count(), 0)
         meeting = Meeting.objects.create(meeting_date=date, name='Meeting', meeting_type=Type.objects.create(name='Type'))
-        #need to check if in database
+        self.assertEqual(Meeting.objects.count(), 1)
         self.client.post(reverse('meetings:delete', args=[meeting.pk]))
-        #need to check if not in database
+        self.assertEqual(Meeting.objects.count(), 0)
 
     def test_meeting_delete_view(self):
         """the meeting delete view should only delete meetings that haven't begun yet"""
         date = datetime.now()
+        self.assertEqual(Meeting.objects.count(), 0)
         meeting = Meeting.objects.create(meeting_date=date, name='Meeting', start_time=date.time(), meeting_type=Type.objects.create(name='Type'))
-        #need to check if in database
-        self.client.post(reverse('meetings:delete', args=[meeting.pk]))
-        #need to check if still in database
+        self.assertEqual(Meeting.objects.count(), 1)
+        self.client.post(reverse('meetings:delete_meeting', args=[meeting.pk]))
+        self.assertEqual(Meeting.objects.count(), 1)
