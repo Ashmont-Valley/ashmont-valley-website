@@ -2,6 +2,7 @@ from django.core.urlresolvers import reverse
 
 import datetime
 
+from django.utils import timezone
 from meetings.models import *
 from meetings.forms import *
 from person.userextra import User
@@ -246,16 +247,16 @@ class MeetingCreatePersonTests(AdminTestCase):
         self.assertEqual(User.objects.filter(first_name='Jon', last_name='Smith').count(), 1)
 
 class MeetingDeleteViewTests(AdminTestCase):
-    def test_meeting_delete_view(self):
+    def test_meeting_delete_view_with_not_begun_meeting(self):
         """the meeting delete view should delete meetings upon a POST request"""
         date = datetime.now()
         self.assertEqual(Meeting.objects.count(), 0)
         meeting = Meeting.objects.create(meeting_date=date, name='Meeting', meeting_type=Type.objects.create(name='Type'))
         self.assertEqual(Meeting.objects.count(), 1)
-        self.client.post(reverse('meetings:delete', args=[meeting.pk]))
+        self.client.post(reverse('meetings:delete_meeting', args=[meeting.pk]))
         self.assertEqual(Meeting.objects.count(), 0)
 
-    def test_meeting_delete_view(self):
+    def test_meeting_delete_view_with_begun_meeting(self):
         """the meeting delete view should only delete meetings that haven't begun yet"""
         date = datetime.now()
         self.assertEqual(Meeting.objects.count(), 0)
@@ -263,3 +264,42 @@ class MeetingDeleteViewTests(AdminTestCase):
         self.assertEqual(Meeting.objects.count(), 1)
         self.client.post(reverse('meetings:delete_meeting', args=[meeting.pk]))
         self.assertEqual(Meeting.objects.count(), 1)
+
+class MeetingPrepareViewTests(AdminTestCase):
+    def test_meeting_prepare_view_post(self):
+        """a post request to the meeting prepare view should automatically set the start time to the time of the post request"""
+        date = datetime.now()
+        meeting = Meeting.objects.create(meeting_date=date, name='Meeting', meeting_type=Type.objects.create(name='Type'))
+        self.assertEqual(meeting.start_time, None)
+        #something wierd is happening here
+        self.client.post(reverse('meetings:prepare', args=[meeting.pk]))
+        meeting = Meeting.objects.get(name='Meeting')
+        #we can't easily get the exact time the start_time should be so this will have to suffice for now
+        self.assertNotEqual(meeting.start_time, None) 
+
+class MeetingProceedingsViewTests(AdminTestCase):
+    def test_meeting_proceedings_view_post(self):
+        """a post request to the meeting proceedings view should automatically set the end time to the time of the post request"""
+        date = datetime.now()
+        meeting = Meeting.objects.create(meeting_date=date, name='Meeting', start_time=date.time(), meeting_type=Type.objects.create(name='Type'))
+        self.assertEqual(meeting.end_time, None)
+        self.client.post(reverse('meetings:proceedings', args=[meeting.pk]))
+        meeting = Meeting.objects.get(name='Meeting')
+        #we can't easily get the exact time the end_time should be so this will have to suffice for now
+        self.assertNotEqual(meeting.end_time, None) 
+
+class AddMeetingNoteViewTests(AdminTestCase):
+    def test_add_meeting_note_ajax(self):
+        """an ajax post request should save the note text and render the note to the view"""
+        date = datetime.now()
+        meeting = Meeting.objects.create(meeting_date=date, name='Meeting', start_time=date.time(), meeting_type=Type.objects.create(name='Type'))
+        self.assertEqual(Note.objects.count(), 0)
+        note_text = "today's meeting was as productive as ever"
+        self.client.post(reverse('meetings:add_note', args=[meeting.pk]), data={'text': note_text, 'meeting': meeting.pk})
+        self.assertEqual(Note.objects.count(), 1)
+        note = Note.objects.get(text=note_text)
+        self.assertEqual(note.text, note_text)
+        self.assertEqual(note.meeting, meeting)
+        #i can't figure out how to get the exact time time_created and time_edited should be so this will have to suffice for now
+        self.assertNotEqual(note.time_created, None)
+        self.assertNotEqual(note.time_edited, None)
