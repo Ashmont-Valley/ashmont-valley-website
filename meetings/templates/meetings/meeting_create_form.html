@@ -1,14 +1,20 @@
 {% extends 'frame.html' %}
 
 {% load bootstrap3 %}
-
 {% block "content" %}
+<!--the following 3 lines need to be present whenever the page uses jquery datepicker dropdown calendar-->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" href="/resources/demos/style.css">
+<!--note that we are importing jquery ui here - could this cause problems later?-->
+
   <h1>Create a New Meeting</h1>
 
   <form action="" method='post' class='form'>
     {% csrf_token %}
-    {% bootstrap_form form layout='inline'%}
-    <p class='text-muted'>Please enter date in M/D/Y format</p>
+    {% bootstrap_field form.name layout='inline' %}
+    {% bootstrap_field form.meeting_type layout='inline' %}
+    {% bootstrap_field form.meeting_date layout='inline' %}
     <input class="btn btn-primary" type='submit' value='Create Meeting'/>
     <a class='btn btn-default' href="{% url 'meetings:index' %}" role='button'>Cancel</a>
   </form>

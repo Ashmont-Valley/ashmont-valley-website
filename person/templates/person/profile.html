@@ -21,6 +21,7 @@
     </h1> 
     <p id="bio">
       {% block headerdesc %}
+        <!--should 'bio' here be 'desc' instead? as far as I know, object.details doesn't have a bio field-->
         {% if object.details.bio %}{{ object.details.bio }}{% else %}{{ object }} {% trans "hasn't written anything about themselves yet" %}{% endif %}
       {% endblock %}
     </p>

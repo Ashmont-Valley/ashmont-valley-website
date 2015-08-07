@@ -21,7 +21,6 @@ function add_person(event) {
             alert(error + ": " + errors[error]);
           }
         } else {
-          alert("person successfully added");
           $("#" + htmlid).trigger('didAddPopup', [data['pk'], data['name']]);
         }
       },

@@ -265,18 +265,6 @@ class MeetingDeleteViewTests(AdminTestCase):
         self.client.post(reverse('meetings:delete_meeting', args=[meeting.pk]))
         self.assertEqual(Meeting.objects.count(), 1)
 
-class MeetingPrepareViewTests(AdminTestCase):
-    def test_meeting_prepare_view_post(self):
-        """a post request to the meeting prepare view should automatically set the start time to the time of the post request"""
-        date = datetime.now()
-        meeting = Meeting.objects.create(meeting_date=date, name='Meeting', meeting_type=Type.objects.create(name='Type'))
-        self.assertEqual(meeting.start_time, None)
-        #something wierd is happening here
-        self.client.post(reverse('meetings:prepare', args=[meeting.pk]))
-        meeting = Meeting.objects.get(name='Meeting')
-        #we can't easily get the exact time the start_time should be so this will have to suffice for now
-        self.assertNotEqual(meeting.start_time, None) 
-
 class MeetingProceedingsViewTests(AdminTestCase):
     def test_meeting_proceedings_view_post(self):
         """a post request to the meeting proceedings view should automatically set the end time to the time of the post request"""

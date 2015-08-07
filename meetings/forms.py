@@ -1,12 +1,14 @@
-from django.forms import ModelForm, Form, CharField
+from django import forms
 from ajax_select import make_ajax_field
 from django.utils.translation import ugettext_lazy as _
 from django.utils.text import slugify
+from functools import partial
 
 from meetings.models import *
 from person.models import *
 
-class MeetingCreateForm(ModelForm):
+class MeetingCreateForm(forms.ModelForm):
+    meeting_date = forms.DateField(widget=partial(forms.DateInput, {'class': 'datepicker'})())
     class Meta:
         model = Meeting
         fields = ('name', 'meeting_type', 'meeting_date')
@@ -14,7 +16,10 @@ class MeetingCreateForm(ModelForm):
                 'meetings_type':_('Meeting Type')
                 }
 
-class MeetingAjaxForm(ModelForm):
+    class Media:
+        js = ('js/date_dropdown.js',)
+
+class MeetingAjaxForm(forms.ModelForm):
     chair = make_ajax_field(Meeting, 'chair', 'person_lookup')
     secretary = make_ajax_field(Meeting, 'secretary', 'person_lookup')
     people_attending = make_ajax_field(Meeting, 'people_attending', 'person_lookup')
@@ -41,7 +46,7 @@ class MeetingReeditForm(MeetingAjaxForm):
     class Media:
         js = ('js/add_person.js', 'js/meetings.js')
 
-class MeetingProceedingsForm(ModelForm):
+class MeetingProceedingsForm(forms.ModelForm):
     people_late = make_ajax_field(Meeting, 'people_late', 'person_lookup')
 
     class Meta:
@@ -51,7 +56,7 @@ class MeetingProceedingsForm(ModelForm):
     class Media:
         js = ('js/add_person.js', 'js/meetings.js')
 
-class CreatePersonForm(ModelForm):
+class CreatePersonForm(forms.ModelForm):
     
     class Meta:
         model = User
@@ -70,12 +75,12 @@ class CreatePersonForm(ModelForm):
         self.data['username'] = slugify(name)
         return first
 
-class NoteUpdateForm(ModelForm):
+class NoteUpdateForm(forms.ModelForm):
     class Meta:
         model = Note
         fields = ['text']
 
-class NoteCreateForm(ModelForm):
+class NoteCreateForm(forms.ModelForm):
     class Meta:
         model = Note
         fields = ['text', 'meeting']
