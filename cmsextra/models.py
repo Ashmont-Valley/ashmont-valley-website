@@ -27,7 +27,7 @@ from django.utils.text import slugify
 from django.core.urlresolvers import reverse
 
 from cms.models import CMSPlugin
-from person.fields import ResizedImageField
+from hoodcms.fields import ResizedImageField
 
 null = dict(null=True, blank=True)
 

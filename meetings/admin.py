@@ -1,5 +1,5 @@
 from meetings.models import *
-from person.models import *
+from users.models import *
 from django.contrib import admin
 from django.forms.widgets import TextInput
 from ajax_select.admin import AjaxSelectAdmin

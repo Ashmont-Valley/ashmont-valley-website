@@ -7,6 +7,8 @@ from django.db.models import *
 from django.core.urlresolvers import reverse
 from django.core.validators import MaxLengthValidator
 
+from django.contrib.auth.models import AbstractUser, Group
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from django.utils.text import slugify
 from django.utils.timezone import now
@@ -16,19 +18,19 @@ from geoposition.fields import GeopositionField
 
 null = dict(null=True, blank=True)
 
-from .fields import ResizedImageField, AutoOneToOneField
-from .userextra import User, Group
+from hoodcms.fields import ResizedImageField
 
+@python_2_unicode_compatible
 class ContactType(Model):
     name    = CharField(max_length=16)
+    icon    = CharField(max_length=32)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
-class Person(Model):
-    user  = AutoOneToOneField(User, related_name='details', unique=True)
-
+@python_2_unicode_compatible
+class Person(AbstractUser):
     photo = ResizedImageField(_('Photograph (square)'), null=True, blank=True,
               upload_to='photos', max_width=190, max_height=190)
 
@@ -44,48 +46,40 @@ class Person(Model):
     last_seen = DateTimeField(**null)
     visits    = IntegerField(default=0)
 
-    def __unicode__(self):
-        return self.name()
+    @property
+    def name(self):
+        """Adds the first and last name as a full name or username"""
+        if self.first_name or self.last_name:
+            return self.get_full_name()
+        return self.username
 
     def __str__(self):
-        return unicode(self)
+        return self.name
 
     def get_absolute_url(self):
-        return self.user.get_absolute_url()
+        return reverse('view_profile', kwargs={'username':self.username})
 
-    @property
-    def first_name(self):
-        if self.user.first_name:
-            return self.user.first_name
-        return None
-
-    @property
-    def last_name(self):
-        if self.user.last_name:
-            return self.user.last_name
-        return None
-
-    def photo_url(self):
-        if self.photo:
-            return self.photo.url
-        return None
-
-    def name(self):
-        return self.user.name()
+    def visited_by(self, by_user):
+        if by_user != self:
+            self.visits += 1
+            self.save()
 
 
-class Twilight(Manager):
-    def i_added(self):
-        from cms.utils.permissions import get_current_user as get_user
-        user = get_user()
-        if user.is_authenticated():
-            return bool(self.get(from_user=user.pk))
-        return False
+# ===== Friendships ===== #
 
-class Friendship(Model):
-    from_user = ForeignKey(User, related_name='friends')
-    user = ForeignKey(User, related_name='from_friends')
-    objects = Twilight()
+#class FriendshipManager(Manager):
+#    def i_added(self):
+#        from cms.utils.permissions import get_current_user as get_user
+#        user = get_user()
+#        if user.is_authenticated():
+#            return bool(self.get(from_user=user.pk))
+#        return False
+
+#class Friendship(Model):
+#    from_user = ForeignKey(Person, related_name='friends')
+#    user = ForeignKey(Person, related_name='from_friends')
+#    objects = FriendshipManager()
+
 
 # ===== Addresses ===== #
 
@@ -168,21 +162,4 @@ class Address(Model):
         if self.apt:
             return self.building.__unicode__(', (Apt %s)' % self.apt)
         return unicode(self.building)
-
-
-# ===== CMS Plugins ===== #
-
-
-from cms.models import CMSPlugin
-
-class GroupPhotoPlugin(CMSPlugin):
-    STYLES = (
-      ('L', _('Simple List')),
-      ('P', _('Photo Heads')),
-      ('B', _('Photo Bios')),
-    )
-
-    source = ForeignKey(Group)
-    style  = CharField(_('Display Style'), max_length=1, choices=STYLES)
-
 

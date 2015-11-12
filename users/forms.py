@@ -6,7 +6,7 @@ from django.contrib.auth.forms import PasswordResetForm
 from registration.forms import RegistrationForm
 from captcha.fields import ReCaptchaField
 
-from .models import User, Person
+from .models import Person
 
 class PasswordForm(PasswordResetForm):
     recaptcha = ReCaptchaField(label=_("Human Test"))
@@ -19,7 +19,7 @@ class UserForm(ModelForm):
     password2 = CharField(label=_('Confirm'), widget=PasswordInput(), required=False)
 
     class Meta:
-        model = User
+        model = Person
         exclude = ('user_permissions', 'is_superuser', 'groups', 'last_login',
                    'is_staff', 'is_active', 'date_joined')
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
@@ -36,7 +36,7 @@ class UserForm(ModelForm):
 
     def clean_username(self):
         username = self.cleaned_data['username']
-        user = User.objects.filter(username=username)
+        user = Person.objects.filter(username=username)
         if user and user[0] != self.instance:
             raise ValidationError('Username already taken')
         return username
@@ -50,13 +50,10 @@ class UserForm(ModelForm):
 class PersonAdminForm(ModelForm):
     class Meta:
         model = Person
-        exclude = ('user','last_seen','visits','notes', 'created')
+        exclude = ('last_seen','visits','notes', 'created')
 
-from .multiform import MultiModelForm
-
-class PersonForm(MultiModelForm):
-    base_forms = [
-        ('self', UserForm),
-        ('details', PersonAdminForm),
-    ]
+class PersonForm(UserForm):
+    class Meta:
+        model = Person
+        exclude = ('last_seen','visits','notes', 'created', 'user_permissions', 'is_superuser', 'groups', 'last_login', 'is_staff', 'is_active', 'date_joined', 'password')
 

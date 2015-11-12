@@ -5,7 +5,7 @@ from django.utils.text import slugify
 from functools import partial
 
 from meetings.models import *
-from person.models import *
+from users.models import *
 
 class MeetingCreateForm(forms.ModelForm):
     meeting_date = forms.DateField(widget=partial(forms.DateInput, {'class': 'datepicker'})())
@@ -59,7 +59,7 @@ class MeetingProceedingsForm(forms.ModelForm):
 class CreatePersonForm(forms.ModelForm):
     
     class Meta:
-        model = User
+        model = Person
         fields = ['first_name', 'last_name', 'username']
 
     def clean_first_name(self):

@@ -65,9 +65,10 @@ EMAIL_SUBJECT_PREFIX = '[%s] ' % SITE_NAME
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
+AUTH_USER_MODEL = 'users.Person'
 
 INSTALLED_APPS = (
-    'person',
+    'users',
 
     'django.contrib.admin',
     'django.contrib.sites',
@@ -94,6 +95,7 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.gzip.GZipMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -139,9 +141,9 @@ FIXTURE_DIRS = (
     'meetings/fixtures/' ,
 )
 
-LOGIN_URL          = '/person/user/login/'
-LOGIN_ERROR_URL    = '/person/user/login/'
-LOGIN_REDIRECT_URL = '/person/user/'
+LOGIN_URL          = '/user/login/'
+LOGIN_ERROR_URL    = '/user/login/'
+LOGIN_REDIRECT_URL = '/user/'
 
 ACCOUNT_ACTIVATION_DAYS = 30
 AUTHENTICATION_BACKENDS = (

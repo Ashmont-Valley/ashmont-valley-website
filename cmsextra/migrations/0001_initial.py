@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import person.fields
+import hoodcms.fields
 
 
 class Migration(migrations.Migration):
@@ -16,7 +16,6 @@ class Migration(migrations.Migration):
             name='CallToAction',
             fields=[
                 ('cmsplugin_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
-                ('text', models.TextField()),
                 ('link', models.URLField()),
             ],
             options={
@@ -39,7 +38,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('cmsplugin_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
                 ('caption', models.CharField(max_length=255)),
-                ('image', person.fields.ResizedImageField(format=b'PNG', upload_to=b'carousel', max_height=1080, min_height=0, max_width=1900, min_width=0)),
+                ('image', hoodcms.fields.ResizedImageField(format=b'PNG', upload_to=b'carousel', max_height=1080, min_height=0, max_width=1900, min_width=0)),
             ],
             options={
                 'abstract': False,
@@ -86,7 +85,7 @@ class Migration(migrations.Migration):
                 ('cmsplugin_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
                 ('title', models.CharField(max_length=64, null=True, blank=True)),
                 ('link', models.URLField(null=True, blank=True)),
-                ('image', person.fields.ResizedImageField(format=b'PNG', upload_to=b'portfolio', max_height=450, min_height=0, max_width=700, min_width=0)),
+                ('image', hoodcms.fields.ResizedImageField(format=b'PNG', upload_to=b'portfolio', max_height=450, min_height=0, max_width=700, min_width=0)),
             ],
             options={
                 'abstract': False,

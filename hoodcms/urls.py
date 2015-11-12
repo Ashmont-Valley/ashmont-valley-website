@@ -6,11 +6,13 @@ from ajax_select import urls as ajax_select_urls
 from django.conf import settings
 
 urlpatterns = patterns('',
+    url(r'^contact/us/$',  'contact_us',   name='contact'),
+
     url(r'^admin/',    include(admin.site.urls)),
     url(r'^ajax/',     include(ajax_select_urls)),
-    url(r'^person/',   include('person.urls')),
     url(r'^meetings/', include('meetings.urls', namespace='meetings')),
-    url(r'^contact/us/$',  'contact_us',   name='contact'),
+
+    url(r'^',         include('users.urls')),
     url(r'^',         include('cms.urls')),
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)\
   + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

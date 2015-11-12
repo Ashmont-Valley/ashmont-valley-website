@@ -2,12 +2,13 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
+from django.conf import settings
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('person', '0002_auto_20150724_1446'),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
@@ -19,7 +20,7 @@ class Migration(migrations.Migration):
                 ('meeting_date', models.DateField(help_text='date on which the meeting took place')),
                 ('start_time', models.TimeField(help_text='time at which the meeting started', null=True, blank=True)),
                 ('end_time', models.TimeField(help_text='time at which the meeting ended', null=True, blank=True)),
-                ('chair', models.ForeignKey(related_name='chair', blank=True, to='person.Person', help_text='chair of the meeting', null=True)),
+                ('chair', models.ForeignKey(related_name='chair', blank=True, to=settings.AUTH_USER_MODEL, help_text='chair of the meeting', null=True)),
             ],
             options={
             },
@@ -57,31 +58,31 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='meeting',
             name='people_absent',
-            field=models.ManyToManyField(help_text='list of people who were absent from the meeting', related_name='people_absent', null=True, to='person.Person', blank=True),
+            field=models.ManyToManyField(help_text='list of people who were absent from the meeting', related_name='people_absent', null=True, to=settings.AUTH_USER_MODEL, blank=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='meeting',
             name='people_attending',
-            field=models.ManyToManyField(help_text='list of people who attended the meeting', related_name='people_attending', null=True, to='person.Person', blank=True),
+            field=models.ManyToManyField(help_text='list of people who attended the meeting', related_name='people_attending', null=True, to=settings.AUTH_USER_MODEL, blank=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='meeting',
             name='people_guests',
-            field=models.ManyToManyField(help_text='list of people who were guests at the meeting', related_name='people_guests', null=True, to='person.Person', blank=True),
+            field=models.ManyToManyField(help_text='list of people who were guests at the meeting', related_name='people_guests', null=True, to=settings.AUTH_USER_MODEL, blank=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='meeting',
             name='people_late',
-            field=models.ManyToManyField(help_text='list of pople who arrived late at the meeting', related_name='people_late', null=True, to='person.Person', blank=True),
+            field=models.ManyToManyField(help_text='list of pople who arrived late at the meeting', related_name='people_late', null=True, to=settings.AUTH_USER_MODEL, blank=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='meeting',
             name='secretary',
-            field=models.ForeignKey(related_name='secretary', blank=True, to='person.Person', help_text='secretary of the meeting', null=True),
+            field=models.ForeignKey(related_name='secretary', blank=True, to=settings.AUTH_USER_MODEL, help_text='secretary of the meeting', null=True),
             preserve_default=True,
         ),
     ]

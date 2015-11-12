@@ -35,7 +35,7 @@ UIDB = r'^(?P<uidb64>.+?)/(?P<token>.+)/$'
 
 # Our user url implementation allows other urls files to add
 # their own urls to our user tree. Creating user functions.
-USER_URLS = url_tree(r'^~(?P<username>[^\/]+)', 'person.views',
+USER_URLS = url_tree(r'^~(?P<username>[^\/]+)', 'users.views',
   url(r'^/?$',                    ProfileView.as_view(), name='view_profile'),
   url(r'^/friend/$',              MakeFriend.as_view(),  name='user_friend'),
   url(r'^/unfriend/$',            LeaveFriend.as_view(), name='user_unfriend'),
@@ -61,7 +61,7 @@ urlpatterns = patterns('',
       url(r'^activated/$',               AC,           name='registration_activation_complete'),
     ),
   ),
-  url_tree(r'', 'person.views',
+  url_tree(r'', 'users.views',
     url(r'^user/$',                   MyProfile.as_view(),   name='my_profile'),
     url(r'^user/edit/$',              EditProfile.as_view(), name='edit_profile'),
     url(r'^faces/$',                  FacesView.as_view(),   name='faces'),

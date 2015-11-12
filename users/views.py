@@ -5,7 +5,7 @@ from django.views.generic.detail import SingleObjectMixin
 from django.contrib import messages
 
 from hoodcms.mixins import LoginRequiredMixin
-from .models import User, Person
+from .models import Person
 from .forms import PersonForm
 
 class UserMixin(LoginRequiredMixin):
@@ -19,14 +19,14 @@ class EditProfile(UserMixin, UpdateView):
         return self.get_object().get_absolute_url()
 
 class FacesView(LoginRequiredMixin, ListView):
-    template_name = 'person/profiles.html'
+    template_name = 'users/profiles.html'
     queryset = Person.objects.all()
 
 class ProfileView(DetailView):
-    template_name  = 'person/profile.html'
+    template_name  = 'users/profile.html'
     slug_url_kwarg = 'username'
     slug_field     = 'username'
-    model = User
+    model = Person
 
     def get_object(self, **kwargs):
         user = super(ProfileView, self).get_object(**kwargs)
@@ -41,7 +41,7 @@ class MyProfile(UserMixin, ProfileView):
 class MakeFriend(LoginRequiredMixin, SingleObjectMixin, RedirectView):
     slug_url_kwarg = 'username'
     slug_field     = 'username'
-    model          = User
+    model          = Person
 
     def get_object(self):
         user = SingleObjectMixin.get_object(self)

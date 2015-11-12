@@ -1,18 +1,22 @@
+
+import json
+from datetime import *
+from time import *
+
 from django.views.generic import *
 from django.core.urlresolvers import reverse
 from django.views.generic.edit import SingleObjectMixin
 from django.utils.translation import ugettext_lazy as _
-from meetings.models import *
-from person.models import *
-from meetings.forms import *
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.http import HttpResponse, HttpResponseRedirect
+
 from hoodcms.mixins import AccessMixin
 from hoodcms.views import MultiListView
-from datetime import *
-from time import *
-import json
+from users.models import *
+
+from meetings.models import *
+from meetings.forms import *
 
 class MeetingList(AccessMixin, MultiListView):
     model = Meeting
@@ -62,7 +66,7 @@ class CreatePerson(AccessMixin, CreateView):
     permissions = ['meetings.change_meeting']
     form_class = CreatePersonForm
     template_name = 'generic_form.html'
-    model = User
+    model = Person
 
     def post(self, request):
         super(CreatePerson, self).post(request)

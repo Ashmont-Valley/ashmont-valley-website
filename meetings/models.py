@@ -2,7 +2,7 @@ from django.db import models
 from datetime import *
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
-from person.models import Person
+from users.models import Person
 
 class Type(models.Model):
     name = models.CharField(max_length=50)
