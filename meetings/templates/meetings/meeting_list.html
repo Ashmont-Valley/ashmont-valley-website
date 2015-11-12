@@ -1,7 +1,8 @@
-{% extends 'frame.html' %}
+{% extends 'base.html' %}
 
-{% block "content" %}
-  <h1>Meetings</h1>
+{% block "title" %}Meetings{% endblock %}
+
+{% block "body" %}
 
   <ul class="nav nav-tabs">
     {% if perms.meetings.can_add_meeting %}

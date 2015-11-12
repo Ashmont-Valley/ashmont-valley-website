@@ -1,10 +1,12 @@
-{% extends "frame.html" %}
+{% extends "dialog.html" %}
 
-{% block content %}
-<h1>Are you sure you want to delete meeting "{{ object.name }}?"</h1>
-<hr/>
-<form action="" method="post">
-  <input type="submit" class="btn btn-danger" value='Yes, delete meeting "{{ object.name }}"'/>
+{% block "dialog-title" %}Delete Meeting{% endblock %}
+
+{% block "dialog-body" %}
+  <h1>Are you sure you want to delete meeting "{{ object.name }}?"</h1>
+{% endblock %}
+
+{% block "dialog-footer" %}
   <a class="btn btn-default" href="{% url 'meetings:index' %}" role='button'>Cancel</a>
-</form>
+  <input type="submit" class="btn btn-danger" value='Yes, delete meeting "{{ object.name }}"'/>
 {% endblock %}
