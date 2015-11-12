@@ -1,0 +1,13 @@
+{% load cms_tags %}
+
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">{{ instance.title }}</h1>
+  </div>
+  {% for item in instance.child_plugin_instances %}
+    <div class="col-md-4">
+      {% render_plugin item %}
+    </div>
+  {% endfor %}
+</div>
+

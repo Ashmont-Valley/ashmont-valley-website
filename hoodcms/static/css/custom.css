@@ -1,0 +1,39 @@
+body {
+  padding-top: 0px;
+  min-width: 300px;
+}
+
+.navbar {
+  margin-bottom: 0px;
+  border-radius: 0px;
+  z-index: 10;
+}
+.navbar-brand {
+  font-family: 'Quattrocento', cursive;
+  font-size: 5vw;
+}
+@media screen and (min-width: 480px) {
+  .navbar-brand {
+    font-size: 200%;
+  }
+}
+.navbar-brand img {
+  position: relative;
+  top: -11px;
+  left: -5px;
+  margin-right: 12px;
+}
+.profile .image-circle {
+    border-radius: 50%;
+    width: 175px;
+    height: 175px;
+    border: 4px solid #FFF;
+    margin: 10px;
+}
+.profile .outter {
+    padding: 0px;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+}

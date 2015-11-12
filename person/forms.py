@@ -32,8 +32,6 @@ class UserForm(ModelForm):
             if password1 != password2:
                 raise ValidationError("Passwords don't match")
             self.cleaned_data['password'] = password1
-
-
         return self.cleaned_data
 
     def clean_username(self):
@@ -42,7 +40,6 @@ class UserForm(ModelForm):
         if user and user[0] != self.instance:
             raise ValidationError('Username already taken')
         return username
-        
 
     def save(self, **kwargs):
         password = self.cleaned_data.get('password', None)
@@ -53,7 +50,7 @@ class UserForm(ModelForm):
 class PersonAdminForm(ModelForm):
     class Meta:
         model = Person
-        exclude = ('auser','last_seen','visits','notes')
+        exclude = ('user','last_seen','visits','notes', 'created')
 
 from .multiform import MultiModelForm
 

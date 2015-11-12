@@ -2,6 +2,8 @@
 from django.utils.text import slugify
 from django.views.generic.list import MultipleObjectMixin, ListView
 
+
+
 class MultiListView(ListView):
     def get_querysets(self):
         return [

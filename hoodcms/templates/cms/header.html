@@ -5,6 +5,11 @@
 
 {% block "headerdesc" %}{% page_attribute meta_description %}{% endblock %}
 
+{% block "header" %}
+  {% placeholder normal_template_header %}
+{% endblock %}
+{% block "body-header" %}{% endblock %}
+
 {% block "body" %}
   {% placeholder normal_template_content %}
 {% endblock %}

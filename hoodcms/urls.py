@@ -10,7 +10,7 @@ urlpatterns = patterns('',
     url(r'^ajax/',     include(ajax_select_urls)),
     url(r'^person/',   include('person.urls')),
     url(r'^meetings/', include('meetings.urls', namespace='meetings')),
-    #url(r'^calendar/', include('happenings.urls', namespace='calendar')),
+    url(r'^contact/us/$',  'contact_us',   name='contact'),
     url(r'^',         include('cms.urls')),
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)\
   + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,33 @@
+{% load cms_tags %}
+
+<header id="carousel-{{ instance.pk }}" class="carousel slide">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    {% for item in instance.child_plugin_instances %}
+      <li data-target="#carousel-{{ instance.pk }}" data-slide-to="{{ forloop.counter0 }}"{% if forloop.counter == 1 %} class="active"{% endif %}></li>
+    {% endfor %}
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner">
+    {% for item in instance.child_plugin_instances %}
+      <div class="item{% if forloop.counter == 1 %} active{% endif %}">
+        {% render_plugin item %}
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Controls -->
+  <a class="left carousel-control" href="#carousel-{{ instance.pk }}" data-slide="prev">
+    <span class="icon-prev"></span>
+  </a>
+  <a class="right carousel-control" href="#carousel-{{ instance.pk }}" data-slide="next">
+    <span class="icon-next"></span>
+  </a>
+</header>
+
+<script>
+  $('#carousel-{{ instance.pk }}').carousel({
+      interval: 5000 //changes the speed
+  })
+</script>

@@ -1,33 +1,18 @@
-{% extends 'frame.html' %}
-{% load i18n future sekizai_tags %}
+{% extends 'dialog.html' %}
+{% load i18n future static %}
 
-{% block title %}{% trans "User Profile" %} | {{ object.name }}{% endblock %} 
+{% block "dialog-title" %}{{ object.details.ctype|default:"Visitor" }}{% if object.details.org %} | {{ object.details.org }}{% endif %}{% endblock %} 
 
-{% block "content" %}
-  <div id="profile" style="background-color: #1c1c1c; color: white;">
-    <img id="photo" src="{% if object.details.photo %}{{ object.details.photo.url }}{% else %}{{ STATIC_URL }}images/photo.png{% endif %}"/>
-
-    <h1 id="name">
-      {% if object.first_name %}
-        {{ object.first_name }} {{ object.last_name }}
-        <span id="username">{{ object.username }}</span>
-      {% else %}
-        {{ object.username }}
-        <span id="username">{% trans "Anonymous" %}</span>
-      {% endif %}
-      {% if object == request.user %}
-        <span id="edit"><a href="{% url "edit_profile" %}">{% trans "Edit" %}</a></span>
-      {% endif %}
-    </h1> 
-    <p id="bio">
-      {% block headerdesc %}
-        <!--should 'bio' here be 'desc' instead? as far as I know, object.details doesn't have a bio field-->
-        {% if object.details.bio %}{{ object.details.bio }}{% else %}{{ object }} {% trans "hasn't written anything about themselves yet" %}{% endif %}
-      {% endblock %}
-    </p>
+{% block "dialog-body" %}
+  <div class="profile" align="center">
+    <div class="outter"><img src="{% if object.details.photo %}{{ object.details.photo.url }}{% else %}{% static "images/photo.png" %}{% endif %}" class="image-circle"/></div>   
+    <h1>{{ object }}</h1>
+    <span>{{ object.details.desc|default:"hasn't written anything about themselves yet" }}</span>
   </div>
+{% endblock %}
 
-  <div id="right-sidebar">
-  </div>
-
+{% block "dialog-footer" %}
+  {% if object == request.user %}
+    <a class="btn btn-default" href="{% url "edit_profile" %}">{% trans "Edit Profile" %}</a>
+  {% endif %}
 {% endblock %}

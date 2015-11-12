@@ -8,6 +8,7 @@ DEBUG = True
 CMS_PERMISSION = True
 CMS_TEMPLATES = (
     ('cms/normal.html', 'Normal Page'),
+    ('cms/header.html', 'Customer Header Page'),
 )
 
 DATE_FORMAT = 'm/d/Y'
@@ -42,8 +43,12 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 
+# Terminal output for email
+SERVER_EMAIL = 'admin@localhost'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 # Localhost keys, override on live.
-RECAPTCHA_USE_SSL = True
+RECAPTCHA_USE_SSL = False
 RECAPTCHA_PUBLIC_KEY = '6Ldd6OsSAAAAAOOu3QVFc2_pBazt7H8Fuks7hBC3'
 RECAPTCHA_PRIVATE_KEY = '6Ldd6OsSAAAAANDyM9FbuAne2b2NKHkkpMWP3wIY'
 
@@ -55,6 +60,7 @@ from hoodcms import *
 # Restrict to a specific address
 SITE_ROOT = "http://%s" % SITE_ADDRESS
 ALLOWED_HOSTS = [SITE_ADDRESS]
+EMAIL_SUBJECT_PREFIX = '[%s] ' % SITE_NAME
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
@@ -73,6 +79,7 @@ INSTALLED_APPS = (
     
     'meetings',
     'hoodcms',
+    'cmsextra',
 
     'registration',
     'social_auth',
@@ -83,34 +90,7 @@ INSTALLED_APPS = (
     'bootstrap3',
     'ajax_select',
 
-    #'happenings',
-    #'djangocms_picture',
-    #'djangocms_link',
     'djangocms_text_ckeditor',
-    #'cmsplugin_cascade',
-    #'cmsplugin_cascade.extra_fields',  # optional
-    #'cmsplugin_cascade.sharable',  # optional
-)
-
-#CMSPLUGIN_CASCADE_PLUGINS = (
-#    'cmsplugin_cascade.bootstrap3',
-#    'cmsplugin_cascade.bootstrap3.container',
-#    'cmsplugin_cascade.link',
-#)
-CMS_CASCADE_LEAF_PLUGINS = (
-'TextPlugin',
-'PicturePlugin',
-'LinkPlugin',
-'StylePlugin',
-'FormBuilderPlugin',
-'FilePlugin',
-'VideoPlugin',
-'VimeoVideoPlugin',
-'TabHeaderPlugin',
-'AccordionHeaderPlugin',
-'RepositoryDashboardPlugin',
-'SessionDashboardPlugin',
-'CMSLatestNewsPlugin',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -139,12 +119,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'cms.context_processors.cms_settings',
 )
 
-MIGRATION_MODULES = {
-    #'djangocms_picture' : 'djangocms_picture.migrations_django',
-    #'djangocms_link' : 'djangocms_link.migrations_django',
-    'djangocms_text_ckeditor' : 'djangocms_text_ckeditor.migrations_django',
-}
-
 # Place where static files are served in live (not used in dev)
 STATIC_ROOT = os.path.join(DATA_PATH, 'static')
 STATIC_URL = '/static/'
@@ -152,7 +126,6 @@ STATIC_URL = '/static/'
 # Place where files can be uploaded, served in live and dev
 MEDIA_ROOT = os.path.join(DATA_PATH, 'media')
 MEDIA_URL = '/media/'
-
 
 BOOTSTRAP3 = {
     'include_jquery': False,
