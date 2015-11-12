@@ -25,8 +25,8 @@ function add_person(event) {
         }
       },
       error: function(response) {
-        alert("There was an error: http code " + response.status)
-        //document.write(response);
+        //alert("There was an error: http code " + response.status)
+        document.write(response.responseText);
       },
     });
   }

@@ -1,0 +1,60 @@
+.note,
+.people li a,
+.person a,
+.results_on_deck > div {
+    padding: 4px 8px;
+    margin-bottom: 4px;
+    border-radius: 4px;
+    border: 1px solid #CEDFC7;
+    background-color: #DFF0D8;
+    color: black;
+}
+.results_on_deck > div {
+    display: inline-block;
+    margin: 12px 6px;
+}
+.results_on_deck span.close {
+    margin: 4px 0px 2px 6px;
+    font-size: 13px;
+}
+.update_note .input-group {
+    margin-bottom: 4px;
+}
+.note .txt {
+    display: block;
+    padding: 2px 4px;
+}
+.note .close {
+    top: 2px !important;
+}
+dd.person {
+    line-height: 3;
+}
+.people li a:hover,
+.person a:hover {
+    text-decoration: none;
+    background-color: #CEDFC7;
+    border: 1px solid #C6D7C4;
+}
+.people {
+    padding: 16px 0px;
+}
+.green-ok {
+    padding-right: 65px;
+    color: green;
+}
+.red-remove {
+    padding-right: 65px;
+    color: red;
+}
+.hidden {
+    visibility: none;
+}
+.dl-horizontal dt,
+.dl-horizontal dd {
+    font-size: 18px;
+    margin-bottom: 4px;
+}
+.update_note input {
+    width: 90%
+}

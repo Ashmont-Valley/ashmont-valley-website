@@ -75,7 +75,7 @@ class CreatePerson(AccessMixin, CreateView):
         if form.errors:
             data = {'errors': form.errors}
         else:
-            data = {'pk': self.object.details.pk, 'name': self.object.details.name(), 'errors': False}
+            data = {'pk': self.object.pk, 'name': self.object.name, 'errors': False}
         return HttpResponse(json.dumps(data), content_type="application/json")
 
 class MeetingAddNotesView(AccessMixin, UpdateView):

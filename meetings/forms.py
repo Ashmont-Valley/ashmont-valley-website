@@ -7,6 +7,8 @@ from functools import partial
 from meetings.models import *
 from users.models import *
 
+JQUERY_UI = 'cms/js/modules/jquery.ui.custom.js'
+
 class MeetingCreateForm(forms.ModelForm):
     meeting_date = forms.DateField(widget=partial(forms.DateInput, {'class': 'datepicker'})())
     class Meta:
@@ -17,7 +19,8 @@ class MeetingCreateForm(forms.ModelForm):
                 }
 
     class Media:
-        js = ('js/date_dropdown.js',)
+        css =  { 'all': ('css/jquery-ui.css', 'css/meetings.css')}
+        js = (JQUERY_UI, 'js/date_dropdown.js',)
 
 class MeetingAjaxForm(forms.ModelForm):
     chair = make_ajax_field(Meeting, 'chair', 'person_lookup')
@@ -33,7 +36,9 @@ class MeetingPrepareForm(MeetingAjaxForm):
                 'people_absent', 'people_guests']
 
     class Media:
-        js = ('js/add_person.js',)
+        css =  { 'all': ('css/jquery-ui.css', 'css/meetings.css')}
+        js = (JQUERY_UI, 'js/date_dropdown.js', 'js/add_person.js',)
+
 
 class MeetingReeditForm(MeetingAjaxForm):
     people_late = make_ajax_field(Meeting, 'people_late', 'person_lookup')
@@ -44,7 +49,7 @@ class MeetingReeditForm(MeetingAjaxForm):
                 'people_absent', 'people_guests', 'people_late']
 
     class Media:
-        js = ('js/add_person.js', 'js/meetings.js')
+        js = ('js/add_person.js', 'js/notes.js')
 
 class MeetingProceedingsForm(forms.ModelForm):
     people_late = make_ajax_field(Meeting, 'people_late', 'person_lookup')
@@ -54,7 +59,8 @@ class MeetingProceedingsForm(forms.ModelForm):
         fields = ['people_late']
 
     class Media:
-        js = ('js/add_person.js', 'js/meetings.js')
+        css =  { 'all': ('css/jquery-ui.css', 'css/meetings.css')}
+        js = (JQUERY_UI, 'js/date_dropdown.js', 'js/add_person.js', 'js/notes.js')
 
 class CreatePersonForm(forms.ModelForm):
     

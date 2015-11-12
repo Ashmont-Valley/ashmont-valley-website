@@ -10,13 +10,13 @@ class PersonLookup(LookupChannel):
         return Person.objects.filter(Q(first_name__icontains=q) | Q(last_name__icontains=q)).order_by('last_name', 'first_name')
 
     def get_result(self, obj):
-        return obj.user.name()
+        return obj.name
 
     def format_match(self, obj):
         return self.format_item_display(obj)
 
     def format_item_display(self, obj):
-        return u"%s" % escape(obj.user.name())
+        return u"%s" % escape(obj.name)
 
     def check_auth(self, request):
         return True
