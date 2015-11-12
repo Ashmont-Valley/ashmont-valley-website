@@ -2,9 +2,10 @@
 
 {% load bootstrap3 static sekizai_tags %}
 
-{% block "body" %}
-<h1>Re-Edit Meeting "{{ object.name }}"</h1>
+{% block "title" %}{% block "header-title" %}Re-Edit Meeting{% endblock %}{% endblock %}
+{% block "subtitle" %}{{ object.name }}{% endblock %}
 
+{% block "body" %}
   <h2>Meeting Notes</h2>
 
     <div id="notes">

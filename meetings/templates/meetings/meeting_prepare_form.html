@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 {% load bootstrap3 static sekizai_tags %}
 
-{% block "body" %}
+{% block "title" %}{% block "header-title" %}Prepare Meeting{% endblock %}{% endblock %}
+{% block "subtitle" %}{{ object.name }}{% endblock %}
 
-<h1>Prepare Meeting "{{ object.name }}"</h1>
+{% block "body" %}
 <h2>Meeting Details</h2>
 <dl class="dl-horizontal">
   <dt>Name:</dt>

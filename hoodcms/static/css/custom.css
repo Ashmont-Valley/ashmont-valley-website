@@ -37,3 +37,6 @@ body {
     width: 200px;
     height: 200px;
 }
+.glyphicon {
+  padding: 0px 4px;
+}

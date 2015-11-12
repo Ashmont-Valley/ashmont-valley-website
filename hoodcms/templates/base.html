@@ -7,10 +7,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Martin Owens and Victor P." />
-    <meta name="description" content="{% block "headerdesc" %}{% endblock %}" />
+    <meta name="description" content="{% block "header-description" %}{% page_attribute "meta_description" %}{% endblock %}" />
     <meta name="keywords" content="" />
 
-    <title>Ashmont Valley - {% block "title" %}{% endblock %}</title>
+    <title>Ashmont Valley - {% block "header-title" %}{% page_attribute "page_title" %}{% endblock %}</title>
     <link href="{% static "images/favico.png" %}" type="image/png" rel="icon" />
 
     {% bootstrap_css %}
@@ -30,13 +30,14 @@
     <script src="{% static "js/jquery.js" %}" type="text/javascript"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
-    {{ form.media }}
     {% render_block "js" %}
+    {{ form.media }}
   </head>
 
   <body>
 
   {% cms_toolbar %}
+
 
   <nav class="navbar navbar-inverse" role="navigation">
     <div class="container">
@@ -56,6 +57,14 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
+          {% if request.user.is_staff %}
+            <li><a class="glyphicon glyphicon-cog" href="{% url "admin:index" %}">&nbsp;</a></li>
+          {% endif %}
+          {% if request.user.is_authenticated %}
+            <li><a class="glyphicon glyphicon-log-out" href="{% url "auth_logout" %}">&nbsp;</a></li>
+          {% else %}
+            <li><a class="glyphicon glyphicon-log-in" href="{% url "auth_login" %}">&nbsp;</a></li>
+          {% endif %}
           {% show_menu 1 100 100 100 %}
         </ul>
       </div>
@@ -69,8 +78,8 @@
     {% block "body-header" %}
       <div class="row">
         <div class="col-lg-12">
-          <h1 class="page-header">{% page_attribute "page_title" %}
-            <small>{% page_attribute "meta_description" %}</small>
+          <h1 class="page-header">{% page_attribute "page_title" %}{% block "title" %}{% endblock %}
+            <small>{% page_attribute "meta_description" %}{% block "subtitle"%}{% endblock %}</small>
           </h1>
           {% block "breadcrumbs" %}{% show_breadcrumb 0 "menu/breadcrumb.html" 0 %}{% endblock %}
         </div>

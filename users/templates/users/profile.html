@@ -1,7 +1,14 @@
 {% extends 'dialog.html' %}
 {% load i18n future static %}
 
-{% block "dialog-title" %}{{ object.ctype|default:"Visitor" }}{% if object.org %} | {{ object.org }}{% endif %}{% endblock %} 
+{% block "dialog-header" %}
+  <h4>
+    <span class="glyphicon glyphicon-{{ object.ctype.icon }}"></span>
+    {{ object.ctype|default:"Visitor" }}
+    {% if object.org %} | {{ object.org }}{% endif %}
+  </h4>
+{% endblock %} 
+{% block "header-title" %}{{ object.name }}{% endblock %}
 
 {% block "dialog-body" %}
   <div class="profile" align="center">

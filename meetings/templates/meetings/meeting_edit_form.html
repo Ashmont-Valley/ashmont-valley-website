@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 {% load bootstrap3 %}
 
-{% block "body" %}
-  <h1>Edit Meeting "{{ object.name }}"</h1>
+{% block "title" %}{% block "header-title" %}Edit Meeting{% endblock %}{% endblock %}
+{% block "subtitle" %}{{ object.name }}{% endblock %}
 
+{% block "body" %}
   <form action="" method='post' class='form'>
     {% csrf_token %}
     {% bootstrap_form form layout='inline'%}

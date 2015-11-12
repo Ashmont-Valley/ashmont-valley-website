@@ -107,6 +107,8 @@ MIDDLEWARE_CLASSES = (
     'cms.middleware.user.CurrentUserMiddleware',
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
+
+    'users.middleware.SetLastVisitMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (

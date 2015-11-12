@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 {% load bootstrap3 static sekizai_tags %}
 
-{% block "body" %}
-  <h1>Meeting Started {{ object.start_time }}</h1>
+{% block "title" %}{% block "header-title" %}Meeting Started{% endblock %}{% endblock %}
+{% block "subtitle" %}{{ object.start_time }}{% endblock %}
 
+{% block "body" %}
   {% include "meetings/meeting_subdetail.html" %}
 
   <h2>Meeting Notes</h2>

@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% load bootstrap3 %}
 
-{% block "body" %}
-  <h1>Create a New Meeting</h1>
+{% block "title" %}{% block "header-title" %}Create a New Meeting{% endblock %}{% endblock %}
 
+{% block "body" %}
   <form action="" method='post' class='form'>
     {% csrf_token %}
     {% bootstrap_field form.name layout='inline' %}
