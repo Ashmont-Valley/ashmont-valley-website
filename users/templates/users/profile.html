@@ -1,13 +1,13 @@
 {% extends 'dialog.html' %}
 {% load i18n future static %}
 
-{% block "dialog-title" %}{{ object.details.ctype|default:"Visitor" }}{% if object.details.org %} | {{ object.details.org }}{% endif %}{% endblock %} 
+{% block "dialog-title" %}{{ object.ctype|default:"Visitor" }}{% if object.org %} | {{ object.org }}{% endif %}{% endblock %} 
 
 {% block "dialog-body" %}
   <div class="profile" align="center">
-    <div class="outter"><img src="{% if object.details.photo %}{{ object.details.photo.url }}{% else %}{% static "images/photo.png" %}{% endif %}" class="image-circle"/></div>   
+    <div class="outter"><img src="{% if object.photo %}{{ object.photo.url }}{% else %}{% static "images/photo.png" %}{% endif %}" class="image-circle"/></div>   
     <h1>{{ object }}</h1>
-    <span>{{ object.details.desc|default:"hasn't written anything about themselves yet" }}</span>
+    <span>{{ object.desc|default:"hasn't written anything about themselves yet" }}</span>
   </div>
 {% endblock %}
 

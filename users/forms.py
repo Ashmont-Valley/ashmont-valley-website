@@ -45,12 +45,7 @@ class UserForm(ModelForm):
         password = self.cleaned_data.get('password', None)
         if password:
             self.instance.set_password(password)
-        ModelForm.save(self, **kwargs)
-
-class PersonAdminForm(ModelForm):
-    class Meta:
-        model = Person
-        exclude = ('last_seen','visits','notes', 'created')
+        return ModelForm.save(self, **kwargs)
 
 class PersonForm(UserForm):
     class Meta:

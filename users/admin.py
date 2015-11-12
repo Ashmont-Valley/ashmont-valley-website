@@ -2,16 +2,17 @@
 from django.contrib.admin import *
 from django.contrib.sessions.models import Session
 
-from .forms import PersonAdminForm
+from .forms import UserForm
 from .models import *
 
 class PersonAdmin(ModelAdmin):
-    form = PersonAdminForm
+    form = UserForm
     fieldsets = [
-        ('Personal Information', {'fields': ['phone', 'ophone']}),#, 'user__first_name', 'user__last_name', 'user__email']}),
+        ('Login', {'fields': ['username', 'password1', 'password2']}),
+        ('Personal Information', {'fields': ['first_name', 'last_name', 'email', 'phone', 'ophone']}),
         ('Biography', {'fields': ['photo', 'desc']}),
         (None, {'fields': ['ctype', 'org']}),
-        (None, {'fields': ['notes', 'user']}),
+        (None, {'fields': ['notes']}),
     ]
 
 site.register(Person, PersonAdmin)
