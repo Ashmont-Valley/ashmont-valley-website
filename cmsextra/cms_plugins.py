@@ -58,6 +58,9 @@ class PannelPlugin(CMSPluginBase):
     render_template = "cms/plugins/pannel_item.html"
     require_parent = True
 
+    class Media:
+        css = {'all': ('css/icon_list.css',)}
+
 plugin_pool.register_plugin(PannelRowPlugin)
 plugin_pool.register_plugin(PannelPlugin)
 
@@ -94,4 +97,15 @@ class HrPlugin(CMSPluginBase):
     render_template = "cms/plugins/hr.html"
 
 plugin_pool.register_plugin(HrPlugin)
+
+class EmbededSvgPlugin(CMSPluginBase):
+    model = EmbededSvg
+    name = "Embeded SVG Image"
+    render_template = "cms/plugins/svg.html"
+
+    def render(self, context, instance, placeholder):
+        context['svg'] = instance.svg_file.read()
+        return context
+
+plugin_pool.register_plugin(EmbededSvgPlugin)
 

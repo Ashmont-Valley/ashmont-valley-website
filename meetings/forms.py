@@ -49,7 +49,7 @@ class MeetingReeditForm(MeetingAjaxForm):
                 'people_absent', 'people_guests', 'people_late']
 
     class Media:
-        js = ('js/add_person.js', 'js/notes.js')
+        js = (JQUERY_UI, 'js/add_person.js', 'js/notes.js')
 
 class MeetingProceedingsForm(forms.ModelForm):
     people_late = make_ajax_field(Meeting, 'people_late', 'person_lookup')

@@ -40,3 +40,17 @@ body {
 .glyphicon {
   padding: 0px 4px;
 }
+tspan {
+  font-family: "Quattrocento" !important;
+}
+g#plots path {
+  fill: #0169c9 !important;
+  fill-opacity: 0.5 !important;
+  stroke: #000000;
+}
+g#plots path:hover {
+  fill: #0169c9 !important;
+  fill-opacity: 1 !important;
+  stroke-width: 2px !important;
+  z-index: 9 !important;
+}
