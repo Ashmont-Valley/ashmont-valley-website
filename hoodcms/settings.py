@@ -81,6 +81,7 @@ INSTALLED_APPS = (
     'meetings',
     'hoodcms',
     'cmsextra',
+    'diary',
 
     'registration',
     'social_auth',
@@ -95,6 +96,7 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'hoodcms.middleware.AutoBreadcrumbMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.gzip.GZipMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -103,11 +105,10 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
+    'hoodcms.middleware.CsrfWhenCaching',
     'cms.middleware.user.CurrentUserMiddleware',
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
-
     'users.middleware.SetLastVisitMiddleware',
 )
 

@@ -10,6 +10,7 @@ urlpatterns = patterns('',
 
     url(r'^admin/',    include(admin.site.urls)),
     url(r'^ajax/',     include(ajax_select_urls)),
+    url(r'^events/',   include('diary.urls', namespace='diary')),
     url(r'^meetings/', include('meetings.urls', namespace='meetings')),
 
     url(r'^',         include('users.urls')),
