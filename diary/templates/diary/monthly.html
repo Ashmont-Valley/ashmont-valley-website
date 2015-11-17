@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block "head" %}{{ block.super }}
+  <link href="{% static "css/calendar.css" %}" type="text/css" rel="stylesheet"/>
+{% endblock %}
+
+{% block "body" %}
+
+<div class="row">
+  <div class="span9">
+
+    <div class="cal-context" style="width: 100%;" id="calendar"><div class="cal-row-fluid cal-row-head">
+      {% for dow in object.week_days %}
+        <div class="cal-cell1">{{ dow }}</div>
+      {% endfor %}
+    </div>
+
+  <div class="cal-month-box">
+
+    {% for week in object %}
+      <div class="cal-row-fluid cal-before-eventlist">
+        {% for day in week %}
+          <div class="cal-cell1 cal-cell" data-cal-row="-day{{ forloop.index }}">
+            <div class="cal-month-day {{ day.get_css }}{% if forloop.parentloop.counter == 1 %} cal-month-first-row{% endif %}">
+              <a href="foo/" data-original-title="" class="pull-right" data-cal-date="{{ day.date.isoformat }}" data-cal-view="day" data-toggle="tooltip" title="{{ day.date }}">{{ day.name }}</a>
+              <div class="events-list" data-cal-start="?" data-cal-end="?">
+                {% for event in day %}
+                  <a data-original-title="{{ event }}" href="{{ event.get_absolute_url }}" data-event-id="{{ event.pk }}" data-event-class="event-info" class="pull-left event event-info" data-toggle="tooltip" title="{{ event }}"></a>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
+
+  </div>
+</div>
+
+<div class="btn-group btn-group-lg btn-group-justified" role="group" style="margin: 9px 0;">
+  <a class="btn btn-info" href="previous/"><span class="glyphicon glyphicon-chevron-left"></span> October</a>
+  <a class="btn btn-info" href="next/">December <span class="glyphicon glyphicon-chevron-right"></span></a>
+</div>
+
+{% endblock %}
