@@ -29,7 +29,7 @@ from django.core.urlresolvers import reverse
 from cms.models import CMSPlugin
 from hoodcms.fields import ResizedImageField
 
-from .icons import GLYPHICON_CHOICES
+from .glyphicons import GlyphiconField
 
 null = dict(null=True, blank=True)
 
@@ -48,7 +48,7 @@ class Pannel(CMSPlugin):
     title = CharField(max_length=32)
     desc  = CharField(max_length=255)
     link  = URLField(**null)
-    icon  = CharField(max_length=22, choices=GLYPHICON_CHOICES, default='thumbs-down')
+    icon  = GlyphiconField(default='thumbs-down')
 
 class PortfolioSection(CMSPlugin):
     title = CharField(max_length=255)

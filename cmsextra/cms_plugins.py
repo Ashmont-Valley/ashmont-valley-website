@@ -58,9 +58,6 @@ class PannelPlugin(CMSPluginBase):
     render_template = "cms/plugins/pannel_item.html"
     require_parent = True
 
-    class Media:
-        css = {'all': ('css/icon_list.css',)}
-
 plugin_pool.register_plugin(PannelRowPlugin)
 plugin_pool.register_plugin(PannelPlugin)
 

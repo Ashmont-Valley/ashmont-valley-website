@@ -9,8 +9,8 @@
        url(../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular) format('svg');
 }
 
-#id_icon option,
-#id_icon {
+.glyphicon-select option,
+.glyphicon-select {
   font-size: 190%;
   font-family: 'Glyphicons Halflings';
   font-style: normal;
