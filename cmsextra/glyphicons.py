@@ -26,20 +26,23 @@ from django.forms import Select, TypedChoiceField
 
 def glyphicons():
     ret = tuple()
-    path = get_media('css/bootstrap.min.css')
-    if path:
-        with open(path[0], 'r') as fhl:
-            for entry in fhl.read().split('.'):
-                if entry.startswith('glyphicon-') and entry[-1] == '}':
-                    name = entry.split('-', 1)[-1].split(':before')[0]
-                    icon = entry.split('content:"')[-1].split('"')[0]
-                    icon = unichr(int(icon[1:], 16)).encode('utf-8')
-                    ret += (name, icon),
-    else:
+    for entry in get_css('css/bootstrap.min.css'):
+        if entry.startswith('glyphicon-') and entry[-1] == '}':
+            name = entry.split('-', 1)[-1].split(':before')[0]
+            icon = entry.split('content:"')[-1].split('"')[0]
+            icon = unichr(int(icon[1:], 16)).encode('utf-8')
+            ret += (name, icon),
+    if not ret:
         import sys
-        sys.stderr.write("css/bootstrap.min.css not found, Glyphicons dropdown disabled.")
+        sys.stderr.write("No icons found, Glyphicons dropdown disabled.")
     return ret
         
+def get_css(cssfile):
+    path = get_media(cssfile)
+    if path:
+        with open(path[0], 'r') as fhl:
+            return fhl.read().split('.')
+    return []
 
 def get_media(path):
     from django.contrib.staticfiles import finders
