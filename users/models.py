@@ -20,6 +20,14 @@ null = dict(null=True, blank=True)
 
 from hoodcms.fields import ResizedImageField
 
+class UpdateManager(Manager):
+    def create_or_update(self, instance, **data):
+        if instance:
+            self.filter(pk=instance.pk).update(**data)
+            return self.get(pk=instance.pk)
+        else:
+            return self.get_or_create(**data)[0]
+
 @python_2_unicode_compatible
 class ContactType(Model):
     name    = CharField(max_length=16)
@@ -110,20 +118,24 @@ class Road(Model):
     alias    = CharField(max_length=128, **null)
     city     = ForeignKey(City)
 
+    objects  = UpdateManager()
+
     def __unicode__(self):
         return self.name
 
 class Building(Model):
     """Provides a way to specify the co-ords for a plot/address"""
     number   = CharField(max_length=6)
-    name     = CharField(max_length=64)
+    name     = CharField(max_length=64, **null)
 
     road     = ForeignKey(Road)    
     postcode = CharField(max_length=22)
-    location = GeopositionField(**null)
 
+    location = GeopositionField(**null)
     plot     = TextField(_('Building Plot'), **null)
     foot     = TextField(_('Building Footprint'), **null)
+
+    objects   = UpdateManager()
 
     class Meta:
         unique_together = (('number', 'road'),)
