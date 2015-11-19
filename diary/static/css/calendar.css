@@ -430,8 +430,10 @@
   border-radius: 2px;
 }
 a[data-cal-date] {
+  text-align: center;
   font-size: 1.2em;
   font-weight: normal;
+  min-width: 2em;
   opacity: 0.5;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
@@ -439,7 +441,9 @@ a[data-cal-date] {
   -moz-transition: all 0.1s ease-in-out;
   -ms-transition: all 0.1s ease-in-out;
   -o-transition: all 0.1s ease-in-out;
-  padding: 15px;
+  padding: 5px;
+  margin: 10px;
+  border-radius: 1em;
 }
 a[data-cal-date]:hover {
   opacity: 1;
@@ -449,12 +453,13 @@ a[data-cal-date]:hover {
   opacity: 0.1;
   cursor: default;
 }
-.cal-day-today {
-  background-color: #e8fde7;
-}
 .cal-day-today a[data-cal-date] {
   color: darkgreen;
 }
+.cal-day-past a[data-cal-date] {
+  color: darkred;
+}
+
 .cal-month-box .cal-day-today a[data-cal-date] {
   font-size: 1.9em;
 }
@@ -462,7 +467,7 @@ a[data-cal-date]:hover {
   color: #800080;
 }
 .cal-day-weekend a[data-cal-date] {
-  color: darkred;
+  background-color: #fafafa;
 }
 #cal-week-box {
   border: 1px solid #e1e1e1;
@@ -488,12 +493,6 @@ a[data-cal-date]:hover {
   -webkit-box-shadow: inset 0px 0px 15px 0px rgba(0, 0, 0, 0.5);
   box-shadow: inset 0px 0px 15px 0px rgba(0, 0, 0, 0.5);
 }
-/*#cal-slide-tick {
-  background-image: url("../img/tick.png?2");
-}*/
-/*#cal-slide-content:hover {
-  background-color: transparent;
-}*/
 #cal-slide-content a.event-item {
   color: #ffffff;
   font-weight: normal;

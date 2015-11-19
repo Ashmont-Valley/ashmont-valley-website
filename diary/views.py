@@ -37,7 +37,7 @@ class CalendarDay(list):
 
     @spaced_property
     def get_css(self):
-        yield 'cal-'+['today', 'past', 'future'][self.is_today()]
+        yield 'cal-day-'+['today', 'past', 'future'][self.is_today()]
         yield 'cal-day-'+['outmonth', 'inmonth'][bool(self.date)]
         if self.date and self.date.weekday() > 4:
             yield 'cal-day-weekend'
