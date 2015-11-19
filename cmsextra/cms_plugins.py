@@ -50,7 +50,7 @@ class PannelRowPlugin(CMSPluginBase):
     name = "Pannel Row"
     render_template = "cms/plugins/pannel_row.html"
     allow_children = True
-    child_classes = ["PannelPlugin"]
+    child_classes = ["PannelPlugin", "ThumbnailPlugin"]
 
 class PannelPlugin(CMSPluginBase):
     model = Pannel
@@ -58,8 +58,15 @@ class PannelPlugin(CMSPluginBase):
     render_template = "cms/plugins/pannel_item.html"
     require_parent = True
 
+class ThumbnailPlugin(CMSPluginBase):
+    model = Thumbnail
+    name = "Thumbnail Pannel"
+    render_template = "cms/plugins/thumbnail.html"
+    require_parent = True
+
 plugin_pool.register_plugin(PannelRowPlugin)
 plugin_pool.register_plugin(PannelPlugin)
+plugin_pool.register_plugin(ThumbnailPlugin)
 
 
 class PortfolioPlugin(CMSPluginBase):

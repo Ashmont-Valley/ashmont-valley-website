@@ -50,6 +50,12 @@ class Pannel(CMSPlugin):
     link  = URLField(**null)
     icon  = GlyphiconField(default='thumbs-down')
 
+class Thumbnail(CMSPlugin):
+    image = ImageField(upload_to='thumbnails')
+    name    = CharField(max_length=32)
+    subname = CharField(max_length=32, **null)
+    description = TextField(**null)
+
 class PortfolioSection(CMSPlugin):
     title = CharField(max_length=255)
 
