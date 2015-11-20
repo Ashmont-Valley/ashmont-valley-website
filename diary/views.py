@@ -1,5 +1,5 @@
 
-import calendar
+from calendar import monthcalendar as cal, firstweekday, month_name
 from datetime import *
 from time import *
 
@@ -22,13 +22,17 @@ def spaced_property(f):
         return ' '.join(list(f(*args, **kwargs)))
     return _inner
 
+def ym(year, month):
+    """Roll over the month, so years go up and down as needed"""
+    return [year + (month-1) / 12, (month-1) % 12 + 1]
+
 class CalendarDay(list):
     """Contains a list of events for this day"""
-    def __init__(self, year, month, day):
+    def __init__(self, year, month, day, week, inner=True):
+        self.week = week
         self.name = day or ''
-        self.date = None
-        if day > 0:
-            self.date = date(year, month, day)
+        self.date = date(year, month, day)
+        self.inner = inner
 
     def is_today(self):
         if not self.date:
@@ -37,10 +41,17 @@ class CalendarDay(list):
 
     @spaced_property
     def get_css(self):
-        yield 'cal-day-'+['today', 'past', 'future'][self.is_today()]
-        yield 'cal-day-'+['outmonth', 'inmonth'][bool(self.date)]
+        yield 'cal-month-day'
+        if self.week == 0:
+            yield 'cal-month-first-row'
+        if self.inner:
+            yield 'cal-day-'+['today', 'past', 'future'][self.is_today()]
+            yield 'cal-day-inmonth'
+        else:
+            yield 'cal-day-outmonth'
+
         if self.date and self.date.weekday() > 4:
-            yield 'cal-day-weekend'
+            yield 'cal-weekend'
 
 
 class MonthCalendar(list):
@@ -49,11 +60,23 @@ class MonthCalendar(list):
         self.days = {}
         self.year = year
         self.month = month
-        for week in calendar.monthcalendar(year, month):
+
+        for week_id, week in enumerate(cal(year, month)):
             self.append([])
-            for day in week:
-                self[-1].append(CalendarDay(year, month, day))
-                if day > 0:
+            self.add_week(year, month, week, week_id)
+
+        self.add_week(*(ym(year, month-1) + cal(*ym(year, month-1))[-1:] + [0]))
+        self.add_week(*(ym(year, month+1) + cal(*ym(year, month+1))[:1] + [-1]))
+
+
+    def add_week(self, year, month, week, week_id):
+        for day_id, day in enumerate(week):
+            if day_id >= len(self[week_id]):
+                self[week_id].append(None)
+            if day:
+                inner = month==self.month
+                self[week_id][day_id] = CalendarDay(year, month, day, week_id, inner)
+                if inner:
                     self.days[day] = self[-1][-1]
 
     def add_events(self, events):
@@ -65,8 +88,7 @@ class MonthCalendar(list):
 
     @property
     def week_days(self):
-        monday = calendar.firstweekday()
-        return WEEKS[monday:] + WEEKS[:monday]
+        return WEEKS[firstweekday():] + WEEKS[:firstweekday()]
 
 
 class MonthlyCalendar(AccessMixin, ListView):
@@ -99,13 +121,13 @@ class MonthlyCalendar(AccessMixin, ListView):
 
     @property
     def action_name(self):
-        month = int(self.kwargs.get('month', now().month))
-        return calendar.month_name[month]
+        return month_name[int(self.kwargs.get('month', now().month))]
 
     def get_context_data(self, **kwargs):
         data  = {}
         year  = int(self.kwargs.get('year', now().year))
         month = int(self.kwargs.get('month', now().month))
+        data['calendar'] = self.get_calendar()
         data['object'] = MonthCalendar(year, month)
         data['object'].add_events(self.get_events(year, month))
         data['view'] = self

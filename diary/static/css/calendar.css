@@ -429,7 +429,7 @@
   border-left: 1px solid #e1e1e1;
   border-radius: 2px;
 }
-a[data-cal-date] {
+*[data-cal-date] {
   text-align: center;
   font-size: 1.2em;
   font-weight: normal;
@@ -445,28 +445,44 @@ a[data-cal-date] {
   margin: 10px;
   border-radius: 1em;
 }
-a[data-cal-date]:hover {
+*[data-cal-date]:hover {
   opacity: 1;
   text-decoration: none;
 }
-.cal-day-outmonth a[data-cal-date] {
+.cal-day-outmonth *[data-cal-date] {
   opacity: 0.1;
   cursor: default;
 }
-.cal-day-today a[data-cal-date] {
-  color: darkgreen;
-}
-.cal-day-past a[data-cal-date] {
-  color: darkred;
-}
 
-.cal-month-box .cal-day-today a[data-cal-date] {
+
+.cal-row-fluid       .cal-day-outmonth {background-color: #fff;}
+.cal-row-fluid:hover .cal-day-outmonth {background-color: #fff4f4;}
+
+.cal-row-fluid       .cal-day-past               {background-color: #f9f9f9;}
+.cal-row-fluid:hover .cal-day-past               {background-color: #ededed;}
+.cal-row-fluid:hover .cal-day-past:hover         {background-color: #e0e0e0;}
+.cal-row-fluid       .cal-day-past.cal-weekend   {background-color: #eeffee;}
+.cal-row-fluid:hover .cal-day-past.cal-weekend   {background-color: #e8fde8;}
+
+
+.cal-row-fluid       .cal-day-today *[data-cal-date] {background-color: #fff;}
+.cal-row-fluid       .cal-day-today              {background-color: #a0a0ff;}
+.cal-row-fluid:hover .cal-day-today              {background-color: #9090f0;}
+.cal-row-fluid:hover .cal-day-today:hover        {background-color: #8080f0;}
+
+.cal-row-fluid       .cal-day-future             {background-color: #fff;}
+.cal-row-fluid:hover .cal-day-future             {background-color: #fafafa;}
+.cal-row-fluid:hover .cal-day-future:hover       {background-color: #ededed;}
+.cal-row-fluid       .cal-day-future.cal-weekend {background-color: #f4fff4;}
+.cal-row-fluid:hover .cal-day-future.cal-weekend {background-color: #edffed;}
+
+.cal-month-box .cal-day-today *[data-cal-date] {
   font-size: 1.9em;
 }
-.cal-day-holiday a[data-cal-date] {
+.cal-day-holiday *[data-cal-date] {
   color: #800080;
 }
-.cal-day-weekend a[data-cal-date] {
+.cal-day-weekend *[data-cal-date] {
   background-color: #fafafa;
 }
 #cal-week-box {
