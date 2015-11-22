@@ -6,16 +6,8 @@ from django.utils.text import slugify
 from django.core.urlresolvers import reverse
 from django.conf import settings
 
-class EventIndex(object):
-    __str__ = lambda self: "Events"
-
-    def get_absolute_url(self):
-        return reverse('diary:calendar')
-
 class Calendar(Model):
     """A collection of events for a specific calendar"""
-    parent = EventIndex()
-
     name   = CharField(max_length=32)
     slug   = SlugField(max_length=32, blank=True)
     owner  = ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
@@ -30,6 +22,10 @@ class Calendar(Model):
 
     def get_absolute_url(self):
         return reverse('diary:calendar', kwargs={'calendar': self.slug})
+
+    @property
+    def parent(self):
+        return Event.objects.all()
 
     def save(self, **kwargs):
         self.slug = slugify(self.name)
@@ -56,6 +52,13 @@ class TaskTemplate(Model):
         return self.name
 
 
+class EventQuerySet(QuerySet):
+    __str__ = lambda self: "Events"
+
+    def get_absolute_url(self):
+        return reverse('diary:index')
+
+
 class Event(Model):
     """Something that will happen on a specific date/time"""
     date       = DateField()
@@ -63,6 +66,8 @@ class Event(Model):
     end_time   = TimeField(null=True, blank=True)
     template   = ForeignKey(EventTemplate, related_name='events')
     calendar   = ForeignKey(Calendar, related_name='events', null=True, blank=True)
+
+    objects = EventQuerySet.as_manager()
 
     def __str__(self):
         return "%s for %s" % (str(self.template), str(self.date))

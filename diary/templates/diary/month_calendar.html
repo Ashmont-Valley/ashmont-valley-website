@@ -22,15 +22,15 @@
       <div class="cal-row-fluid cal-before-eventlist">
         {% for day in week %}
           {% if not day.inner %}
-            <a class="cal-cell1 cal-cell" data-cal-row="-day{{ forloop.counter }}" href="{% url 'diary:calendar' calendar=calendar.slug year=day.date.year month=day.date.month %}">
+            <a class="cal-cell1 cal-cell" data-cal-row="-day{{ forloop.counter }}" href="{{ day.parent.get_absolute_url }}">
               <span class="{{ day.get_css }}">
-                <span data-original-title="" class="pull-right" data-cal-date="{{ day.date.isoformat }}" data-cal-view="day" data-toggle="tooltip" title="{{ day.date }}">{{ day.name }}</a>
+                <span data-original-title="" class="pull-right" data-cal-date="{{ day.date.isoformat }}" data-cal-view="day" data-toggle="tooltip" title="{{ day.date }}">{{ day.date.day }}</a>
               </span>
             </a>
           {% else %}
             <div class="cal-cell1 cal-cell" data-cal-row="-day{{ forloop.counter }}">
               <div class="{{ day.get_css }}">
-                <a href="foo/" data-original-title="" class="pull-right" data-cal-date="{{ day.date.isoformat }}" data-cal-view="day" data-toggle="tooltip" title="{{ day.date }}">{{ day.name }}</a>
+                <a href="{{ day.get_absolute_url }}" data-original-title="" class="pull-right" data-cal-date="{{ day.date.isoformat }}" data-cal-view="day" data-toggle="tooltip" title="{{ day.date }}">{{ day.date.day }}</a>
                 <div class="events-list" data-cal-start="?" data-cal-end="?">
                   {% for event in day %}
                     <a data-original-title="{{ event }}" href="{{ event.get_absolute_url }}" data-event-id="{{ event.pk }}" data-event-class="event-info" class="pull-left event event-info" data-toggle="tooltip" title="{{ event }}"></a>

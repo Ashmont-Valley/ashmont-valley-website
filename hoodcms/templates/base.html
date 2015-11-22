@@ -80,7 +80,7 @@
           {% if breadcrumbs and not current_page %}
             <ol class="breadcrumb">
               {% for crumb in breadcrumbs %}
-                {% if not crumb.0 %}
+                {% if not crumb.0 or crumb.0 == request.path %}
                   <li class="active">{{ crumb.1 }}</li>
                 {% else %}
                   <li><a href="{{ crumb.0 }}" class="crumb">{{ crumb.1 }}</a></li>

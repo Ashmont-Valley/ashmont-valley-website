@@ -19,22 +19,21 @@
 from django.conf.urls import patterns, url, include
 from django.views.generic.base import TemplateView
 
-from .views import MonthlyCalendar
+from .views import *
 
 def url_tree(regex, *urls):
     return url(regex, include(patterns('', *urls)))
 
 urlpatterns = patterns('',
-  url(r'^$',                    MonthlyCalendar.as_view(), name='calendar'),
-  url_tree(r'^(?P<year>\d+)/',
-    url(r'^$',                  MonthlyCalendar.as_view(), name='calendar'),
-    url(r'^(?P<month>\d+)/$',   MonthlyCalendar.as_view(), name='calendar'),
-  ),
-  url_tree(r'^(?P<calendar>\w*)/?',
-    url(r'^$',                  MonthlyCalendar.as_view(), name='calendar'),
+  url(r'^$',                    AllEvents.as_view(), name='index'),
+  url_tree(r'^(?:(?P<calendar>[^\d/]*)/)?',
+    url(r'^$',                  FullCalendar.as_view(), name='calendar'),
     url_tree(r'^(?P<year>\d+)/',
-      url(r'^$',                MonthlyCalendar.as_view(), name='calendar'),
-      url(r'^(?P<month>\d+)/$', MonthlyCalendar.as_view(), name='calendar'),
+      url(r'^$',                YearlyCalendar.as_view(), name='year'),
+      url_tree(r'^(?P<month>\d+)/',
+        url(r'^$',              MonthlyCalendar.as_view(), name='month'),
+        url(r'^(?P<day>\d+)/$', DailyCalendar.as_view(), name='day'),
+      ),
     ),
   ),
 )

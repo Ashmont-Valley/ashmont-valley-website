@@ -7,6 +7,7 @@ from time import *
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 
+from django.utils.dateformat import format as fmtdate
 from .models import *
 
 def spaced_property(f):
@@ -18,21 +19,30 @@ def ym(year, month):
     """Roll over the month, so years go up and down as needed"""
     return [year + (month-1) / 12, (month-1) % 12 + 1]
 
-class CalendarDay(list):
+class DayCalendar(list):
     """Contains a list of events for this day"""
 
-    def __init__(self, cal, year, month, day, week):
-        self.cal = cal
-        self.name = day or ''
-        self.date = date(year, month, day)
+    def __init__(self, **kwargs):
+        self.inner = kwargs.pop('inner', True)
+        self.kwargs = kwargs
+        self.date = date(int(kwargs['year']),
+                         int(kwargs['month']),
+                         int(kwargs['day']))
 
-    @property
-    def inner(self):
-        return self.cal.month == self.date.month
+    def __str__(self):
+        return fmtdate(self.date, 'jS')
+
+    def __int__(self):
+        return self.date.day
 
     def get_absolute_url(self):
-        kwargs = self.cal.get_url_kwargs(day=self.date.day)
-        return reverse('diary:calendar', kwargs=kwargs)
+        return reverse('diary:day', kwargs=self.kwargs)
+
+    @property
+    def parent(self):
+        kwargs = self.kwargs.copy()
+        kwargs.pop('day')
+        return MonthCalendar(**kwargs)
 
     def is_today(self):
         import pytz
@@ -54,22 +64,27 @@ class CalendarDay(list):
 
 class MonthCalendar(list):
     """A list of days iterable by week"""
-    def __init__(self, year, month, calendar=None):
+    def __init__(self, **kwargs):
+        self.kwargs = kwargs
+        self.year = int(kwargs['year'])
+        self.month = int(kwargs['month'])
         self.days = {}
-        self.year = int(year)
-        self.month = int(month)
-        self.calendar = calendar
         self.load_month(self.year, self.month)
 
     def __str__(self):
         return month_name[int(self.month)]
 
+    def __int__(self):
+        return self.month
+
     @property
     def parent(self):
-        return YearCalendar(self.year, calendar=self.calendar)
+        kwargs = self.kwargs.copy()
+        kwargs.pop('month')
+        return YearCalendar(**kwargs)
 
     def get_absolute_url(self):
-        return reverse('diary:calendar')
+        return reverse('diary:month', kwargs=self.kwargs)
 
     def load_month(self, year, month):
         for week_id, week in enumerate(cal(year, month)):
@@ -85,7 +100,9 @@ class MonthCalendar(list):
                 self[week_id].append(None)
             if day:
                 inner = month==self.month
-                self[week_id][day_id] = CalendarDay(self, year, month, day, week_id)
+                kwargs = self.kwargs.copy()
+                kwargs.update(dict(year=year, month=month, day=day))
+                self[week_id][day_id] = DayCalendar(inner=inner, **kwargs)
                 if inner:
                     self.days[day] = self[-1][-1]
 
@@ -102,21 +119,24 @@ class MonthCalendar(list):
 
 
 class YearCalendar(list):
-    def __init__(self, year, calendar=None):
-        self.year = year
-        self.calendar = calendar
+    def __init__(self, **kwargs):
+        self.kwargs = kwargs
+        self.year = int(kwargs['year'])
         for x in range(12):
             self.append(x+1)
-
-    @property
-    def parent(self):
-        if self.calendar:
-            return Calendar.objects.get(slug=self.calendar)
-        return Calendar.parent
 
     def __str__(self):
         return str(self.year)
 
+    def __int__(self):
+        return self.year
+
+    @property
+    def parent(self):
+        if 'calendar' in self.kwargs:
+            return Calendar.objects.get(slug=self.kwargs['calendar'])
+        return Calendar.parent
+
     def get_absolute_url(self):
-        return reverse('diary:calendar')
+        return reverse('diary:year', kwargs=self.kwargs)
 
