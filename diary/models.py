@@ -6,8 +6,16 @@ from django.utils.text import slugify
 from django.core.urlresolvers import reverse
 from django.conf import settings
 
+class EventIndex(object):
+    __str__ = lambda self: "Events"
+
+    def get_absolute_url(self):
+        return reverse('diary:calendar')
+
 class Calendar(Model):
     """A collection of events for a specific calendar"""
+    parent = EventIndex()
+
     name   = CharField(max_length=32)
     slug   = SlugField(max_length=32, blank=True)
     owner  = ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
