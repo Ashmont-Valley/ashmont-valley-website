@@ -1,9 +1,9 @@
 
+from django.utils.timezone import now
 from calendar import monthcalendar as cal, firstweekday, month_name, day_name
 from datetime import *
 from time import *
 
-from django.utils.timezone import now
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 
@@ -35,9 +35,9 @@ class CalendarDay(list):
         return reverse('diary:calendar', kwargs=kwargs)
 
     def is_today(self):
-        if not self.date:
-            return 1
-        return cmp(now().date(), self.date)
+        import pytz
+        EST = pytz.timezone("America/New_York")
+        return cmp(now().astimezone(EST).date(), self.date)
 
     @spaced_property
     def get_css(self):
@@ -48,7 +48,7 @@ class CalendarDay(list):
         else:
             yield 'cal-day-outmonth'
 
-        if self.date and self.date.weekday() > 4:
+        if self.date.weekday() > 4:
             yield 'cal-weekend'
 
 

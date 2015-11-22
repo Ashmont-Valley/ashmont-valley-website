@@ -39,7 +39,7 @@ CMS_LANGUAGES = {
     }
 }
 
-TIME_ZONE = 'America/New_York' #'UTC'
+TIME_ZONE = 'UTC' #'America/New_York' #'UTC'
 USE_I18N = True
 USE_L10N = True
 
