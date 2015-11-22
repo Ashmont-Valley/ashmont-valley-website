@@ -78,7 +78,7 @@ class AutoBreadcrumbMiddleware(object):
             return _("List")
 
     def _ancestors(self, obj):
-        if hasattr(obj, 'parent') and obj.parent:
+        if hasattr(obj, 'parent') and obj.parent is not None:
             for parent in self._ancestors(obj.parent):
                 yield parent
         yield obj

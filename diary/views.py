@@ -25,4 +25,6 @@ class AllEvents(AccessMixin, ListView):
     action_name = None
     model = Event
 
+class Event(AccessMixin, DetailView):
+    model = Event
 

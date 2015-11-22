@@ -70,7 +70,17 @@ class Event(Model):
     objects = EventQuerySet.as_manager()
 
     def __str__(self):
-        return "%s for %s" % (str(self.template), str(self.date))
+        return str(self.template)
+
+    def get_absolute_url(self):
+        return reverse('diary:event', kwargs={'pk': self.pk})
+
+    @property
+    def parent(self):
+        from diary.generated import DayCalendar
+        d = self.date
+        return DayCalendar(day=d.day, month=d.month, year=d.year,
+                           calendar=self.calendar.slug)
 
     class Meta:
         ordering = ('-date',)
