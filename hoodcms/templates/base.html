@@ -74,7 +74,7 @@
     {% block "body-header" %}
       <div class="row">
         <div class="col-lg-12">
-          <h1 class="page-header">{% page_attribute "page_title" %}{% block "title" %}{% endblock %}
+          <h1 class="page-header">{% block "title" %}{% page_attribute "page_title" %}{% endblock %}
             <small>{% page_attribute "meta_description" %}{% block "subtitle"%}{% endblock %}</small>
           </h1>
           {% if breadcrumbs and not current_page %}

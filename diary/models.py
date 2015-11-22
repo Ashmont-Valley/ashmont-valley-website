@@ -6,16 +6,18 @@ from django.utils.text import slugify
 from django.core.urlresolvers import reverse
 from django.conf import settings
 
+null = {'null':True, 'blank':True}
+
 class Calendar(Model):
     """A collection of events for a specific calendar"""
     name   = CharField(max_length=32)
     slug   = SlugField(max_length=32, blank=True)
-    owner  = ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
+    owner  = ForeignKey(settings.AUTH_USER_MODEL, **null)
     public = BooleanField(default=True)
 
     # If events are sourced from somewhere else, then we need the url
     # where we can find those events (must be http).
-    import_src = URLField(null=True, blank=True)
+    import_src = URLField(**null)
 
     def __str__(self):
         return self.name
@@ -35,9 +37,9 @@ class Calendar(Model):
 class EventTemplate(Model):
     """A description of an event with some default tasks""" 
     name       = CharField(max_length=64)
-    desc       = TextField(null=True, blank=True)
-    start_time = TimeField(null=True, blank=True)
-    end_time   = TimeField(null=True, blank=True)
+    desc       = TextField(**null)
+    start_time = TimeField(**null)
+    end_time   = TimeField(**null)
 
     def __str__(self):
         return self.name
@@ -45,7 +47,7 @@ class EventTemplate(Model):
 class TaskTemplate(Model):
     """A task that needs to be done every time the event is created"""
     name       = CharField(max_length=64, default='attend event')
-    notes      = TextField(null=True, blank=True)
+    notes      = TextField(**null)
     template   = ForeignKey(EventTemplate, related_name='tasks')
 
     def __str__(self):
@@ -61,11 +63,13 @@ class EventQuerySet(QuerySet):
 
 class Event(Model):
     """Something that will happen on a specific date/time"""
+    name       = CharField(max_length=64)
+    desc       = TextField(**null)
     date       = DateField()
-    start_time = TimeField(null=True, blank=True)
-    end_time   = TimeField(null=True, blank=True)
-    template   = ForeignKey(EventTemplate, related_name='events')
-    calendar   = ForeignKey(Calendar, related_name='events', null=True, blank=True)
+    start_time = TimeField(**null)
+    end_time   = TimeField(**null)
+    template   = ForeignKey(EventTemplate, related_name='events', **null)
+    calendar   = ForeignKey(Calendar, related_name='events', **null)
 
     objects = EventQuerySet.as_manager()
 
@@ -89,7 +93,7 @@ class Event(Model):
 class Task(Model):
     """Something that is needed for the event to happen"""
     name  = CharField(max_length=64, default='attend event')
-    notes = TextField(null=True, blank=True)
+    notes = TextField(**null)
     event = ForeignKey(Event, related_name='tasks')
     owner = ForeignKey(settings.AUTH_USER_MODEL, related_name='tasks')
 

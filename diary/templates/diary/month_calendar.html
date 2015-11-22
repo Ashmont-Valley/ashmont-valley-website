@@ -5,6 +5,9 @@
   <link href="{% static "css/calendar.css" %}" type="text/css" rel="stylesheet"/>
 {% endblock %}
 
+{% block "title" %}{{ object }} {{ calendar }}{% endblock %}
+{% block "subtitle" %}{{ object.year }}{% endblock %}
+
 {% block "body" %}
 
 <div class="row">

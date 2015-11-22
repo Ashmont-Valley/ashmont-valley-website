@@ -19,15 +19,21 @@ def ym(year, month):
     """Roll over the month, so years go up and down as needed"""
     return [year + (month-1) / 12, (month-1) % 12 + 1]
 
-class DayCalendar(list):
-    """Contains a list of events for this day"""
-
+class Generated(list):
+    """Contains events with non-event elements"""
     def __init__(self, **kwargs):
-        self.inner = kwargs.pop('inner', True)
         self.kwargs = kwargs
-        self.date = date(int(kwargs['year']),
-                         int(kwargs['month']),
-                         int(kwargs['day']))
+        self.init(**kwargs)
+
+    def get_calendar(self):
+        if 'calendar' in self.kwargs:
+            return Calendar.objects.get(slug=self.kwargs['calendar'])
+
+class DayCalendar(Generated):
+    """Contains a list of events for this day"""
+    def init(self, year, month, day, **kwargs):
+        self.date = date(int(year), int(month), int(day))
+        self.inner = self.kwargs.pop('inner', True)
 
     def __str__(self):
         return fmtdate(self.date, 'jS')
@@ -62,12 +68,11 @@ class DayCalendar(list):
             yield 'cal-weekend'
 
 
-class MonthCalendar(list):
+class MonthCalendar(Generated):
     """A list of days iterable by week"""
-    def __init__(self, **kwargs):
-        self.kwargs = kwargs
-        self.year = int(kwargs['year'])
-        self.month = int(kwargs['month'])
+    def init(self, year, month, **kwargs):
+        self.year = int(year)
+        self.month = int(month)
         self.days = {}
         self.load_month(self.year, self.month)
 
@@ -118,10 +123,9 @@ class MonthCalendar(list):
         return list(day_name)
 
 
-class YearCalendar(list):
-    def __init__(self, **kwargs):
-        self.kwargs = kwargs
-        self.year = int(kwargs['year'])
+class YearCalendar(Generated):
+    def init(self, year, **kwargs):
+        self.year = int(year)
         for x in range(12):
             self.append(x+1)
 
@@ -134,7 +138,7 @@ class YearCalendar(list):
     @property
     def parent(self):
         if 'calendar' in self.kwargs:
-            return Calendar.objects.get(slug=self.kwargs['calendar'])
+            return self.get_calendar()
         return Calendar.parent
 
     def get_absolute_url(self):

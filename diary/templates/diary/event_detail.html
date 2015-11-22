@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block "title" %}{{ object }}{% endblock %}
+{% block "subtitle" %}{{ object.date|date:"jS F Y" }}{% endblock %}
+
+{% block "body" %}
+
+<h1><span class="glyphicon glyphicon-time"></span> {{ object.start_time|date:"H:i" }} {{ object.end_time|date:"H:i" }}</h1>
+
+{% endblock %}
