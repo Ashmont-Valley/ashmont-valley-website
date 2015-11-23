@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block "header-title" %}{{ object }}{% endblock %}
 {% block "title" %}{{ object }}{% endblock %}
 {% block "subtitle" %}{{ object.date|date:"jS F Y" }}{% endblock %}
 

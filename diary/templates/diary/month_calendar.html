@@ -5,7 +5,7 @@
   <link href="{% static "css/calendar.css" %}" type="text/css" rel="stylesheet"/>
 {% endblock %}
 
-{% block "title" %}{{ object }} {{ calendar }}{% endblock %}
+{% block "header-title" %}{% block "title" %}{{ object }} {{ calendar }}{% endblock %}{% endblock %}
 {% block "subtitle" %}{{ object.year }}{% endblock %}
 
 {% block "body" %}

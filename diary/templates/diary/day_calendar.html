@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block "head" %}{{ block.super }}
-{% endblock %}
+{% block "header-title" %}{% block "title" %}{{ object }} {{ object.parent }} {{ object.date.year }}{% endblock %}{% endblock %}
+{% block "subtitle" %}{{ calendar }}{% endblock %}
 
 {% block "body" %}
 
