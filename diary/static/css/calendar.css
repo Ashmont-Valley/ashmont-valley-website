@@ -194,6 +194,13 @@
 #cal-slide-tick.tick-day7 {
   left: 92.85714285714285%;
 }
+.event-bar {
+  width: 100%;
+  height: 22px;
+  bottom: 0px;
+  left: 0px;
+  position: absolute;
+}
 .events-list {
   position: absolute;
   bottom: 0;

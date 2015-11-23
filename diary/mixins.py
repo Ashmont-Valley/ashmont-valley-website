@@ -19,6 +19,7 @@ class GeneratedObjectView(TemplateView):
     def get_context_data(self, **kwargs):
         data = super(GeneratedObjectView, self).get_context_data(**kwargs)
         data['object'] = self.get_object()
+        list(data['object'])
         data['calendar'] = data['object'].get_calendar()
         return data
 

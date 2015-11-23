@@ -1,4 +1,5 @@
 
+from django.utils.translation import ugettext_lazy as _
 from datetime import timedelta
 from django.db.models import *
 from django.utils.text import slugify
@@ -113,4 +114,24 @@ class Alert(Model):
         return "Alert for %s (for user %s)" % (str(self.event or self.task), str(self.user))
 
 
+# ---=== CMSPlugins Below this line ===--- #
+
+from cms.models import CMSPlugin
+
+class CmsMonthView(CMSPlugin):
+    offset = IntegerField(_('Number of months from this month.'), default=0)
+    calendar = ForeignKey(Calendar, **null)
+
+    @property
+    def month_calendar(self):
+        from .generated import ym, today, MonthCalendar
+        (year, month) = ym(today().year, today().month + self.offset)
+        cal = MonthCalendar(year=year, month=month, **dict(self.kwargs))
+        list(cal)
+        return cal
+
+    @property
+    def kwargs(self):
+        if self.calendar:
+            yield ('calendar', self.calendar.slug)
 

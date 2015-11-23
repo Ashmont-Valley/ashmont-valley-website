@@ -27,7 +27,14 @@
           {% if not day.inner %}
             <a class="cal-cell1 cal-cell" data-cal-row="-day{{ forloop.counter }}" href="{{ day.parent.get_absolute_url }}">
               <span class="{{ day.get_css }}">
-                <span data-original-title="" class="pull-right" data-cal-date="{{ day.date.isoformat }}" data-cal-view="day" data-toggle="tooltip" title="{{ day.date }}">{{ day.date.day }}</a>
+                <span data-original-title="" class="pull-right" data-cal-date="{{ day.date.isoformat }}" data-cal-view="day" data-toggle="tooltip" title="{{ day.date }}">{{ day.date.day }}</span>
+              </span>
+            </a>
+          {% elif day|length == 1 %}
+            <a class="cal-cell1 cal-cell" data-cal-row="-day{{ forloop.counter }}" href="{{ day.get_absolute_url }}">
+              <span class="{{ day.get_css }}">
+                <span data-original-title="" class="pull-right" data-cal-date="{{ day.date.isoformat }}" data-cal-view="day" data-toggle="tooltip" title="{{ day.date }}">{{ day.date.day }}</span>
+                <div class="event-bar event-info" data-cal-start="?" data-cal-end="?"></div>
               </span>
             </a>
           {% else %}
