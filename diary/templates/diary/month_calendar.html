@@ -31,7 +31,7 @@
               </span>
             </a>
           {% elif day|length == 1 %}
-            <a class="cal-cell1 cal-cell" data-cal-row="-day{{ forloop.counter }}" href="{{ day.get_absolute_url }}">
+            <a class="cal-cell1 cal-cell" data-cal-row="-day{{ forloop.counter }}" href="{{ day.0.get_absolute_url }}">
               <span class="{{ day.get_css }}">
                 <span data-original-title="" class="pull-right" data-cal-date="{{ day.date.isoformat }}" data-cal-view="day" data-toggle="tooltip" title="{{ day.date }}">{{ day.date.day }}</span>
                 <div class="event-bar event-info" data-cal-start="?" data-cal-end="?"></div>
@@ -58,8 +58,8 @@
 </div>
 
 <div class="btn-group btn-group-lg btn-group-justified" role="group" style="margin: 9px 0;">
-  <a class="btn btn-info" href="previous/"><span class="glyphicon glyphicon-chevron-left"></span> October</a>
-  <a class="btn btn-info" href="next/">December <span class="glyphicon glyphicon-chevron-right"></span></a>
+  <a class="btn btn-info" href="{{ object.previous.get_absolute_url }}"><span class="glyphicon glyphicon-chevron-left"></span> {{ object.previous }}</a>
+  <a class="btn btn-info" href="{{ object.next.get_absolute_url }}">{{ object.next }} <span class="glyphicon glyphicon-chevron-right"></span></a>
 </div>
 
 {% endblock %}

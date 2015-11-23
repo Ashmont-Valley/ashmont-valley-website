@@ -29,6 +29,9 @@ class Generated(list):
     lookup = dict(year='date__year', month='date__month',
                   day='date__day', calendar='calendar__slug')
 
+    next     = property(lambda self: self.get_next(1))
+    previous = property(lambda self: self.get_next(-1))
+
     def __init__(self, **kwargs):
         self.kwargs = kwargs
         self.init(**kwargs)
@@ -38,6 +41,11 @@ class Generated(list):
             self.generate(**self.kwargs)
             self.add_events(*list(self.get_events()))
         return super(Generated, self).__iter__()
+
+    def get_next(self, offset):
+        kwargs = self.kwargs.copy()
+        kwargs.update(self.get_next_kwargs(offset))
+        return type(self)(**kwargs)
 
     def get_calendar(self):
         """Returns the calendar object if selected for"""
@@ -94,6 +102,10 @@ class DayCalendar(Generated):
         if self.date.weekday() > 4:
             yield 'cal-weekend'
 
+    def get_next_kwargs(self, offset):
+        date = self.date + timedelta(days=offset)
+        return dict(year=date.year, month=date.month, day=date.day)
+
 
 class MonthCalendar(Generated):
     """A list of days iterable by week"""
@@ -149,6 +161,10 @@ class MonthCalendar(Generated):
     def week_days(self):
         return list(day_name)
 
+    def get_next_kwargs(self, offset):
+        (year, month) = ym(self.year, self.month + offset)
+        return dict(year=year, month=month)
+
 
 class YearCalendar(Generated):
     def init(self, year, **kwargs):
@@ -177,4 +193,7 @@ class YearCalendar(Generated):
 
     def get_absolute_url(self):
         return reverse('diary:year', kwargs=self.kwargs)
+
+    def get_next_kwargs(self, offset):
+        return dict(year=self.year + offset)
 
