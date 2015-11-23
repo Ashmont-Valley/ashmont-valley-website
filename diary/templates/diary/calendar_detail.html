@@ -3,8 +3,53 @@
 
 {% block "header-title" %}{% block "title" %}{{ object }}{% endblock %}{% endblock %}
 
+{% block "head" %}{{ block.super }}
+  <link href="{% static "css/calendar.css" %}" type="text/css" rel="stylesheet"/>
+{% endblock %}
+
 {% block "body" %}
+<div class="row">
+  <div class="col-md-9">
+   ...
+  </div>
 
-...
+  <div class="col-md-3">
+    <div class="btn-group btn-group-justified">
+      <a href="" class="btn btn-default" style="width: 100%;"><span class="glyphicon glyphicon-ok"></span> Subscribe</a>
+      <a href="" class="btn btn-primary" style="width: 48px;"><span class="glyphicon glyphicon-time"></span></a>
+    </div>
 
+    {% with object.this_month as object %}
+      {% include "diary/includes/month.html" %}
+    {% endwith %}
+
+    <hr/>
+
+    <h2>Up and Coming</h2>
+
+    {% for event in object.next_events %}
+      <div class="btn-group-justified" style="margin-top: 5px;">
+        <a href="{{ event.get_absolute_url }}" class="btn btn-default">
+          <span class="glyphicon glyphicon-ok"></span> {{ event }}
+        </a>
+      </div>
+    {% empty %}
+      <div class="btn-group-justified"><div class="btn btn-danger">No Events</div></div>
+    {% endfor %}
+
+    {% if object.previous_events.count > 0 %}
+      <hr/>
+
+      <h2>Recent Events</h2>
+
+      {% for event in object.previous_events %}
+        <div class="btn-group-justified" style="margin-top: 5px;">
+          <a href="{{ event.get_absolute_url }}" class="btn btn-default">
+            <span class="glyphicon glyphicon-ok"></span> {{ event.date }} - {{ event }}
+          </a>
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
 {% endblock %}

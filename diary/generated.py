@@ -8,7 +8,6 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from django.utils.dateformat import format as fmtdate
-from .models import *
 
 def spaced_property(f):
     def _inner(*args, **kwargs):
@@ -51,6 +50,7 @@ class Generated(list):
 
     def get_calendar(self):
         """Returns the calendar object if selected for"""
+        from .models import Calendar
         if 'calendar' in self.kwargs:
             return Calendar.objects.get(slug=self.kwargs['calendar'])
 
@@ -59,6 +59,7 @@ class Generated(list):
 
     def get_events(self):
         """This will return a specific list of events for this Generated calendar"""
+        from .models import Event
         keys = set(self.lookup) & set(self.kwargs)
         kwargs = dict((self.lookup[a], self.kwargs[a]) for a in keys)
         return Event.objects.filter(**kwargs)
@@ -191,6 +192,7 @@ class YearCalendar(Generated):
 
     @property
     def parent(self):
+        from .models import Calendar
         if 'calendar' in self.kwargs:
             return self.get_calendar()
         return Calendar.parent

@@ -7,6 +7,8 @@ from django.utils.text import slugify
 from django.core.urlresolvers import reverse
 from django.conf import settings
 
+from .generated import ym, today, MonthCalendar
+
 null = {'null':True, 'blank':True}
 
 class Calendar(Model):
@@ -25,6 +27,17 @@ class Calendar(Model):
 
     def get_absolute_url(self):
         return reverse('diary:calendar', kwargs={'calendar': self.slug})
+
+    def this_month(self):
+        return MonthCalendar(add_events=True, year=today().year,
+                             month=today().month, calendar=self.slug)
+
+
+    def next_events(self):
+        return self.events.filter(date__gte=today()).order_by('-date')[:5]
+
+    def previous_events(self):
+        return self.events.filter(date__lt=today()).order_by('date')[:5]
 
     @property
     def parent(self):
@@ -82,7 +95,6 @@ class Event(Model):
 
     @property
     def parent(self):
-        from diary.generated import DayCalendar
         d = self.date
         return DayCalendar(day=d.day, month=d.month, year=d.year,
                            calendar=self.calendar.slug)
@@ -124,7 +136,6 @@ class CmsMonthView(CMSPlugin):
 
     @property
     def month_calendar(self):
-        from .generated import ym, today, MonthCalendar
         (year, month) = ym(today().year, today().month + self.offset)
         return MonthCalendar(add_events=True, year=year, month=month, **dict(self.kwargs))
 

@@ -123,7 +123,7 @@
 .cal-events-num {
   margin-top: 20px;
 }
-.cal-month-day {
+#calendar .cal-month-day {
   position: relative;
   display: block;
   width: 100%;
@@ -398,14 +398,14 @@
 .cal-row-fluid:hover {
   background-color: #fafafa;
 }
-.cal-month-day {
+#calendar .cal-month-day {
   height: 100px;
 }
-[class*="cal-cell"]:hover {
+#calendar [class*="cal-cell"]:hover {
   background-color: #ededed;
 }
-.cal-year-box [class*="span"],
-.cal-month-box [class*="cal-cell"] {
+#calendar .cal-year-box [class*="span"],
+#calendar .cal-month-box [class*="cal-cell"] {
   min-height: 100px;
   border-right: 1px solid #e1e1e1;
   position: relative;
@@ -535,3 +535,54 @@ a.cal-event-week {
 .badge-important {
   background-color: #b94a48;
 }
+.mini-calendar {
+  margin-top: 8px;
+  width: 100%;
+  padding: 4px;
+  line-height: 1.4;
+  background-color: #FFF;
+  border: 1px solid #DDD;
+  border-radius: 4px;
+  transition: border 0.2s ease-in-out 0s;
+}
+.mini-calendar .day {
+  padding: 0px;
+}
+.mini-calendar .day a {
+  display: block;
+  padding: 5px;
+  color: black;
+}
+.mini-calendar .day a[href] {
+  cursor: pointer;
+  background-color: #eaeaea;
+  border: 1px solid #ddd;
+}
+.mini-calendar .day a:hover {
+  text-decoration: none;
+}
+.mini-calendar .day a[href]:hover {
+  background-color: #e0e0e0;
+}
+.mini-calendar .dow {
+  border: 2px solid #ddd;
+  border-width: 2px 0px;
+  background-color: #eaeaea;
+}
+.mini-calendar .cal-day-outmonth {
+  color: #ddd;
+}
+.mini-calendar .cal-day-outmonth:hover {
+  color: #fff;
+}
+.mini-calendar .cal-day-past {
+  color: #666;
+}
+.mini-calendar .cal-weekend {
+  background-color: #fafafa;
+  border-left: 1px solid #ddd;
+}
+.mini-calendar .cal-day-today a {
+  background-color: #A0A0FF;
+  font-weight: bold;
+} 
