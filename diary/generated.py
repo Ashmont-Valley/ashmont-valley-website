@@ -35,11 +35,13 @@ class Generated(list):
     def __init__(self, **kwargs):
         self.kwargs = kwargs
         self.init(**kwargs)
+        if self.kwargs.pop('add_events', False):
+            self.add_children(**self.kwargs)
+            self.add_all_events()
 
     def __iter__(self):
         if not self:
-            self.generate(**self.kwargs)
-            self.add_events(*list(self.get_events()))
+            self.add_children(**self.kwargs)
         return super(Generated, self).__iter__()
 
     def get_next(self, offset):
@@ -51,6 +53,9 @@ class Generated(list):
         """Returns the calendar object if selected for"""
         if 'calendar' in self.kwargs:
             return Calendar.objects.get(slug=self.kwargs['calendar'])
+
+    def add_all_events(self):
+        self.add_events(*list(self.get_events()))
 
     def get_events(self):
         """This will return a specific list of events for this Generated calendar"""
@@ -71,7 +76,7 @@ class DayCalendar(Generated):
     def __int__(self):
         return self.date.day
 
-    def generate(self, **kwargs):
+    def add_children(self, **kwargs):
         return None
 
     def get_absolute_url(self):
@@ -129,7 +134,7 @@ class MonthCalendar(Generated):
     def get_absolute_url(self):
         return reverse('diary:month', kwargs=self.kwargs)
 
-    def generate(self, **kwargs):
+    def add_children(self, **kwargs):
         for week_id, week in enumerate(cal(self.year, self.month)):
             self.append([])
             self.add_week(self.year, self.month, week, week_id)
@@ -170,14 +175,13 @@ class YearCalendar(Generated):
     def init(self, year, **kwargs):
         self.year = int(year)
 
-    def generate(self, **kwargs):
+    def add_children(self, **kwargs):
         for month_id in range(12):
             self.append(MonthCalendar(month=month_id+1, **kwargs))
 
     def add_events(self, *events):
         for event in events:
-            month = event.date.month
-            self[month-1].add_events(event)
+            self[event.date.month - 1].add_events(event)
 
     def __str__(self):
         return str(self.year)

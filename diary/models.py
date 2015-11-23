@@ -126,9 +126,7 @@ class CmsMonthView(CMSPlugin):
     def month_calendar(self):
         from .generated import ym, today, MonthCalendar
         (year, month) = ym(today().year, today().month + self.offset)
-        cal = MonthCalendar(year=year, month=month, **dict(self.kwargs))
-        list(cal)
-        return cal
+        return MonthCalendar(add_events=True, year=year, month=month, **dict(self.kwargs))
 
     @property
     def kwargs(self):
