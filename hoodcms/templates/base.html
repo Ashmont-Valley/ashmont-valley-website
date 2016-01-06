@@ -45,7 +45,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand" title="Home page" href="/">
           <img class="pull-left" src="{% static "images/title.svg" %}">
           Ashmont Valley
         </a>
@@ -58,9 +58,9 @@
             <li><a class="glyphicon glyphicon-cog" href="{% url "admin:index" %}">&nbsp;</a></li>
           {% endif %}
           {% if request.user.is_authenticated %}
-            <li><a class="glyphicon glyphicon-log-out" href="{% url "auth_logout" %}">&nbsp;</a></li>
+            <li><a class="glyphicon glyphicon-log-out" title="Logout" href="{% url "auth_logout" %}">&nbsp;</a></li>
           {% else %}
-            <li><a class="glyphicon glyphicon-log-in" href="{% url "auth_login" %}">&nbsp;</a></li>
+            <li><a class="glyphicon glyphicon-log-in" title="Login" href="{% url "auth_login" %}">&nbsp;</a></li>
           {% endif %}
         </ul>
       </div>
