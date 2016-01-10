@@ -47,8 +47,9 @@ class Calendar(Model):
         end = today() + timedelta(days=30)
         return self.events.filter(date__gt=today(), date__lte=end).order_by('-date')[:10]
 
-    def past_events(self):
-        return self.events.filter(date__lt=today()).order_by('date')[:10]
+    def recent_events(self):
+        start = today() - timedelta(days=30)
+        return self.events.filter(date__lt=today(), date__gte=start).order_by('date')[:10]
 
     @property
     def parent(self):

@@ -140,6 +140,9 @@ class MonthCalendar(Generated):
     def get_absolute_url(self):
         return reverse('diary:month', kwargs=self.kwargs)
 
+    def get_ajax_url(self):
+        return reverse('diary:month-ajax', kwargs=self.kwargs)
+
     def add_children(self, **kwargs):
         for week_id, week in enumerate(cal(self.year, self.month)):
             self.append([])

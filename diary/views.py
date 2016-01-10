@@ -13,6 +13,10 @@ class DailyCalendar(AccessMixin, GeneratedObjectView):
 class MonthlyCalendar(AccessMixin, GeneratedObjectView):
     model = MonthCalendar
 
+class MonthlyMiniCalendar(AccessMixin, GeneratedObjectView):
+    model = MonthCalendar
+    template_name = 'diary/includes/month.html'
+
 class YearlyCalendar(AccessMixin, GeneratedObjectView):
     model = YearCalendar
 

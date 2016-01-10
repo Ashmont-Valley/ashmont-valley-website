@@ -549,6 +549,16 @@ a.cal-event-week {
 .mini-calendar .day {
   padding: 0px;
 }
+.mini-calendar .prev a,
+.mini-calendar .next a {
+  display: block;
+}
+.mini-calendar .prev a:hover,
+.mini-calendar .next a:hover {
+  cursor: pointer;
+  text-decoration: none;
+  background-color: #f9f9f9;
+}
 .mini-calendar .day a {
   display: block;
   padding: 5px;
@@ -570,13 +580,10 @@ a.cal-event-week {
   border-width: 2px 0px;
   background-color: #eaeaea;
 }
-.mini-calendar .cal-day-outmonth {
+.mini-calendar .cal-day-outmonth a {
   color: #ddd;
 }
-.mini-calendar .cal-day-outmonth:hover {
-  color: #fff;
-}
-.mini-calendar .cal-day-past {
+.mini-calendar .cal-day-past a {
   color: #666;
 }
 .mini-calendar .cal-weekend {

@@ -1,9 +1,9 @@
   <table class="mini-calendar text-center table-condensed">
     <thead>
       <tr>
-        <th class="prev text-center"><a href="{{ object.previous.get_absolute_url }}">&#x2039;</a></th>
+        <th class="prev text-center"><a href="{{ object.previous.get_absolute_url }}" data-table-ajax="{{ object.previous.get_ajax_url }}">&#x2039;</a></th>
         <th colspan="5" class="switch text-center">{{ object }} {{ object.year }}</th>
-        <th class="next text-center"><a href="{{ object.next.get_absolute_url }}">&#x203A;</a></th>
+        <th class="next text-center"><a href="{{ object.next.get_absolute_url }}" data-table-ajax="{{ object.next.get_ajax_url }}">&#x203A;</a></th>
       </tr>
       <tr>
         {% for dow in object.week_days %}

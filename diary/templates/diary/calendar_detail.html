@@ -5,6 +5,7 @@
 
 {% block "head" %}{{ block.super }}
   <link href="{% static "css/calendar.css" %}" type="text/css" rel="stylesheet"/>
+  <script src="{% static "js/table-ajax.js" %}" type="text/javascript"></script>
 {% endblock %}
 
 {% block "body" %}
@@ -29,7 +30,7 @@
 
     <hr/>
 
-    <h3>Upcoming Events This Month</h3>
+    <h3>Upcoming Events</h3>
       {% for event in object.upcoming_events %}
           <div class="btn-group-justified" style="margin-top: 5px;">
             <a href="{{ event.get_absolute_url }}" class="btn btn-default">
@@ -42,8 +43,8 @@
 
     <hr/>
 
-    <h3>Past Events This Month</h3>
-      {% for event in object.past_events %}
+    <h3>Recent Events</h3>
+      {% for event in object.recent_events %}
           <div class="btn-group-justified" style="margin-top: 5px;">
             <a href="{{ event.get_absolute_url }}" class="btn btn-default">
               <span class="glyphicon glyphicon-ok"></span> {{ event }}

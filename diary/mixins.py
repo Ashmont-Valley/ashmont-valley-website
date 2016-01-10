@@ -9,6 +9,8 @@ class GeneratedObjectView(TemplateView):
     model = None
 
     def get_template_names(self):
+        if hasattr(self, 'template_name') and self.template_name:
+            return self.template_name
         cls = self.model.__module__.split('.')[0]
         name = re.sub('([A-Z]+)', r'_\1', self.model.__name__).strip('_')
         return "%s/%s.html" % (cls, name.lower())
