@@ -9,8 +9,50 @@
 
 {% block "body" %}
 <div class="row">
+  
   <div class="col-md-9">
-   ...
+    {% with object.this_day as object %}
+      <h2>{{object.written_month}}, {{object}} {{object.year}}</h2>
+    {% endwith %}
+    <hr/>
+
+    <h3>Today's Events</h3>
+      {% for event in object.today %}
+         <div class="btn-group-justified" style="margin-top: 5px;">
+           <a href="{{ event.get_absolute_url }}" class="btn btn-default">
+             <span class="glyphicon glyphicon-ok"></span> {{ event }}
+           </a>
+         </div>
+      {% empty %}
+        <div class="btn-group-justified"><div class="btn btn-danger">No Events</div></div>
+      {% endfor %}
+
+    <hr/>
+
+    <h3>Upcoming Events This Month</h3>
+      {% for event in object.upcoming_events %}
+          <div class="btn-group-justified" style="margin-top: 5px;">
+            <a href="{{ event.get_absolute_url }}" class="btn btn-default">
+              <span class="glyphicon glyphicon-ok"></span> {{ event }}
+            </a>
+          </div>
+       {% empty %}
+         <div class="btn-group-justified"><div class="btn btn-danger">No Events</div></div>
+       {% endfor %}
+
+    <hr/>
+
+    <h3>Past Events This Month</h3>
+      {% for event in object.past_events %}
+          <div class="btn-group-justified" style="margin-top: 5px;">
+            <a href="{{ event.get_absolute_url }}" class="btn btn-default">
+              <span class="glyphicon glyphicon-ok"></span> {{ event }}
+            </a>
+          </div>
+       {% empty %}
+         <div class="btn-group-justified"><div class="btn btn-danger">No Events</div></div>
+       {% endfor %}
+    
   </div>
 
   <div class="col-md-3">
@@ -23,6 +65,7 @@
       {% include "diary/includes/month.html" %}
     {% endwith %}
 
+ 
     <hr/>
 
     <h2>Up and Coming</h2>

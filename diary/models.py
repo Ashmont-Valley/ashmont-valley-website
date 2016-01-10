@@ -7,7 +7,7 @@ from django.utils.text import slugify
 from django.core.urlresolvers import reverse
 from django.conf import settings
 
-from .generated import ym, today, MonthCalendar
+from .generated import ym, today, MonthCalendar, DayCalendar
 
 null = {'null':True, 'blank':True}
 
@@ -31,13 +31,23 @@ class Calendar(Model):
     def this_month(self):
         return MonthCalendar(add_events=True, year=today().year,
                              month=today().month, calendar=self.slug)
-
+   
+    def this_day(self):
+        return DayCalendar(add_events=True, year=today().year,
+                          month=today().month, day=today().day, 
+                          calendar=self.slug)
 
     def next_events(self):
-        return self.events.filter(date__gte=today()).order_by('-date')[:5]
+        return self.events.filter(date__gte=today()).order_by('-date')[:3]
 
     def previous_events(self):
-        return self.events.filter(date__lt=today()).order_by('date')[:5]
+        return self.events.filter(date__lt=today()).order_by('date')[:3]
+
+    def upcoming_events(self):
+        return self.events.filter(date__gte=today()).order_by('-date')[:10]
+
+    def past_events(self):
+        return self.events.filter(date__lt=today()).order_by('date')[:10]
 
     @property
     def parent(self):

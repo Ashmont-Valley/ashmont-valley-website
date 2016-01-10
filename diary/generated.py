@@ -68,6 +68,9 @@ class Generated(list):
 class DayCalendar(Generated):
     """Contains a list of events for this day"""
     def init(self, year, month, day, **kwargs):
+        self.year = int(year)
+        self.month = int(month)
+        self.day = int(day)
         self.date = date(int(year), int(month), int(day))
         self.inner = self.kwargs.pop('inner', True)
 
@@ -112,6 +115,8 @@ class DayCalendar(Generated):
         date = self.date + timedelta(days=offset)
         return dict(year=date.year, month=date.month, day=date.day)
 
+    def written_month(self):
+        return month_name[int(self.month)]
 
 class MonthCalendar(Generated):
     """A list of days iterable by week"""
