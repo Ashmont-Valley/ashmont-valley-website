@@ -44,7 +44,8 @@ class Calendar(Model):
         return self.events.filter(date__lt=today()).order_by('date')[:3]
 
     def upcoming_events(self):
-        return self.events.filter(date__gte=today()).order_by('-date')[:10]
+        end = today() + timedelta(days=30)
+        return self.events.filter(date__gt=today(), date__lte=end).order_by('-date')[:10]
 
     def past_events(self):
         return self.events.filter(date__lt=today()).order_by('date')[:10]
@@ -98,7 +99,7 @@ class Event(Model):
     objects = EventQuerySet.as_manager()
 
     def __str__(self):
-        return str(self.template)
+        return "%s (%s)" % (self.name, str(self.template))
 
     def get_absolute_url(self):
         return reverse('diary:event', kwargs={'pk': self.pk})

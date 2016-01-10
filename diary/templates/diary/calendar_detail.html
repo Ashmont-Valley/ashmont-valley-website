@@ -17,7 +17,7 @@
     <hr/>
 
     <h3>Today's Events</h3>
-      {% for event in object.today %}
+      {% for event in object.this_day %}
          <div class="btn-group-justified" style="margin-top: 5px;">
            <a href="{{ event.get_absolute_url }}" class="btn btn-default">
              <span class="glyphicon glyphicon-ok"></span> {{ event }}

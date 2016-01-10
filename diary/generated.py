@@ -1,6 +1,6 @@
 
 from django.utils.timezone import now
-from calendar import monthcalendar as cal, firstweekday, month_name, day_name
+from calendar import monthcalendar as cal, month_name, day_name
 from datetime import *
 from time import *
 
