@@ -587,3 +587,33 @@ a.cal-event-week {
   background-color: #A0A0FF;
   font-weight: bold;
 } 
+.event-item {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+.event-item .col-md-3 img {
+  width: 100%;
+  padding: 10px;
+}
+.event-item .col-md-9 {
+  padding: 5px;
+  padding-right: 25px;
+}
+.event-item h2 {
+  border-bottom: 1px solid #eee;
+  border-radius: 10px 10px 0px 0px;
+  padding: 15px;
+  margin: 0px;
+  background-color: #fdfdfd;
+}
+.event-item .btn-group {
+  float: right;
+}
+.event-item .buttons {
+  width: 100%;
+  padding: 6px;
+  border-top: 1px solid #eee;
+  background-color: #fdfdfd;
+  border-radius: 0px 0px 10px 10px;
+  min-height: 48px;
+}
