@@ -1,0 +1,18 @@
+{% load static %}
+<div class="event-item">
+  <h2>
+    <span class="glyphicon glyphicon-time"></span>
+    <a href="{{ event.get_absolute_url }}">{{event}}</a>
+  </h2>
+  <div class="row">
+    <div class="col-md-3"><img src="{% static "images/noevent.png" %}"></div>
+    <div class="col-md-9"> {{ event.desc }} </div>
+  </div>
+  <div class="buttons">
+    <div class="btn-group">
+      <a class="btn btn-success" href=""><span class="glyphicon glyphicon-plus"></span> Attending</a>
+      <a class="btn btn-default" href=""><span class="glyphicon glyphicon-search"></span>Details</a>
+    </div>
+  </div>
+</div>
+

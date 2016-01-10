@@ -67,6 +67,10 @@ header.carousel .fill {
     font-style: italic;
 }
 
+.col-md-3 .btn {
+    white-space: normal !important;
+}
+
 /* Footer Styles */
 
 footer {
