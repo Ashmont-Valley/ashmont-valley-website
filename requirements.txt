@@ -1,4 +1,4 @@
-
+pyzt
 coverage
 Pillow==2.7.0
 argparse==1.2.1

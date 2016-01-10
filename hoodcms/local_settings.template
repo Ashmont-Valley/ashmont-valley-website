@@ -12,7 +12,7 @@ ADMINS = (
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '%s/data/development.db' % PROJECT_PATH,
+        'NAME': '%s/.data/development.db' % PROJECT_PATH,
         'USER': '',
         'PASSWORD': '',
         'HOST': '',
