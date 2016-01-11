@@ -211,3 +211,4 @@ class YearCalendar(Generated):
     def get_next_kwargs(self, offset):
         return dict(year=self.year + offset)
 
+

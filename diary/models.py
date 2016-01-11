@@ -37,6 +37,7 @@ class Calendar(Model):
                           month=today().month, day=today().day, 
                           calendar=self.slug)
 
+    # XXX - NEXT NEXT event defs should be in a EventManager class
     def next_events(self):
         return self.events.filter(date__gte=today()).order_by('-date')[:3]
 
@@ -57,7 +58,7 @@ class Calendar(Model):
 
     def save(self, **kwargs):
         self.slug = slugify(self.name)
-        super(Calendar, self).save(**kwargs)
+        return super(Calendar, self).save(**kwargs)
 
 
 class EventTemplate(Model):
