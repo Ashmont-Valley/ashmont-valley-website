@@ -66,6 +66,7 @@ class EventTemplate(Model):
     desc       = TextField(**null)
     start_time = TimeField(**null)
     end_time   = TimeField(**null)
+    image      = ImageField(upload_to="diary/event_template", **null)
 
     def __str__(self):
         return self.name
