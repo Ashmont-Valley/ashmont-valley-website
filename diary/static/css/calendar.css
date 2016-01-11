@@ -597,6 +597,7 @@ a.cal-event-week {
 .event-item {
   border: 1px solid #ddd;
   border-radius: 10px;
+  margin: 20px;
 }
 .event-item .col-md-3 img {
   width: 100%;

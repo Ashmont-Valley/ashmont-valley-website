@@ -1,7 +1,12 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block "header-title" %}{% block "title" %}{{ object }}{% endblock %}{% endblock %}
+{% block "header-title" %}{% block "title" %}
+  {% with object.this_day as day %}
+    {{ object }} &#x22c5; {{ day.written_month }}, {{ day }} {{ day.year }}
+  {% endwith %}
+{% endblock %}{% endblock %}
+
 
 {% block "head" %}{{ block.super }}
   <link href="{% static "css/calendar.css" %}" type="text/css" rel="stylesheet"/>
@@ -11,27 +16,18 @@
 {% block "body" %}
 
 <div class="row">
-  
   <div class="col-md-9">
-    {% with object.this_day as object %}
-      <h2>{{object.written_month}}, {{object}} {{object.year}}</h2>
-    {% endwith %}
-    <hr/>
-
-    <h3>Today's Events</h3>
-
-
-    {% for event in object.this_day %}
-      {% include "diary/includes/event-item.html" %} 
-    {% empty %}
-      <div class="btn-group-justified"><div class="btn btn-danger">No Events Today!</div></div>
-    {% endfor %}
+    {% if object.this_day %}
+      <h3>Today's Events</h3>
+      {% for event in object.this_day %}
+        {% include "diary/includes/event-item.html" %} 
+      {% endfor %}
+    {% endif %}
 
     <hr/>
-
+    
     <h3>Upcoming Events</h3>
       {% for event in object.upcoming_events %}
-
         {% include "diary/includes/event-item.html" %}
       {% empty %}
         <div class="btn-group-justified"><div class="btn btn-danger">No Events</div></div>
@@ -43,8 +39,9 @@
       {% for event in object.recent_events %}
         {% include "diary/includes/event-item.html" %}
       {% empty %}
-        <div class="btn-group-justified"><div class="btn btn-danger">No Events</div></div>
+        <div class="btn-group-justified"><div class="btn btn-danger">No Events</div></div>  
       {% endfor %}
+
   </div>
 
   <div class="col-md-3">
@@ -59,33 +56,28 @@
  
     <hr/>
 
-    <h2>Up and Coming</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>
+            <h2>Year &#x002d; {{ object.this_day.year }}</h2>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for object in object.this_month %}
+          {% if object.month.event %}
+          <tr style="margin-left:20px;">
+            <h3>&#x002d; </h3>
+            <td>
+              &#x22c5;
+            </td>
+          </tr> 
+          {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
 
-    {% for event in object.next_events %}
-      <div class="btn-group-justified" style="margin-top: 5px;">
-        <a href="{{ event.get_absolute_url }}" class="btn btn-default">
-          <span class="glyphicon glyphicon-ok"></span> {{ event }}
-        </a>
-      </div>
-    {% empty %}
-      <div class="btn-group-justified"><div class="btn btn-danger">No Events</div></div>
-    {% endfor %}
-
-
-    {% if object.previous_events.count > 0 %}
-
-      <hr/>
-
-      <h2>Recent Events</h2>
-
-      {% for event in object.previous_events %}
-        <div class="btn-group-justified" style="margin-top: 5px;">
-          <a href="{{ event.get_absolute_url }}" class="btn btn-default">
-            <span class="glyphicon glyphicon-ok"></span> {{ event.date }} - {{ event }}
-          </a>
-        </div>
-      {% endfor %}
-    {% endif %}
-  </div>
 </div>
+
 {% endblock %}

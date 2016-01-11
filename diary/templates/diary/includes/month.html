@@ -2,7 +2,7 @@
     <thead>
       <tr>
         <th class="prev text-center"><a href="{{ object.previous.get_absolute_url }}" data-table-ajax="{{ object.previous.get_ajax_url }}">&#x2039;</a></th>
-        <th colspan="5" class="switch text-center">{{ object }} {{ object.year }}</th>
+        <th colspan="5" class="switch text-center"><a href="{{ object.get_absolute_url }}">{{ object }} {{ object.year }}</a></th>
         <th class="next text-center"><a href="{{ object.next.get_absolute_url }}" data-table-ajax="{{ object.next.get_ajax_url }}">&#x203A;</a></th>
       </tr>
       <tr>
