@@ -8,10 +8,11 @@
 
 <div class="row">
   <div class="col-md-9">
-    <h1> Events List <h1>
+    <h1> Events List </h1>
     <table class="table table-hover">
       <thead>
         <tr>
+          <th></th>
           <th>Event Name</th>
           <th>Event Description</th>
           <th>Event Date</th>
@@ -21,8 +22,9 @@
       </thead>
       
       <tbody>
-      {% for event in object_list %}
+      {% for event in object_list|dictsort:"id" %}
         <tr>
+          <td>{{ event.id}}</td>
           <td><a href="{{ event.get_absolute_url }}">{{ event.name }}</a></td>
           <td>{{ event.desc|slice:"30" }}</td>
           <td>{{ event.date }}</td>
@@ -30,15 +32,35 @@
           <td>{{ event.calendar }}</td>
         </tr>
       {% endfor %}
+
       </tbody>
     </table>
   </div>
-  
+
+
   <div class="col-md-3">
     <h3> Calendar List </h3>
     {% for calendar in object_list %}
       {{ calendar.name|linebreaks }}
     {% endfor %}
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-9" style="text-align:right;">
+    <div class="pagination">
+      <span class="step-links">
+        {% if Event.has_previous %}
+          <a href="?page={{ Event.previous_page_number }}">Previous</a>
+        {% endif %}
+        <span class="current">
+          Page {{ Event.number }} of {{ Event.paginator.num_pages }}.
+        </span>
+        {% if Event.has_next %}
+          <a href="?page={{ Event.next_page_number }}">Next</a>
+        {% endif %}
+      </span>
+    </div>
   </div>
 </div>
 

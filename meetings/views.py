@@ -25,11 +25,10 @@ class MeetingList(AccessMixin, MultiListView):
     def get_querysets(self):
         qs = Meeting.objects.order_by('-meeting_date', 'name')
         next_month = date.today() + timedelta(days=45)
-        return [
-          ('Up and Coming', qs.filter(meeting_date__gte=date.today(),
-                                      meeting_date__lt=next_month)),
-          ('Old Meetings', qs.filter(meeting_date__lt=date.today())),
-          ('Far Future', qs.filter(meeting_date__gte=next_month)),
+        return [('Up and Coming', qs.filter(meeting_date__gte=date.today(),
+                                            meeting_date__lt=next_month)),
+            ('Old Meetings', qs.filter(meeting_date__lt=date.today())),
+            ('Far Future', qs.filter(meeting_date__gte=next_month)),
         ]
 
 class MeetingDetailView(AccessMixin, DetailView):
