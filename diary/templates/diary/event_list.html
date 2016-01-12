@@ -6,6 +6,40 @@
 
 {% block "body" %}
 
-...
+<div class="row">
+  <div class="col-md-9">
+    <h1> Events List <h1>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Event Name</th>
+          <th>Event Description</th>
+          <th>Event Date</th>
+          <th>Event Type</th>
+          <th>Calendar Type</th>
+        </tr>
+      </thead>
+      
+      <tbody>
+      {% for event in object_list %}
+        <tr>
+          <td><a href="{{ event.get_absolute_url }}">{{ event.name }}</a></td>
+          <td>{{ event.desc|slice:"30" }}</td>
+          <td>{{ event.date }}</td>
+          <td>{{ event.template }}</td>
+          <td>{{ event.calendar }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="col-md-3">
+    <h3> Calendar List </h3>
+    {% for calendar in object_list %}
+      {{ calendar.name|linebreaks }}
+    {% endfor %}
+  </div>
+</div>
 
 {% endblock %}

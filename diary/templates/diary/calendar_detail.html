@@ -57,25 +57,33 @@
     <hr/>
 
     <table>
+
       <thead>
         <tr>
           <th>
-            <h2>Year &#x002d; {{ object.this_day.year }}</h2>
+            <h2> Events List </h2>
           </th>
         </tr>
       </thead>
+
       <tbody>
-        {% for object in object.this_month %}
-          {% if object.month.event %}
-          <tr style="margin-left:20px;">
-            <h3>&#x002d; </h3>
-            <td>
-              &#x22c5;
-            </td>
-          </tr> 
-          {% endif %}
+        <tr>
+          <td>
+            <h3> Year &#x002d; {{ object.this_day.year }} </h3>
+          </td>
+        </tr>
+        {% for object in object.event %}
+        {% if object.year %}
+        <tr>
+          <h3>&#x002d; </h3>
+          <td>
+            &#x22c5;
+          </td>
+        </tr>
+        {% endif %}
         {% endfor %}
       </tbody>
+
     </table>
 
 </div>
