@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static pagination_tags %}
 
 {% block "header-title" %}All Events{% endblock %}
 {% block "title" %}All Events{% endblock %}
@@ -22,7 +22,8 @@
       </thead>
       
       <tbody>
-      {% for event in object_list|dictsort:"id" %}
+      {% autopaginate object_list 20 as events %}
+      {% for event in events %}
         <tr>
           <td>{{ event.id}}</td>
           <td><a href="{{ event.get_absolute_url }}">{{ event.name }}</a></td>
@@ -35,32 +36,17 @@
 
       </tbody>
     </table>
+
+    {% paginate %}
+
   </div>
 
 
   <div class="col-md-3">
-    <h3> Calendar List </h3>
-    {% for calendar in object_list %}
-      {{ calendar.name|linebreaks }}
+    <h3>Calendars</h3>
+    {% for calendar in object_list.calendars %}
+      <a href="{{ calendar.get_absolute_url }}">{{ calendar.name|linebreaks }}</a>
     {% endfor %}
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-md-9" style="text-align:right;">
-    <div class="pagination">
-      <span class="step-links">
-        {% if Event.has_previous %}
-          <a href="?page={{ Event.previous_page_number }}">Previous</a>
-        {% endif %}
-        <span class="current">
-          Page {{ Event.number }} of {{ Event.paginator.num_pages }}.
-        </span>
-        {% if Event.has_next %}
-          <a href="?page={{ Event.next_page_number }}">Next</a>
-        {% endif %}
-      </span>
-    </div>
   </div>
 </div>
 

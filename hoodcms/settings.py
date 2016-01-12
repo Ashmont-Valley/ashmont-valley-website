@@ -83,6 +83,7 @@ INSTALLED_APPS = (
     'cmsextra',
     'diary',
 
+    'pagination',
     'registration',
     'social_auth',
     'treebeard',
@@ -109,6 +110,7 @@ MIDDLEWARE_CLASSES = (
     'cms.middleware.user.CurrentUserMiddleware',
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
+    'pagination.middleware.PaginationMiddleware',
     'users.middleware.SetLastVisitMiddleware',
 )
 

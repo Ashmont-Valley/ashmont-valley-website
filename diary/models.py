@@ -7,7 +7,7 @@ from django.utils.text import slugify
 from django.core.urlresolvers import reverse
 from django.conf import settings
 
-from .generated import ym, today, MonthCalendar, DayCalendar
+from .generated import ym, today, YearCalendar, MonthCalendar, DayCalendar
 
 null = {'null':True, 'blank':True}
 
@@ -36,21 +36,6 @@ class Calendar(Model):
         return DayCalendar(add_events=True, year=today().year,
                           month=today().month, day=today().day, 
                           calendar=self.slug)
-
-    # XXX - NEXT NEXT event defs should be in a EventManager class
-    def next_events(self):
-        return self.events.filter(date__gte=today()).order_by('-date')[:3]
-
-    def previous_events(self):
-        return self.events.filter(date__lt=today()).order_by('date')[:3]
-
-    def upcoming_events(self):
-        end = today() + timedelta(days=30)
-        return self.events.filter(date__gt=today(), date__lte=end).order_by('-date')[:10]
-
-    def recent_events(self):
-        start = today() - timedelta(days=30)
-        return self.events.filter(date__lt=today(), date__gte=start).order_by('date')[:10]
 
     @property
     def parent(self):
@@ -87,6 +72,32 @@ class EventQuerySet(QuerySet):
 
     def get_absolute_url(self):
         return reverse('diary:index')
+
+    def calendars(self):
+        """Returns a list of calendar objects"""
+        pks = self.values_list('calendar_id', flat=True)
+        return Calendar.objects.filter(pk__in=pks)
+
+    def next(self):
+        """Return the next three events"""
+        return self.filter(date__gte=today()).order_by('-date')[:3]
+
+    def previous(self):
+        return self.filter(date__lt=today()).order_by('date')[:3]
+
+    def upcoming(self):
+        end = today() + timedelta(days=30)
+        return self.filter(date__gt=today(), date__lte=end).order_by('-date')[:10]
+
+    def recent(self):
+        start = today() - timedelta(days=30)
+        return self.filter(date__lt=today(), date__gte=start).order_by('date')[:10]
+
+    def index(self):
+        """Returns an indexed scheme for a tree view of events"""
+        # Not complete yet XXX
+        return [YearCalendar(dat.year, qs=self)
+                    for dat in self.dates('date', 'year')]
 
 
 class Event(Model):
