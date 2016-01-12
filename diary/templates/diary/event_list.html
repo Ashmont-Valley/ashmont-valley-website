@@ -25,9 +25,9 @@
       {% autopaginate object_list 20 as events %}
       {% for event in events %}
         <tr>
-          <td>{{ event.id}}</td>
+          <td></td>
           <td><a href="{{ event.get_absolute_url }}">{{ event.name }}</a></td>
-          <td>{{ event.desc|slice:"30" }}</td>
+          <td>{{ event.desc|truncatewords:10 }}</td>
           <td>{{ event.date }}</td>
           <td>{{ event.template }}</td>
           <td>{{ event.calendar }}</td>
@@ -44,9 +44,15 @@
 
   <div class="col-md-3">
     <h3>Calendars</h3>
-    {% for calendar in object_list.calendars %}
-      <a href="{{ calendar.get_absolute_url }}">{{ calendar.name|linebreaks }}</a>
-    {% endfor %}
+    <div class="buttons">
+      <div class="btn-group">
+        {% for calendar in object_list.calendars %}
+        <a class="btn btn-primary btn-lg" 
+          href="{{ calendar.get_absolute_url }}">
+                {{ calendar.name|linebreaks }}</a>
+        {% endfor %}
+      </div>
+    </div>
   </div>
 </div>
 
